@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cfm54tyfi5lqc"]
+
+[ext_resource type="Script" uid="uid://bj0eaiwpe6i0l" path="res://demo/DemoSceneManager.cs" id="1_bglyn"]
+
+[node name="Demo Scene" type="Node"]
+script = ExtResource("1_bglyn")

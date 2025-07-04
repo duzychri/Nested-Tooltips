@@ -1,0 +1,19 @@
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "esp-25-tooltip-plugin", "esp-25-tooltip-plugin.csproj", "{E0B9E90D-25FC-499A-9954-3367E6240A60}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+	Debug|Any CPU = Debug|Any CPU
+	ExportDebug|Any CPU = ExportDebug|Any CPU
+	ExportRelease|Any CPU = ExportRelease|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E0B9E90D-25FC-499A-9954-3367E6240A60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0B9E90D-25FC-499A-9954-3367E6240A60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0B9E90D-25FC-499A-9954-3367E6240A60}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
+		{E0B9E90D-25FC-499A-9954-3367E6240A60}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
+		{E0B9E90D-25FC-499A-9954-3367E6240A60}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{E0B9E90D-25FC-499A-9954-3367E6240A60}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+	EndGlobalSection
+EndGlobal
