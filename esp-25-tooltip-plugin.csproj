@@ -5,4 +5,7 @@
 		<EnableDynamicLoading>true</EnableDynamicLoading>
 		<RootNamespace>NestedTooltips</RootNamespace>
 	</PropertyGroup>
+	<ItemGroup>
+	  <None Include="README.md" />
+	</ItemGroup>
 </Project>
