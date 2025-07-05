@@ -2,6 +2,27 @@ namespace NestedTooltips;
 
 public partial class TooltipService : GodotSingelton<TooltipService>
 {
+    #region API
+
+    /// <summary>
+    /// Determines the behaviour of the tooltip system.
+    /// </summary>
+    /// <remarks>
+    /// <b>Note:</b> When the settings are changed, all currently active tooltips will be closed!
+    /// </remarks>
+    public static TooltipSettings Settings
+    {
+        get
+        {
+            GD.Print("TODO: TooltipService: Settings getter called");
+            return TooltipSettings.Default;
+        }
+        set
+        {
+            GD.Print($"TODO: TooltipService: Settings setter called with {value}");
+        }
+    }
+
     /// <summary>
     /// All currently active tooltips, including all nested ones.
     /// </summary>
@@ -33,6 +54,22 @@ public partial class TooltipService : GodotSingelton<TooltipService>
         return new TooltipComponent();
     }
 
+    #endregion API
+
+    #region Utility Methods
+
+    /// <summary>
+    /// Calculates the position of a tooltip based on the size of the tooltip and the pivot.
+    /// </summary>
+    /// <remarks>
+    /// Godot anchors and pivots don't work the same way as in Unity, so if we want to use the pivot as described int the remark of the <see cref="TooltipPivot"/> struct, we need to calculate the position of the tooltip based on its size and the pivot.
+    /// </remarks>
+    private static (int x, int y) CalculatePositionFromPivot((int x, int y) position, TooltipPivot pivot, (int width, int height) tooltipSize)
+    {
+        GD.Print($"TODO: TooltipService: CalculatePositionFromPivot({position}, {pivot}, {tooltipSize})");
+        return position;
+    }
+
     /// <summary>
     /// Validates that the position for the new tooltip fits within the bounds of the screen and reuturns a fallback if it does not.
     /// </summary>
@@ -54,4 +91,6 @@ public partial class TooltipService : GodotSingelton<TooltipService>
         GD.Print($"TODO: TooltipService: CalculateNestedTooltipLocation({tooltip}, {cursorPosition})");
         return (cursorPosition, TooltipPivot.BottomLeft);
     }
+
+    #endregion Utility Methods
 }
