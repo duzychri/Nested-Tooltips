@@ -1,0 +1,30 @@
+[gd_scene load_steps=2 format=3 uid="uid://bjjlowca4mukg"]
+
+[ext_resource type="Script" uid="uid://ckc33ou8pjrwf" path="res://demo/DemoSlider.cs" id="1_xp0yp"]
+
+[node name="DemoSlider" type="HBoxContainer" node_paths=PackedStringArray("_labelName", "_labelAmount", "_slider")]
+theme_override_constants/separation = 10
+alignment = 1
+script = ExtResource("1_xp0yp")
+_name = "ShowDelay"
+_labelName = NodePath("Label_Name")
+_labelAmount = NodePath("Label_SliderAmount")
+_slider = NodePath("HSlider")
+
+[node name="Label_Name" type="Label" parent="."]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+mouse_filter = 1
+text = "ShowDelay"
+vertical_alignment = 1
+
+[node name="HSlider" type="HSlider" parent="."]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="Label_SliderAmount" type="Label" parent="."]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+text = "100"
+vertical_alignment = 1

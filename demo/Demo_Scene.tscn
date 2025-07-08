@@ -1,6 +1,29 @@
-[gd_scene load_steps=2 format=3 uid="uid://cfm54tyfi5lqc"]
+[gd_scene load_steps=3 format=3 uid="uid://cfm54tyfi5lqc"]
 
 [ext_resource type="Script" uid="uid://bj0eaiwpe6i0l" path="res://demo/DemoSceneManager.cs" id="1_bglyn"]
+[ext_resource type="PackedScene" uid="uid://bjjlowca4mukg" path="res://demo/Demo_Slider.tscn" id="2_7pyyh"]
 
 [node name="Demo Scene" type="Node"]
 script = ExtResource("1_bglyn")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="DemoSlider" parent="Control/VBoxContainer" instance=ExtResource("2_7pyyh")]
+layout_mode = 2
+_name = "Show Delay"
+_tooltipText = "Test"

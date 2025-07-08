@@ -1,6 +1,4 @@
-using Godot;
-
-namespace NestedTooltips;
+namespace NestedTooltips.DemoScene;
 
 public partial class DemoSceneManager : Node
 {
