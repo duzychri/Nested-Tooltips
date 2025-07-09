@@ -49,7 +49,8 @@ public partial class DemoSlider : HBoxContainer
             _tooltipComponent = null;
         }
 
-        _tooltipComponent = TooltipService.ShowTooltip((0, 0), (0, 0), _tooltipText);
+        var mousePos = GetViewport().GetMousePosition();
+        _tooltipComponent = TooltipService.ShowTooltip(mousePos, (0, 0), _tooltipText);
     }
 
     private void OnMouseExited()

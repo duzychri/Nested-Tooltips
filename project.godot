@@ -15,6 +15,10 @@ run/main_scene="uid://cfm54tyfi5lqc"
 config/features=PackedStringArray("4.4", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+TooltipServicePrefab="*res://plugin/Prefabs/TooltipService_Prefab.tscn"
+
 [dotnet]
 
 project/assembly_name="esp-25-tooltip-plugin"

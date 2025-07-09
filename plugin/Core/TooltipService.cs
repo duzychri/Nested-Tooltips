@@ -2,6 +2,8 @@ namespace NestedTooltips;
 
 public partial class TooltipService : GodotSingelton<TooltipService>
 {
+    [Export] private Control _tooltipsParent = null!;
+
     #region API
 
     /// <summary>
@@ -35,10 +37,21 @@ public partial class TooltipService : GodotSingelton<TooltipService>
     /// <param name="pivot">The pivot of the tooltip. Determines where the tooltip is anchored in relation to the position.</param>
     /// <param name="text">The bbcode formatted text of the tooltip.</param>
     /// <returns>The created tooltip component.</returns>
-    public static ITooltipComponent ShowTooltip((int x, int y) position, TooltipPivot pivot, string text)
+    public static ITooltipComponent ShowTooltip(Vector2 position, TooltipPivot pivot, string text)
     {
-        GD.Print($"TODO: TooltipService: ShowTooltip({position}, {pivot}, {text})");
-        return new TooltipComponent();
+        const string tooltipPrefabPath = "res://demo/DemoTooltip.tscn";
+        PackedScene tooltipScene = ResourceLoader.Load<PackedScene>(tooltipPrefabPath);
+        if (tooltipScene == null)
+        {
+            GD.PrintErr($"Failed to load tooltip scene from path: {tooltipPrefabPath}");
+            return null!;
+        }
+        TooltipComponent tooltip = tooltipScene.Instantiate<TooltipComponent>();
+        Instance._tooltipsParent.AddChild(tooltip);
+        tooltip.Position = CalculatePositionFromPivot(position, pivot, tooltip.Size);
+        //tooltip.MinWidth = 100;
+        tooltip.Text = text;
+        return tooltip;
     }
 
     /// <summary>
@@ -48,7 +61,7 @@ public partial class TooltipService : GodotSingelton<TooltipService>
     /// <param name="pivot">The pivot of the tooltip. Determines where the tooltip is anchored in relation to the position.</param>
     /// <param name="tooltipId">The id of the tooltip which text should be used.</param>
     /// <returns>The created tooltip component.</returns>
-    public static ITooltipComponent ShowTooltipById((int x, int y) position, TooltipPivot pivot, string tooltipId)
+    public static ITooltipComponent ShowTooltipById(Vector2 position, TooltipPivot pivot, string tooltipId)
     {
         GD.Print($"TODO: TooltipService: ShowTooltipById({position}, {pivot}, {tooltipId})");
         return new TooltipComponent();
@@ -64,7 +77,7 @@ public partial class TooltipService : GodotSingelton<TooltipService>
     /// <remarks>
     /// Godot anchors and pivots don't work the same way as in Unity, so if we want to use the pivot as described int the remark of the <see cref="TooltipPivot"/> struct, we need to calculate the position of the tooltip based on its size and the pivot.
     /// </remarks>
-    private static (int x, int y) CalculatePositionFromPivot((int x, int y) position, TooltipPivot pivot, (int width, int height) tooltipSize)
+    private static Vector2 CalculatePositionFromPivot(Vector2 position, TooltipPivot pivot, Vector2 tooltipSize)
     {
         GD.Print($"TODO: TooltipService: CalculatePositionFromPivot({position}, {pivot}, {tooltipSize})");
         return position;
