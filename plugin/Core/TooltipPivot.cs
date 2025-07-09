@@ -74,6 +74,20 @@ public readonly struct TooltipPivot
     /// <returns>A tuple containing the x and y coordinates of the <see cref="TooltipPivot"/>.</returns>
     public static implicit operator (float x, float y)(TooltipPivot pivot) => (pivot.X, pivot.Y);
 
+    /// <summary>
+    /// Explicitly converts a <see cref="TooltipPivot"/> instance to a <see cref="Vector2"/>.
+    /// </summary>
+    /// <param name="pivot">The <see cref="TooltipPivot"/> instance to convert.</param>
+    /// <returns>A <see cref="Vector2"/> containing the x and y coordinates of the <see cref="TooltipPivot"/>.</returns>
+    public static explicit operator Vector2(TooltipPivot pivot) => new(pivot.X, pivot.Y);
+
+    /// <summary>
+    /// Explicitly converts a <see cref="Vector2"/> to a <see cref="TooltipPivot"/> instance.
+    /// </summary>
+    /// <param name="vector">The <see cref="Vector2"/> to convert.</param>
+    /// <returns>A <see cref="TooltipPivot"/> instance initialized with the x and y coordinates of the <see cref="Vector2"/>.</returns>
+    public static explicit operator TooltipPivot(Vector2 vector) => new(vector.X, vector.Y);
+
     #endregion Casts
 
     /// <inheritdoc />

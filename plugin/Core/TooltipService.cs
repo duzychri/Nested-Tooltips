@@ -2,9 +2,31 @@ namespace NestedTooltips;
 
 public partial class TooltipService : GodotSingelton<TooltipService>
 {
+    private const string defaultTooltipPrefabPath = "res://demo/DemoTooltip.tscn";
+
     [Export] private Control _tooltipsParent = null!;
 
+    private static readonly TooltipDataProvider _dataProvider = new();
+    private static readonly Dictionary<ITooltipComponent, TooltipComponent> _activeTooltips = [];
+
     #region API
+
+    /// <summary>
+    /// The path to the tooltip prefab that is used to create new tooltips.
+    /// Set this if you want to use a different tooltip prefab than the default one.
+    /// </summary>
+    public static string? TooltipPrefabPath
+    {
+        get
+        {
+            GD.Print("TODO: TooltipService: TooltipPrefabPath getter called");
+            return null;
+        }
+        set
+        {
+            GD.Print($"TODO: TooltipService: TooltipPrefabPath setter called with {value}");
+        }
+    }
 
     /// <summary>
     /// Determines the behaviour of the tooltip system.
@@ -28,7 +50,7 @@ public partial class TooltipService : GodotSingelton<TooltipService>
     /// <summary>
     /// All currently active tooltips, including all nested ones.
     /// </summary>
-    public static IEnumerable<ITooltipComponent> ActiveTooltips { get; } = [];
+    public static IEnumerable<ITooltipComponent> ActiveTooltips => _activeTooltips.Keys;
 
     /// <summary>
     /// Creates a new tooltip at the given position with the given pivot and text.
@@ -39,18 +61,17 @@ public partial class TooltipService : GodotSingelton<TooltipService>
     /// <returns>The created tooltip component.</returns>
     public static ITooltipComponent ShowTooltip(Vector2 position, TooltipPivot pivot, string text)
     {
-        const string tooltipPrefabPath = "res://demo/DemoTooltip.tscn";
-        PackedScene tooltipScene = ResourceLoader.Load<PackedScene>(tooltipPrefabPath);
-        if (tooltipScene == null)
-        {
-            GD.PrintErr($"Failed to load tooltip scene from path: {tooltipPrefabPath}");
-            return null!;
-        }
-        TooltipComponent tooltip = tooltipScene.Instantiate<TooltipComponent>();
-        Instance._tooltipsParent.AddChild(tooltip);
-        tooltip.Position = CalculatePositionFromPivot(position, pivot, tooltip.Size);
-        //tooltip.MinWidth = 100;
+        ArgumentNullException.ThrowIfNull(text);
+
+        // Create the tooltip and set its text.
+        TooltipComponent tooltip = CreateTooltip();
         tooltip.Text = text;
+
+        // Calculate the position of the tooltip based on the pivot and the size of the tooltip.
+        Vector2 placementPosition = CalculateNewTooltipLocation(position, pivot, tooltip.Size);
+        placementPosition = CalculatePositionFromPivot(placementPosition, pivot, tooltip.Size);
+        tooltip.Position = placementPosition;
+
         return tooltip;
     }
 
@@ -63,8 +84,22 @@ public partial class TooltipService : GodotSingelton<TooltipService>
     /// <returns>The created tooltip component.</returns>
     public static ITooltipComponent ShowTooltipById(Vector2 position, TooltipPivot pivot, string tooltipId)
     {
-        GD.Print($"TODO: TooltipService: ShowTooltipById({position}, {pivot}, {tooltipId})");
-        return new TooltipComponent();
+        ArgumentNullException.ThrowIfNull(tooltipId);
+
+        TooltipData? tooltipData = _dataProvider.GetTooltipData(tooltipId);
+        if (tooltipData == null)
+        { throw new ArgumentException($"No tooltip data found for id: {tooltipId}", nameof(tooltipId)); }
+
+        // Create the tooltip and set its text.
+        TooltipComponent tooltip = CreateTooltip();
+        tooltip.Text = tooltipData.Text;
+
+        // Calculate the position of the tooltip based on the pivot and the size of the tooltip.
+        Vector2 placementPosition = CalculateNewTooltipLocation(position, pivot, tooltip.Size);
+        placementPosition = CalculatePositionFromPivot(placementPosition, pivot, tooltip.Size);
+        tooltip.Position = placementPosition;
+
+        return tooltip;
     }
 
     #endregion API
@@ -85,11 +120,12 @@ public partial class TooltipService : GodotSingelton<TooltipService>
 
     /// <summary>
     /// Validates that the position for the new tooltip fits within the bounds of the screen and reuturns a fallback if it does not.
+    /// Does not try to smartly position the tooltip, this method is for the case that the user has already supplied a position and we only need to check if it is valid!
     /// </summary>
-    private static ((int x, int y) position, TooltipPivot pivot) CalculateNewTooltipLocation((int x, int y) cursorPosition, TooltipPivot pivot)
+    private static Vector2 CalculateNewTooltipLocation(Vector2 cursorPosition, TooltipPivot pivot, Vector2 size)
     {
-        GD.Print($"TODO: TooltipService: CalculateNewTooltipLocation({cursorPosition}, {pivot})");
-        return (cursorPosition, TooltipPivot.BottomLeft);
+        GD.Print($"TODO: TooltipService: CalculateNewTooltipLocation({cursorPosition}, {pivot}, {size})");
+        return cursorPosition;
     }
 
     /// <summary>
@@ -99,10 +135,25 @@ public partial class TooltipService : GodotSingelton<TooltipService>
     /// - The cursor position.<br/>
     /// - The dimensions of the screen.<br/>
     /// </summary>
-    private static ((int x, int y) position, TooltipPivot pivot) CalculateNestedTooltipLocation(ITooltipComponent tooltip, (int x, int y) cursorPosition)
+    private static (Vector2 position, TooltipPivot pivot) CalculateNestedTooltipLocation(ITooltipComponent tooltip, Vector2 cursorPosition)
     {
         GD.Print($"TODO: TooltipService: CalculateNestedTooltipLocation({tooltip}, {cursorPosition})");
         return (cursorPosition, TooltipPivot.BottomLeft);
+    }
+
+    private static TooltipComponent CreateTooltip()
+    {
+        string tooltipPrefabPath = TooltipPrefabPath ?? defaultTooltipPrefabPath;
+        PackedScene tooltipScene = ResourceLoader.Load<PackedScene>(tooltipPrefabPath);
+
+        if (tooltipScene == null)
+        { throw new InvalidOperationException($"Could not load tooltip scene from path: {tooltipPrefabPath}"); }
+
+        TooltipComponent tooltip = tooltipScene.Instantiate<TooltipComponent>();
+        Instance._tooltipsParent.AddChild(tooltip);
+
+        _activeTooltips.Add(tooltip, tooltip);
+        return tooltip;
     }
 
     #endregion Utility Methods

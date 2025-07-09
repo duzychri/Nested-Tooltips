@@ -49,8 +49,10 @@ public partial class DemoSlider : HBoxContainer
             _tooltipComponent = null;
         }
 
-        var mousePos = GetViewport().GetMousePosition();
-        _tooltipComponent = TooltipService.ShowTooltip(mousePos, (0, 0), _tooltipText);
+        // Get the absolute position of the label in the viewport.
+        var labelPosition = _labelName.GetScreenPosition();
+        Vector2 tooltipPosition = labelPosition + new Vector2(0, -60);
+        _tooltipComponent = TooltipService.ShowTooltip(tooltipPosition, (0, 0), _tooltipText);
     }
 
     private void OnMouseExited()

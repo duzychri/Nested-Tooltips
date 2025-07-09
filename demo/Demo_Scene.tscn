@@ -26,4 +26,4 @@ alignment = 1
 [node name="DemoSlider" parent="Control/VBoxContainer" instance=ExtResource("2_7pyyh")]
 layout_mode = 2
 _name = "Show Delay"
-_tooltipText = "Test"
+_tooltipText = "The amount of time that needs to pass until a tooltip is opened."
