@@ -33,7 +33,7 @@ public partial class DemoSlider : HBoxContainer
         }
     }
 
-    private ITooltipComponent? _tooltipComponent;
+    private ITooltip? _tooltipComponent;
 
     private void OnMouseEntered()
     {

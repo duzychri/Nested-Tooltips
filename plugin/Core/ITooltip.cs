@@ -3,16 +3,16 @@ namespace NestedTooltips;
 /// <summary>
 /// Interface for a tooltip component that can be nested within other tooltips.
 /// </summary>
-public interface ITooltipComponent
+public interface ITooltip
 {
     /// <summary>
     /// The parent tooltip of this tooltip. <see langword="null"/> if this tooltip is a root tooltip.
     /// </summary>
-    public ITooltipComponent? Parent { get; }
+    public ITooltip? Parent { get; }
     /// <summary>
     /// The nested tooltip spawned from this tooltip. <see langword="null"/> if this tooltip has no child.
     /// </summary>
-    public ITooltipComponent? Child { get; }
+    public ITooltip? Child { get; }
     /// <summary>
     /// The bbcode formatted text of the tooltip.
     /// </summary>

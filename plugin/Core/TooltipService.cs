@@ -7,9 +7,9 @@ public partial class TooltipService : GodotSingelton<TooltipService>
     [Export] private Control _tooltipsParent = null!;
 
     private static readonly TooltipDataProvider _dataProvider = new();
-    private static readonly Dictionary<ITooltipComponent, TooltipComponent> _activeTooltips = [];
+    private static readonly Dictionary<ITooltip, TooltipControl> _activeTooltips = [];
 
-    #region API
+    #region Configuration API
 
     /// <summary>
     /// The path to the tooltip prefab that is used to create new tooltips.
@@ -47,10 +47,14 @@ public partial class TooltipService : GodotSingelton<TooltipService>
         }
     }
 
+    #endregion Configuration API
+
+    #region API
+
     /// <summary>
     /// All currently active tooltips, including all nested ones.
     /// </summary>
-    public static IEnumerable<ITooltipComponent> ActiveTooltips => _activeTooltips.Keys;
+    public static IEnumerable<ITooltip> ActiveTooltips => _activeTooltips.Keys;
 
     /// <summary>
     /// Creates a new tooltip at the given position with the given pivot and text.
@@ -59,18 +63,18 @@ public partial class TooltipService : GodotSingelton<TooltipService>
     /// <param name="pivot">The pivot of the tooltip. Determines where the tooltip is anchored in relation to the position.</param>
     /// <param name="text">The bbcode formatted text of the tooltip.</param>
     /// <returns>The created tooltip component.</returns>
-    public static ITooltipComponent ShowTooltip(Vector2 position, TooltipPivot pivot, string text)
+    public static ITooltip ShowTooltip(Vector2 position, TooltipPivot pivot, string text)
     {
         ArgumentNullException.ThrowIfNull(text);
 
         // Create the tooltip and set its text.
-        TooltipComponent tooltip = CreateTooltip();
-        tooltip.Text = text;
+        Tooltip tooltip = CreateTooltip();
+        tooltip.Control.Text = text;
 
         // Calculate the position of the tooltip based on the pivot and the size of the tooltip.
-        Vector2 placementPosition = CalculateNewTooltipLocation(position, pivot, tooltip.Size);
-        placementPosition = CalculatePositionFromPivot(placementPosition, pivot, tooltip.Size);
-        tooltip.Position = placementPosition;
+        Vector2 placementPosition = CalculateNewTooltipLocation(position, pivot, tooltip.Control.Size);
+        placementPosition = CalculatePositionFromPivot(placementPosition, pivot, tooltip.Control.Size);
+        tooltip.Control.Position = placementPosition;
 
         return tooltip;
     }
@@ -82,7 +86,7 @@ public partial class TooltipService : GodotSingelton<TooltipService>
     /// <param name="pivot">The pivot of the tooltip. Determines where the tooltip is anchored in relation to the position.</param>
     /// <param name="tooltipId">The id of the tooltip which text should be used.</param>
     /// <returns>The created tooltip component.</returns>
-    public static ITooltipComponent ShowTooltipById(Vector2 position, TooltipPivot pivot, string tooltipId)
+    public static ITooltip ShowTooltipById(Vector2 position, TooltipPivot pivot, string tooltipId)
     {
         ArgumentNullException.ThrowIfNull(tooltipId);
 
@@ -91,13 +95,13 @@ public partial class TooltipService : GodotSingelton<TooltipService>
         { throw new ArgumentException($"No tooltip data found for id: {tooltipId}", nameof(tooltipId)); }
 
         // Create the tooltip and set its text.
-        TooltipComponent tooltip = CreateTooltip();
-        tooltip.Text = tooltipData.Text;
+        Tooltip tooltip = CreateTooltip();
+        tooltip.Control.Text = tooltipData.Text;
 
         // Calculate the position of the tooltip based on the pivot and the size of the tooltip.
-        Vector2 placementPosition = CalculateNewTooltipLocation(position, pivot, tooltip.Size);
-        placementPosition = CalculatePositionFromPivot(placementPosition, pivot, tooltip.Size);
-        tooltip.Position = placementPosition;
+        Vector2 placementPosition = CalculateNewTooltipLocation(position, pivot, tooltip.Control.Size);
+        placementPosition = CalculatePositionFromPivot(placementPosition, pivot, tooltip.Control.Size);
+        tooltip.Control.Position = placementPosition;
 
         return tooltip;
     }
@@ -135,13 +139,13 @@ public partial class TooltipService : GodotSingelton<TooltipService>
     /// - The cursor position.<br/>
     /// - The dimensions of the screen.<br/>
     /// </summary>
-    private static (Vector2 position, TooltipPivot pivot) CalculateNestedTooltipLocation(ITooltipComponent tooltip, Vector2 cursorPosition)
+    private static (Vector2 position, TooltipPivot pivot) CalculateNestedTooltipLocation(TooltipControl control, Vector2 cursorPosition)
     {
-        GD.Print($"TODO: TooltipService: CalculateNestedTooltipLocation({tooltip}, {cursorPosition})");
+        GD.Print($"TODO: TooltipService: CalculateNestedTooltipLocation({control}, {cursorPosition})");
         return (cursorPosition, TooltipPivot.BottomLeft);
     }
 
-    private static TooltipComponent CreateTooltip()
+    private static Tooltip CreateTooltip()
     {
         string tooltipPrefabPath = TooltipPrefabPath ?? defaultTooltipPrefabPath;
         PackedScene tooltipScene = ResourceLoader.Load<PackedScene>(tooltipPrefabPath);
@@ -149,10 +153,12 @@ public partial class TooltipService : GodotSingelton<TooltipService>
         if (tooltipScene == null)
         { throw new InvalidOperationException($"Could not load tooltip scene from path: {tooltipPrefabPath}"); }
 
-        TooltipComponent tooltip = tooltipScene.Instantiate<TooltipComponent>();
-        Instance._tooltipsParent.AddChild(tooltip);
+        TooltipControl tooltipControl = tooltipScene.Instantiate<TooltipControl>();
+        Instance._tooltipsParent.AddChild(tooltipControl);
 
-        _activeTooltips.Add(tooltip, tooltip);
+        Tooltip tooltip = new(tooltipControl);
+        _activeTooltips.Add(tooltip, tooltipControl);
+
         return tooltip;
     }
 
