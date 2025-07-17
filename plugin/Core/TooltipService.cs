@@ -1,3 +1,5 @@
+using System.IO;
+
 namespace NestedTooltips;
 
 public partial class TooltipService : GodotSingelton<TooltipService>
@@ -11,6 +13,8 @@ public partial class TooltipService : GodotSingelton<TooltipService>
 
     #region Configuration API
 
+    private static string? _tooltipPrefabPath = null;
+
     /// <summary>
     /// The path to the tooltip prefab that is used to create new tooltips.
     /// Set this if you want to use a different tooltip prefab than the default one.
@@ -19,12 +23,30 @@ public partial class TooltipService : GodotSingelton<TooltipService>
     {
         get
         {
-            GD.Print("TODO: TooltipService: TooltipPrefabPath getter called");
-            return null;
+            return _tooltipPrefabPath;
         }
         set
         {
-            GD.Print($"TODO: TooltipService: TooltipPrefabPath setter called with {value}");
+            // Check if the path leads to a resource that exists.
+            if (ResourceLoader.Exists(value) == false)
+            {
+                throw new InvalidOperationException($"The tooltip prefab path '{value}' does not point to a valid resource.");
+            }
+
+            // Check that the resource instantiates a TooltipControl or ITooltipControl.
+            PackedScene? scene = ResourceLoader.Load<PackedScene>(value);
+            if (scene == null)
+            {
+                throw new InvalidOperationException($"The tooltip prefab path '{value}' does not point to a valid PackedScene.");
+            }
+
+            if (scene.Instantiate() is not ITooltipControl)
+            {
+                throw new InvalidOperationException($"The tooltip prefab at '{value}' does not implement ITooltipControl.");
+            }
+
+            // If all checks pass, set the path.
+            _tooltipPrefabPath = value;
         }
     }
 
