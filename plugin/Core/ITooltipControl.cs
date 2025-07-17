@@ -16,7 +16,7 @@ namespace NestedTooltips
         /// Shows the progress in time on how much longer the tooltip needs to stay open to be pinned.
         /// Ranges from 0 to 1, where 0 means no progress and 1 means the tooltip is pinned.
         /// </summary>
-        float PinProgress { get; set; }
+        double LockProgress { get; set; }
 
         /// <summary>
         /// The text displayed in the tooltip.

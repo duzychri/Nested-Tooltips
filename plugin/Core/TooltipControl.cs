@@ -5,8 +5,11 @@ namespace NestedTooltips;
 /// </summary>
 public partial class TooltipControl : Control, ITooltipControl
 {
+    [Export] private Label _lockingLabel = null!;
     [Export] private Control _fullContainer = null!;
     [Export] private RichTextLabel _textLabel = null!;
+
+    private double _lockProgress = 0.0;
 
     #region Properties
 
@@ -37,17 +40,32 @@ public partial class TooltipControl : Control, ITooltipControl
     }
 
     /// <inheritdoc/>
-    public float PinProgress
+    public double LockProgress
     {
-        get { GD.PrintErr("PinProgress is not implemented in TooltipVisual!"); return 0f; }
-        set { GD.PrintErr("PinProgress is not implemented in TooltipVisual!"); }
+        get
+        {
+            return _lockProgress;
+        }
+        set
+        {
+            value = Math.Clamp(value, 0.0, 1.0);
+            _lockProgress = value;
+            _lockingLabel.Visible = value > 0.0;
+            _lockingLabel.Text = value < 1 ? $"Locking: {value * 100:000}%" : "Locked";
+        }
     }
 
     /// <inheritdoc/>
     public bool IsInteractable
     {
-        get { GD.PrintErr("IsInteractable is not implemented in TooltipVisual!"); return false; }
-        set { GD.PrintErr("IsInteractable is not implemented in TooltipVisual!"); }
+        get
+        {
+            return MouseFilter == MouseFilterEnum.Stop;
+        }
+        set
+        {
+            MouseFilter = value ? MouseFilterEnum.Stop : MouseFilterEnum.Ignore;
+        }
     }
 
     #endregion Properties
@@ -67,12 +85,25 @@ public partial class TooltipControl : Control, ITooltipControl
 
     public override void _Ready()
     {
+        _lockingLabel.Visible = false;
+
         _textLabel.MetaHoverStarted += OnMetaHoveredStart;
         _textLabel.MetaHoverEnded += OnMetaHoveredEnd;
         _textLabel.MetaClicked += OnMetaClicked;
     }
 
     #endregion Lifecycle Methods
+
+    #region Other Methods
+
+    public bool IsCursorOverTooltip()
+    {
+        // Check if the mouse is currently over the tooltip control.
+        Vector2 mousePosition = GetViewport().GetMousePosition();
+        return GetGlobalRect().HasPoint(mousePosition);
+    }
+
+    #endregion Other Methods
 
     #region Callback Methods
 
