@@ -38,3 +38,6 @@ The tooltip itself also  provides two important methods `ForceDestroy` and `SetR
 - `ForceDestroy` will destroy the tooltip immediately, regardless of whether it is currently locked or not. It will also clean up all child tooltips.
 - `SetReleasable` acxcepts a boolean value that determines whether the tooltip is allowed to destroy itself if it determines that it is no longer needed (like when the curser is no longer hovering over it or over a child tooltip).
 
+## Configuration
+
+The tooltip system can be configured by the developer in different ways. You can change the behaviour of how the user can interact with the tooltips using the `Settings` property in the `TooltipService` and you can adjust the style or visuals of the tooltip by creating you own 'prefab' and providing the service a path to it using the `TooltipPrefabPath` property.
