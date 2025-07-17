@@ -18,7 +18,7 @@
 3. Click the `Godot_v4.4.1-stable_mono_win64.exe` file to run the Godot editor
 4. Click on `📁 Import` in the top left below the Godot logo
 5. Navigate to the folder where you cloned the repository and select the `project.godot` file
-6. Click `Open` to import the project and either use the `Edit now` toggle or open the project from the list
+6. Click `Open` to import the project and either use the `☑ Edit now` toggle or open the project from the list
 
 ### Running the project
 
