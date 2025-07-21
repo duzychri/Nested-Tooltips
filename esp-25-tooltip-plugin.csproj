@@ -6,6 +6,13 @@
 		<RootNamespace>NestedTooltips</RootNamespace>
 	</PropertyGroup>
 	<ItemGroup>
-	  <None Include="README.md" />
+		<Content Include="documentation\concept\path_of_exile_2_2024.png" />
+		<Content Include="documentation\concept\victoria_3_2022_tooltips.png" />
+		<Content Include="documentation\concept\warhammer_3_2022.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<None Include="documentation\concept\Nested Tooltip System.md" />
+		<None Include="documentation\demo_tooltips.md" />
+		<None Include="README.md" />
 	</ItemGroup>
 </Project>
