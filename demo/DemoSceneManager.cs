@@ -25,7 +25,7 @@ public partial class DemoSceneManager : Node
     {
         if (_tooltipComponent != null)
         {
-            _tooltipComponent.SetReleasable(true);
+            TooltipService.ReleaseTooltip(_tooltipComponent);
             _tooltipComponent = null;
         }
     }

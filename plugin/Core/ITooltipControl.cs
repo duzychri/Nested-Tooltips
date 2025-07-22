@@ -45,5 +45,8 @@ namespace NestedTooltips
         /// Event triggered when hovering over a link starts.
         /// </summary>
         event Action<Vector2, string>? OnLinkHoveredStart;
+
+        void QueueFree();
+        bool IsCursorOverTooltip();
     }
 }

@@ -45,7 +45,7 @@ public partial class DemoSlider : HBoxContainer
 
         if (_tooltipComponent != null)
         {
-            _tooltipComponent.SetReleasable(true);
+            TooltipService.ReleaseTooltip(_tooltipComponent);
             _tooltipComponent = null;
         }
 
@@ -59,7 +59,7 @@ public partial class DemoSlider : HBoxContainer
     {
         if (_tooltipComponent != null)
         {
-            _tooltipComponent.SetReleasable(true);
+            TooltipService.ReleaseTooltip(_tooltipComponent);
             _tooltipComponent = null;
         }
     }
