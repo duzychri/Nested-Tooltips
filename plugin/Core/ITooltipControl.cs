@@ -19,6 +19,12 @@ namespace NestedTooltips
         double LockProgress { get; set; }
 
         /// <summary>
+        /// Shows the progress in time on how much longer the tooltip needs to stay open to be unlocked.
+        /// Ranges from 0 to 1, where 0 means no progress and 1 means the tooltip is unlocked.
+        /// </summary>
+        double UnlockProgress { get; set; }
+
+        /// <summary>
         /// The text displayed in the tooltip.
         /// </summary>
         string Text { get; set; }

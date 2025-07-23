@@ -18,6 +18,7 @@ public partial class TooltipService : GodotSingelton<TooltipService>
         private bool _wasLocked = false;
         /// <summary>Indicates that the tooltip should be destroyed under the right conditions.</summary>
         private bool _queuedForRelease = false;
+        /// <summary>Shows that the tooltip has been deleted and should not be processed anymore.</summary>
         private bool _isFreed = false;
 
         public Tooltip Tooltip { get; private set; }
@@ -60,13 +61,15 @@ public partial class TooltipService : GodotSingelton<TooltipService>
             _aliveTime += deltaTime;
 
             // Update how long the cursor has been away from the tooltip.
-            if (_control.IsCursorOverTooltip() && _child != null)
+            if (_control.IsCursorOverTooltip() || _child != null)
             {
                 _cursorAwayTime = 0.0;
+                _control.UnlockProgress = 0.0;
             }
-            else
+            else if (_queuedForRelease)
             {
                 _cursorAwayTime += deltaTime;
+                _control.UnlockProgress = GetUnlockProgress();
             }
 
             // Check if we are locked.
@@ -100,14 +103,14 @@ public partial class TooltipService : GodotSingelton<TooltipService>
             {
                 // If we want to release the tooltip multiple conditions have to be fullfilled:
                 // 1. The cursor can't be over the tooltip.
-                // 2. The cursor has been away from the tooltip for a certain amount of time.
+                // 2. The cursor has been away from the tooltip for a certain amount of time (unlocked).
                 // 3. There can't be a child tooltip that is currently open.
 
                 bool isCursorOverTooltip = _control.IsCursorOverTooltip();
-                bool cursorAway = _cursorAwayTime > Settings.UnlockDelay;
+                bool isUnlocked = GetUnlockProgress() >= 1;
                 bool noOpenChild = _child == null;
 
-                bool canRelease = isCursorOverTooltip && cursorAway && noOpenChild;
+                bool canRelease = isCursorOverTooltip == false && isUnlocked && noOpenChild;
 
                 if (canRelease)
                 {
@@ -123,6 +126,12 @@ public partial class TooltipService : GodotSingelton<TooltipService>
         }
 
         #region Locking Logic
+
+        private double GetUnlockProgress()
+        {
+            double unlockProgress = Math.Clamp(_cursorAwayTime / Settings.UnlockDelay, 0.0, 1.0);
+            return unlockProgress;
+        }
 
         private (bool isLocked, double progress) IsLockedByTimerLock()
         {

@@ -6,10 +6,12 @@ namespace NestedTooltips;
 public partial class TooltipControl : Control, ITooltipControl
 {
     [Export] private Label _lockingLabel = null!;
+    [Export] private Label _unlockingLabel = null!;
     [Export] private Control _fullContainer = null!;
     [Export] private RichTextLabel _textLabel = null!;
 
     private double _lockProgress = 0.0;
+    private double _unlockProgress = 0.0;
 
     #region Properties
 
@@ -52,6 +54,23 @@ public partial class TooltipControl : Control, ITooltipControl
             _lockProgress = value;
             _lockingLabel.Visible = value > 0.0;
             _lockingLabel.Text = value < 1 ? $"Locking: {value * 100:000}%" : "Locked";
+        }
+    }
+
+
+    /// <inheritdoc/>
+    public double UnlockProgress
+    {
+        get
+        {
+            return _unlockProgress;
+        }
+        set
+        {
+            value = Math.Clamp(value, 0.0, 1.0);
+            _unlockProgress = value;
+            _unlockingLabel.Visible = value > 0.0;
+            _unlockingLabel.Text = value < 1 ? $"\nUnlocking: {value * 100:000}%" : "\nUnlocked";
         }
     }
 

@@ -5,13 +5,14 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uai6w"]
 
-[node name="DemoTooltip" type="PanelContainer" node_paths=PackedStringArray("_lockingLabel", "_fullContainer", "_textLabel")]
+[node name="DemoTooltip" type="PanelContainer" node_paths=PackedStringArray("_lockingLabel", "_unlockingLabel", "_fullContainer", "_textLabel")]
 custom_minimum_size = Vector2(30, 30)
 offset_right = 32.0
 offset_bottom = 32.0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_uai6w")
 script = ExtResource("1_2idno")
 _lockingLabel = NodePath("Label")
+_unlockingLabel = NodePath("Label2")
 _fullContainer = NodePath(".")
 _textLabel = NodePath("MarginContainer/RichTextLabel")
 
@@ -50,4 +51,11 @@ visible = false
 layout_mode = 2
 size_flags_vertical = 1
 text = "Locking: 000"
+clip_text = true
+
+[node name="Label2" type="Label" parent="."]
+visible = false
+layout_mode = 2
+size_flags_vertical = 1
+text = "Unlocking: 000"
 clip_text = true
