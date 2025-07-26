@@ -105,6 +105,7 @@ public partial class TooltipControl : Control, ITooltipControl
     public override void _Ready()
     {
         _lockingLabel.Visible = false;
+        _unlockingLabel.Visible = false;
 
         _textLabel.MetaHoverStarted += OnMetaHoveredStart;
         _textLabel.MetaHoverEnded += OnMetaHoveredEnd;

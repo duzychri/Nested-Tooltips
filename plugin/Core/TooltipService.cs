@@ -2,166 +2,12 @@ namespace NestedTooltips;
 
 public partial class TooltipService : GodotSingelton<TooltipService>
 {
-    #region Classes
-
-    private class TooltipHandler
-    {
-        private TooltipHandler? _child;
-        private readonly TooltipHandler? _parent;
-        private readonly ITooltipControl _control;
-
-        /// <summary>The amount of time that the tooltip has been open.</summary>
-        private double _aliveTime = 0.0;
-        /// <summary>The time that the cursor has not been hovering over the tooltip.</summary>
-        private double _cursorAwayTime = 0.0;
-        /// <summary>Indicates if the tooltip is or was locked by a user interaction.</summary>
-        private bool _wasLocked = false;
-        /// <summary>Indicates that the tooltip should be destroyed under the right conditions.</summary>
-        private bool _queuedForRelease = false;
-        /// <summary>Shows that the tooltip has been deleted and should not be processed anymore.</summary>
-        private bool _isFreed = false;
-
-        public Tooltip Tooltip { get; private set; }
-        public string Text { get => _control.Text; set => _control.Text = value; }
-        public Vector2 Size { get => _control.Size; set => _control.Size = value; }
-        public Vector2 Position { get => _control.Position; set => _control.Position = value; }
-
-        public TooltipHandler(ITooltipControl control, TooltipHandler? parent)
-        {
-            _control = control;
-            _parent = parent;
-
-            Tooltip = new();
-        }
-
-        public void Release()
-        {
-            // Check if we are locked. If not, then we can just delete the tooltip immediately.
-            if (_wasLocked == false)
-            {
-                Destroy();
-                return;
-            }
-
-            _queuedForRelease = true;
-        }
-
-        public void ForceDestroy()
-        {
-            Destroy();
-        }
-
-        public void Process(double deltaTime)
-        {
-            // If the tooltip is already freed, we don't need to do anything.
-            if (_isFreed)
-            { return; }
-
-            // Update how long the tooltip has been alive.
-            _aliveTime += deltaTime;
-
-            // Update how long the cursor has been away from the tooltip.
-            if (_control.IsCursorOverTooltip() || _child != null)
-            {
-                _cursorAwayTime = 0.0;
-                _control.UnlockProgress = 0.0;
-            }
-            else if (_queuedForRelease)
-            {
-                _cursorAwayTime += deltaTime;
-                _control.UnlockProgress = GetUnlockProgress();
-            }
-
-            // Check if we are locked.
-            switch (Settings.LockMode)
-            {
-                case TooltipLockMode.TimerLock:
-                    {
-                        (bool isLocked, double progress) = IsLockedByTimerLock();
-                        _control.LockProgress = progress;
-                        _wasLocked = _wasLocked || isLocked;
-                    }
-                    break;
-                case TooltipLockMode.ActionLock:
-                    {
-                        bool isLocked = IsLockedByActionLock();
-                        _wasLocked = _wasLocked || isLocked;
-                        _control.LockProgress = isLocked ? 1.0 : 0.0;
-                    }
-                    break;
-                case TooltipLockMode.MouseTendency:
-                    {
-                        bool isLocked = IsLockedByMouseTendency();
-                        _wasLocked = _wasLocked || isLocked;
-                        _control.LockProgress = isLocked ? 1.0 : 0.0;
-                    }
-                    break;
-            }
-
-            // Handle the release logic.
-            if (_queuedForRelease)
-            {
-                // If we want to release the tooltip multiple conditions have to be fullfilled:
-                // 1. The cursor can't be over the tooltip.
-                // 2. The cursor has been away from the tooltip for a certain amount of time (unlocked).
-                // 3. There can't be a child tooltip that is currently open.
-
-                bool isCursorOverTooltip = _control.IsCursorOverTooltip();
-                bool isUnlocked = GetUnlockProgress() >= 1;
-                bool noOpenChild = _child == null;
-
-                bool canRelease = isCursorOverTooltip == false && isUnlocked && noOpenChild;
-
-                if (canRelease)
-                {
-                    Destroy();
-                }
-            }
-        }
-
-        private void Destroy()
-        {
-            _isFreed = true;
-            _control.QueueFree();
-        }
-
-        #region Locking Logic
-
-        private double GetUnlockProgress()
-        {
-            double unlockProgress = Math.Clamp(_cursorAwayTime / Settings.UnlockDelay, 0.0, 1.0);
-            return unlockProgress;
-        }
-
-        private (bool isLocked, double progress) IsLockedByTimerLock()
-        {
-            bool isLocked = _aliveTime >= Settings.LockDelay;
-            double lockProgress = Math.Clamp(_aliveTime / Settings.LockDelay, 0.0, 1.0);
-            return (isLocked, lockProgress);
-        }
-
-        private bool IsLockedByActionLock()
-        {
-            return true;
-        }
-
-        private bool IsLockedByMouseTendency()
-        {
-            // Check the movement of the mouse over the last few frames and determine if it is moving towards the tooltip.
-            return true;
-        }
-
-        #endregion Locking Logic
-    }
-
-    #endregion Classes
-
     private const string defaultTooltipPrefabPath = "res://demo/DemoTooltip.tscn";
 
     [Export] private Control _tooltipsParent = null!;
 
     private static readonly TooltipDataProvider _dataProvider = new();
-    private static readonly Dictionary<ITooltip, TooltipHandler> _activeTooltips2 = [];
+    private static readonly Dictionary<ITooltip, TooltipHandler> _activeTooltips = [];
 
     #region Lifecycle Methods
 
@@ -169,7 +15,7 @@ public partial class TooltipService : GodotSingelton<TooltipService>
     {
         // Naive implementation with ToArray, to avoid the source collection changing while iterating.
         // If this runs too slow we could use CopyTo with a buffer.
-        foreach (TooltipHandler handlers in _activeTooltips2.Values.ToArray())
+        foreach (TooltipHandler handlers in _activeTooltips.Values.ToArray())
         {
             handlers.Process(deltaTime);
         }
@@ -216,6 +62,8 @@ public partial class TooltipService : GodotSingelton<TooltipService>
         }
     }
 
+    private static TooltipSettings _settings = TooltipSettings.Default;
+
     /// <summary>
     /// Determines the behaviour of the tooltip system.
     /// </summary>
@@ -226,12 +74,12 @@ public partial class TooltipService : GodotSingelton<TooltipService>
     {
         get
         {
-            GD.Print("TODO: TooltipService: Settings getter called");
-            return TooltipSettings.Default;
+            return _settings;
         }
         set
         {
             GD.Print($"TODO: TooltipService: Settings setter called with {value}");
+            _settings = value;
         }
     }
 
@@ -242,7 +90,7 @@ public partial class TooltipService : GodotSingelton<TooltipService>
     /// <summary>
     /// All currently active tooltips, including all nested ones.
     /// </summary>
-    public static IEnumerable<ITooltip> ActiveTooltips => _activeTooltips2.Keys;
+    public static IEnumerable<ITooltip> ActiveTooltips => _activeTooltips.Keys;
 
     /// <summary>
     /// Creates a new tooltip at the given position with the given pivot and text.
@@ -304,7 +152,7 @@ public partial class TooltipService : GodotSingelton<TooltipService>
         ArgumentNullException.ThrowIfNull(tooltip);
 
         // Check if the tooltip exists.
-        if (_activeTooltips2.TryGetValue(tooltip, out var handler) == false)
+        if (_activeTooltips.TryGetValue(tooltip, out var handler) == false)
         {
             throw new ArgumentException($"Tooltip {tooltip} couldn't be found.", nameof(tooltip));
         }
@@ -322,7 +170,7 @@ public partial class TooltipService : GodotSingelton<TooltipService>
         ArgumentNullException.ThrowIfNull(tooltip);
 
         // Check if tooltip exists.
-        if (_activeTooltips2.TryGetValue(tooltip, out TooltipHandler? handler) == false)
+        if (_activeTooltips.TryGetValue(tooltip, out TooltipHandler? handler) == false)
         {
             throw new ArgumentException($"Tooltip {tooltip} couldn't be found.", nameof(tooltip));
         }
@@ -369,7 +217,7 @@ public partial class TooltipService : GodotSingelton<TooltipService>
         return (cursorPosition, TooltipPivot.BottomLeft);
     }
 
-    private static (TooltipHandler handler, Tooltip tooltip) CreateTooltip()
+    private static (TooltipHandler handler, Tooltip tooltip) CreateTooltip(TooltipHandler? parentHandler = null)
     {
         string tooltipPrefabPath = TooltipPrefabPath ?? defaultTooltipPrefabPath;
         PackedScene tooltipScene = ResourceLoader.Load<PackedScene>(tooltipPrefabPath);
@@ -380,10 +228,10 @@ public partial class TooltipService : GodotSingelton<TooltipService>
         TooltipControl tooltipControl = tooltipScene.Instantiate<TooltipControl>();
         Instance._tooltipsParent.AddChild(tooltipControl);
 
-        TooltipHandler tooltipHandler = new(tooltipControl, null);
+        TooltipHandler tooltipHandler = new(tooltipControl, parentHandler);
 
         Tooltip tooltip = tooltipHandler.Tooltip;
-        _activeTooltips2.Add(tooltip, tooltipHandler);
+        _activeTooltips.Add(tooltip, tooltipHandler);
 
         return (tooltipHandler, tooltip);
     }

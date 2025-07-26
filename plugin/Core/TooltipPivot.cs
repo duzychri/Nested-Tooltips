@@ -34,6 +34,10 @@ public readonly struct TooltipPivot
     /// Represents the position <c>(1.0, 0.0)</c>.
     /// </summary>
     public static readonly TooltipPivot BottomRight = new(1f, 0f);
+    /// <summary>
+    /// Represents the position <c>(0.5, 1.0)</c>, which is the center of the bottom edge.
+    /// </summary>
+    public static readonly TooltipPivot BottomCenter = new(0.5f, 0f);
 
     #endregion Common Pivots
 
