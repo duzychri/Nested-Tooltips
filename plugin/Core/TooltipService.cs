@@ -6,7 +6,6 @@ public partial class TooltipService : GodotSingelton<TooltipService>
 
     [Export] private Control _tooltipsParent = null!;
 
-    private static readonly TooltipDataProvider _dataProvider = new();
     private static readonly Dictionary<ITooltip, TooltipHandler> _activeTooltips = [];
 
     #region Lifecycle Methods
@@ -24,6 +23,18 @@ public partial class TooltipService : GodotSingelton<TooltipService>
     #endregion Lifecycle Methods
 
     #region Configuration API
+
+    private static ITooltipDataProvider _dataProvider = new TooltipDataProvider();
+
+    public static ITooltipDataProvider TooltipDataProvider
+    {
+        get => _dataProvider;
+        set
+        {
+            ArgumentNullException.ThrowIfNull(value);
+            _dataProvider = value;
+        }
+    }
 
     private static string? _tooltipPrefabPath = null;
 
