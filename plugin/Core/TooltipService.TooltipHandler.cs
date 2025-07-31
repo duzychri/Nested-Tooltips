@@ -18,6 +18,8 @@ public partial class TooltipService
         private bool _queuedForRelease = false;
         /// <summary>Shows that the tooltip has been deleted and should not be processed anymore.</summary>
         private bool _isFreed = false;
+        /// <summary>Indicates that the tooltip was locked by a user interaction.</summary>
+        private bool _isActionLocked = false;
 
         public Tooltip Tooltip { get; private set; }
         public string Text { get => _control.Text; set => _control.Text = value; }
@@ -51,6 +53,11 @@ public partial class TooltipService
         public void ForceDestroy()
         {
             DestroyInternal();
+        }
+
+        public void OnThisClicked()
+        {
+            _isActionLocked = true;
         }
 
         #region Lifecycle Methods
@@ -142,12 +149,16 @@ public partial class TooltipService
 
         private bool IsLockedByActionLock()
         {
-            return true;
+            return _isActionLocked;
         }
 
         private bool IsLockedByMouseTendency()
         {
             // Check the movement of the mouse over the last few frames and determine if it is moving towards the tooltip.
+            // The tooltip is locked from mouse tendency if:
+            // 1. The mouse is inside the tooltip.
+            // 2. The mouse is moving towards the tooltip.
+            // 3. The tooltip is already locked and the mouse is not moving.
             return true;
         }
 
@@ -197,11 +208,21 @@ public partial class TooltipService
 
         private void OnLinkClicked(Vector2 mousePosition, string tooltipTextId)
         {
+            GD.PushError($"Boop!");
             // We don't care about doing anything if we aren't locked.
             if (_wasLocked == false)
             { return; }
 
-            GD.Print($"TODO: TooltipService: OnLinkClicked called with {mousePosition}, {tooltipTextId}");
+            // We already hovered over the link, so we should have a child tooltip.
+            // Make sure we do have one.
+            if (_child == null)
+            {
+                GD.PushError($"No child tooltip found for link click with id: {tooltipTextId}. This is a bug and should not happen!");
+                return;
+            }
+
+            // Send a message to the child that it was clicked and it will handle the locking itself.
+            _child.OnThisClicked();
         }
 
         private void DestroyChild()

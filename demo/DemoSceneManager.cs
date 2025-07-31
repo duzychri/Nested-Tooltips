@@ -9,6 +9,7 @@ public partial class DemoSceneManager : Node
     {
         _demoTextLabel.MetaHoverStarted += OnMetaHoveredStart;
         _demoTextLabel.MetaHoverEnded += OnMetaHoveredEnd;
+        _demoTextLabel.MetaClicked += OnMetaClicked;
         GD.Print(_text);
     }
 
@@ -27,6 +28,14 @@ public partial class DemoSceneManager : Node
         {
             TooltipService.ReleaseTooltip(_tooltipComponent);
             _tooltipComponent = null;
+        }
+    }
+
+    private void OnMetaClicked(Variant meta)
+    {
+        if (_tooltipComponent != null)
+        {
+            TooltipService.ActionLockTooltip(_tooltipComponent);
         }
     }
 }

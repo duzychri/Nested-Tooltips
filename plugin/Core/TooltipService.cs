@@ -154,6 +154,24 @@ public partial class TooltipService : GodotSingelton<TooltipService>
     }
 
     /// <summary>
+    /// If <see cref="TooltipLockMode.ActionLock"/> is set in the settings, then this method will lock a tooltip created by a <see cref="ShowTooltip"/> method.
+    /// </summary>
+    /// <param name="tooltip">The tooltip to lock.</param>
+    public static void ActionLockTooltip(ITooltip tooltip)
+    {
+        ArgumentNullException.ThrowIfNull(tooltip);
+
+        // Check if the tooltip exists.
+        if (_activeTooltips.TryGetValue(tooltip, out TooltipHandler? handler) == false)
+        {
+            throw new ArgumentException($"Tooltip {tooltip} couldn't be found.", nameof(tooltip));
+        }
+
+        // Lock the tooltip.
+        handler.OnThisClicked();
+    }
+
+    /// <summary>
     /// Forces the tooltip all nested tooltips to be removed.
     /// Ignores the locking behaviour of the tooltip and will destroy the tooltip even if it is locked.
     /// </summary>
