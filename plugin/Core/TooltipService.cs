@@ -12,11 +12,6 @@ public partial class TooltipService : GodotSingelton<TooltipService>
 
     public override void _Process(double deltaTime)
     {
-        // For mouse tendency we need the mouse position.
-        // We handle this using an extra helper class that allows shared access instead of calculating everything in each tooltip.
-        Vector2 mousePosition = GetViewport().GetMousePosition();
-        MouseHelper.Update(deltaTime, mousePosition);
-
         // Naive implementation with ToArray, to avoid the source collection changing while iterating.
         // If this runs too slow we could use CopyTo with a buffer.
         foreach (TooltipHandler handlers in _activeTooltips.Values.ToArray())

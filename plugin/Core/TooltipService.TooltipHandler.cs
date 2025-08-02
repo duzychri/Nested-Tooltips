@@ -2,67 +2,6 @@ namespace NestedTooltips;
 
 public partial class TooltipService
 {
-    private static class MouseHelper
-    {
-        private const int MaxMousePositions = 10;
-        private static Queue<(Vector2 position, double deltaTime)> _mousePositions = new();
-
-        public static void Update(double deltaTime, Vector2 mousePosition)
-        {
-            // Add the current mouse position to the queue.
-            _mousePositions.Enqueue((mousePosition, deltaTime));
-
-            // If the queue exceeds the maximum size, remove the oldest position.
-            while (_mousePositions.Count > MaxMousePositions)
-            {
-                _mousePositions.Dequeue();
-            }
-        }
-
-        /// <summary>
-        /// Returns the average mouse movement as a vector over a specified interval in seconds.
-        /// </summary>
-        public static Vector2 GetMouseTendency(double interval)
-        {
-            // Fallback to zero if there are no mouse positions recorded.
-            if (_mousePositions.Count == 0)
-            {
-                return Vector2.Zero;
-            }
-
-            int count = 0;
-            double time = 0.0;
-            Vector2 movement = Vector2.Zero;
-
-            // Iterate through the mouse positions and sum up all that happened in the interval.
-            foreach ((Vector2 position, double deltaTime) in _mousePositions.Reverse())
-            {
-                count++;
-                time += deltaTime;
-                movement += position;
-
-                // If the total time exceeds the interval, we can stop processing.
-                if (time > interval)
-                { break; }
-            }
-
-            // Calculate the average from the total movement.
-            Vector2 averageMovement = movement / count;
-            return averageMovement;
-        }
-
-        public static Vector2 GetCurrentMousePosition()
-        {
-            if (_mousePositions.Count == 0)
-            {
-                return Vector2.Zero;
-            }
-
-            Vector2 currentPosition = _mousePositions.Last().position;
-            return currentPosition;
-        }
-    }
-
     private class TooltipHandler
     {
         private TooltipHandler? _child;
@@ -161,13 +100,6 @@ public partial class TooltipService
                         _control.LockProgress = isLocked ? 1.0 : 0.0;
                     }
                     break;
-                case TooltipLockMode.MouseTendency:
-                    {
-                        (bool isLocked, double progress) = IsLockedByMouseTendency();
-                        _wasLocked = _wasLocked || isLocked;
-                        _control.LockProgress = isLocked ? 1.0 : 0.0;
-                    }
-                    break;
             }
 
             // Handle the release logic.
@@ -211,40 +143,6 @@ public partial class TooltipService
         private bool IsLockedByActionLock()
         {
             return _isActionLocked;
-        }
-
-        private (bool isLocked, double progress) IsLockedByMouseTendency()
-        {
-            const double scannedInterval = 0.2; // The interval in seconds to check the mouse tendency.
-
-            // Check the movement of the mouse over the last few frames and determine if it is moving towards the tooltip.
-            // The tooltip is locked from mouse tendency if:
-            // 1. The mouse is inside the tooltip.
-            // 2. The tooltip is already locked and the mouse is not moving.
-            // 3. The mouse is moving towards the tooltip.
-
-            bool mouseIsOverTooltip = _control.IsCursorOverTooltip();
-
-            // If the mouse is not over the tooltip, we are already locked and don't need to check further.
-            if (mouseIsOverTooltip == false)
-            { return (true, 1.0); }
-
-            // Get the size and position of the tooltip.
-            Vector2 tooltipSize = _control.Size;
-            Vector2 tooltipPosition = _control.Position;
-
-            // Get the current mouse position and the tendency of the mouse movement.
-            Vector2 mousePosition = MouseHelper.GetCurrentMousePosition();
-            Vector2 mouseTendency = MouseHelper.GetMouseTendency(scannedInterval);
-
-            // Check if we are already locked and not moving (too much).
-            bool notMoving = mouseTendency.Length() < 1f * scannedInterval;
-            if (_wasLocked && notMoving)
-            { return (true, 1.0); }
-
-            // TODO: Actual behaviour.
-
-            return (true, 1f);
         }
 
         #endregion Locking Logic
