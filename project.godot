@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="esp-25-tooltip-plugin"
-run/main_scene="uid://cfm54tyfi5lqc"
+run/main_scene="uid://bxowldy4nk3ss"
 config/features=PackedStringArray("4.4", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -22,3 +22,7 @@ TooltipServicePrefab="*res://plugin/Prefabs/TooltipService_Prefab.tscn"
 [dotnet]
 
 project/assembly_name="esp-25-tooltip-plugin"
+
+[internationalization]
+
+locale/test="en"

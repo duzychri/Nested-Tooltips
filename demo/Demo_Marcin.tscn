@@ -1,0 +1,37 @@
+[gd_scene load_steps=3 format=3 uid="uid://bxowldy4nk3ss"]
+
+[ext_resource type="Script" uid="uid://bj0eaiwpe6i0l" path="res://demo/DemoSceneManager.cs" id="1_bglyn"]
+[ext_resource type="PackedScene" uid="uid://bjjlowca4mukg" path="res://demo/Demo_Slider.tscn" id="2_7pyyh"]
+
+[node name="Demo Scene" type="Node" node_paths=PackedStringArray("_demoTextLabel")]
+script = ExtResource("1_bglyn")
+_demoTextLabel = NodePath("Control/VBoxContainer/RichTextLabel")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+bbcode_enabled = true
+text = "Hover over the [url=tooltip_small]highlighted[/url] text to open a tooltip. Marcin"
+horizontal_alignment = 1
+
+[node name="DemoSlider" parent="Control/VBoxContainer" instance=ExtResource("2_7pyyh")]
+layout_mode = 2
+_name = "Show Delay"
+_tooltipText = "The amount of time that needs to pass until a tooltip is opened."

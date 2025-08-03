@@ -24,7 +24,20 @@ public partial class TooltipService : GodotSingelton<TooltipService>
 
     #region Configuration API
 
-    private static ITooltipDataProvider _dataProvider = new TooltipDataProvider();
+    private static ITooltipDataProvider _dataProvider = CreateTooltipDataProvider();
+
+    private static ITooltipDataProvider CreateTooltipDataProvider()
+    {
+        var languageFilePaths = new Dictionary<string, string>
+        {
+            {"de", "res://demo/tooltip_demo_de.json"},
+            {"en", "res://demo/tooltip_demo_en.json"}
+        };
+
+        string currentLanguage = TranslationServer.GetLocale();
+
+        return new TooltipDataProvider(languageFilePaths, currentLanguage);
+    }
 
     public static ITooltipDataProvider TooltipDataProvider
     {

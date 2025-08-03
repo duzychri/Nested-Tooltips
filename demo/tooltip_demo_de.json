@@ -1,0 +1,42 @@
+{
+  "tooltip_small": {
+    "Id": "tooltip_small",
+    "Name": "Kleiner Tooltip",
+    "Text": "Dies ist ein kleiner Tooltip."
+  },
+  "tooltip_large": {
+    "Id": "tooltip_large",
+    "Name": "Großer Tooltip",
+    "Text": "Dies ist ein großer Tooltip, dem beim Erstellen eine feste Breite zugewiesen wird, was zu einem Zeilenumbruch führt. Im Gegensatz dazu passt sich der kleine Tooltip nur der Textlänge an und bricht nicht um, es sei denn, man fügt den Umbruch manuell per BBCode hinzu."
+  },
+  "tooltip_disabled_nesting": {
+    "Id": "tooltip_disabled_nesting",
+    "Name": "Deaktivierte Verschachtelung",
+    "Text": "Dies ist ein Tooltip mit deaktivierter Verschachtelung. Die Komponente erhält diese Information und entscheidet selbst, wie sie Links zu anderen Tooltips anzeigt. Er ist nicht interaktiv; Mausereignisse werden ignoriert und durchgelassen."
+  },
+  "tooltip_normal_nesting": {
+    "Id": "tooltip_normal_nesting",
+    "Name": "Standard-Tooltip mit Verschachtelung",
+    "Text": "Dies ist ein normaler verschachtelter Tooltip. Je nach Einstellung kann er angeheftet werden. Aktuell ist die Zeitsperre aktiv, d.h. der Tooltip wird nach {LockTime} Sekunden fixiert. Danach kannst du mit der Maus über Links fahren, so wie über [url=tooltip_nested_example]diesen hier[/url]!"
+  },
+  "tooltip_nested_example": {
+    "Id": "tooltip_nested_example",
+    "Name": "Verschachteltes Beispiel",
+    "Text": "Dies ist der verschachtelte Tooltip, der aus einem anderen geöffnet wurde."
+  },
+  "tooltip_wonky_location": {
+    "Id": "tooltip_wonky_location",
+    "Name": "Seltsame Position",
+    "Text": "Dieses UI-Element erzeugt einen Tooltip an einer merkwürdigen Position. Kannst du ihn überhaupt erreichen, bevor die Sperre abläuft und er wieder verschwindet?"
+  },
+  "tooltip_persistent": {
+    "Id": "tooltip_persistent",
+    "Name": "Dauerhafter Tooltip",
+    "Text": "Dieses UI-Element erzeugt einen Tooltip und entfernt ihn nie. Du kannst aber den Knopf daneben drücken, um alle offenen Tooltips zu schließen. Auch das Ändern einer Einstellung schließt alle Tooltips."
+  },
+  "tooltip_multiple": {
+    "Id": "tooltip_multiple",
+    "Name": "Mehrere Tooltips",
+    "Text": "Dieses UI-Element erzeugt mehrere Tooltips gleichzeitig in allen Ecken des Bildschirms. Du kannst so testen, wie die Anheft-Einstellungen mit mehreren Tooltips interagieren und wie neue Tooltips an ungültigen Positionen (außerhalb des Bildschirms) behandelt werden."
+  }
+}

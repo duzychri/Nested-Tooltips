@@ -1,128 +1,89 @@
-using Godot;
-using System.Collections.Generic;
-using System.Text.Json;
+namespace NestedTooltips;
 
-namespace NestedTooltips
+/// <summary>
+/// Provides the <see cref="TooltipData"/> required for nested tooltips from language-specific files.
+/// </summary>
+public class TooltipDataProvider : ITooltipDataProvider
 {
-    /// <summary>
-    /// Lädt und verwaltet Tooltip-Daten für verschiedene Sprachen.
-    /// Die Daten werden aus .json-Dateien in sprachspezifischen Unterordnern geladen.
-    /// z.B. /data/tooltips/deutsch/ oder /data/tooltips/englisch/
-    /// </summary>
-    public class TooltipDataProvider : ITooltipDataProvider
-    {
-        private readonly Dictionary<string, TooltipData> _tooltipDatabase = new();
-        private const string BaseTooltipFolderPath = "res://data/tooltips/";
-        private string _currentLanguage = "englisch"; // Standard-Fallback-Sprache
+	private readonly Dictionary<string, string> _languageFilePaths;
+	private Dictionary<string, TooltipData> _loadedTooltipData = new();
+	private string _currentLanguage;
 
-        /// <summary>
-        /// Initialisiert den Provider und lädt die aktuelle Sprache des Spiels.
-        /// </summary>
-        public TooltipDataProvider()
-        {
-            // Finde die aktuelle Sprache von Godot (z.B. "de", "en") und lade die passenden Tooltips.
-            // Wir mappen Godots Kürzel auf unsere Ordnernamen.
-            var locale = TranslationServer.GetLocale(); // z.B. "de"
-            
-            // Standard-Mapping, das du erweitern kannst
-            var localeToFolderMap = new Dictionary<string, string>
-            {
-                { "de", "deutsch" },
-                { "en", "englisch" }
-            };
+	/// <summary>
+	/// Initializes a new instance of the TooltipDataProvider.
+	/// </summary>
+	/// <param name="languageFilePaths">A dictionary mapping a language key (e.g., "en") to its file path.</param>
+	/// <param name="initialLanguage">The language to load at the beginning.</param>
+	public TooltipDataProvider(Dictionary<string, string> languageFilePaths, string initialLanguage)
+	{
+		_languageFilePaths = languageFilePaths ?? throw new ArgumentNullException(nameof(languageFilePaths));
+		_currentLanguage = initialLanguage;
+		
+		// Lade die initial eingestellte Sprache
+		LoadLanguage(_currentLanguage);
+	}
 
-            if (localeToFolderMap.TryGetValue(locale, out var languageFolder))
-            {
-                SwitchLanguage(languageFolder);
-            }
-            else
-            {
-                GD.Print($"Kein Tooltip-Verzeichnis für die Sprache '{locale}' gefunden. Lade Fallback-Sprache '{_currentLanguage}'.");
-                SwitchLanguage(_currentLanguage); // Lade die Fallback-Sprache
-            }
-        }
+	/// <summary>
+	/// Gets or sets the current language. Changing the language will reload the tooltip data.
+	/// </summary>
+	public string CurrentLanguage
+	{
+		get => _currentLanguage;
+		set
+		{
+			if (_currentLanguage != value)
+			{
+				LoadLanguage(value);
+				_currentLanguage = value;
+			}
+		}
+	}
 
-        /// <inheritdoc />
-        public TooltipData? GetTooltipData(string id)
-        {
-            if (_tooltipDatabase.TryGetValue(id, out TooltipData? data))
-            {
-                return data;
-            }
-            
-            GD.PrintErr($"Tooltip mit der ID '{id}' wurde in der aktuellen Sprache '{_currentLanguage}' nicht gefunden.");
-            return null;
-        }
+	/// <summary>
+	/// Loads the tooltip data for a specific language from its JSON file.
+	/// </summary>
+	/// <param name="languageKey">The key of the language to load (e.g., "en").</param>
+	private void LoadLanguage(string languageKey)
+	{
+		if (!_languageFilePaths.TryGetValue(languageKey, out string? path))
+		{
+			GD.PrintErr($"Language '{languageKey}' not found in the provided paths.");
+			return;
+		}
 
-        /// <summary>
-        /// Wechselt die aktive Sprache, löscht alte Tooltip-Daten und lädt neue.
-        /// </summary>
-        /// <param name="language">Der Name des Sprachordners (z.B. "deutsch").</param>
-        public void SwitchLanguage(string language)
-        {
-            _currentLanguage = language;
-            _tooltipDatabase.Clear();
-            
-            string languagePath = BaseTooltipFolderPath + language + "/";
-            LoadTooltipsFromPath(languagePath);
-        }
+		try
+		{
+			using var file = Godot.FileAccess.Open(path, Godot.FileAccess.ModeFlags.Read);
+			if (file == null)
+			{
+				GD.PrintErr($"Failed to open file for language '{languageKey}' at path: {path}");
+				_loadedTooltipData = new Dictionary<string, TooltipData>(); // Leeren, um Fehler zu vermeiden
+				return;
+			}
+			
+			string content = file.GetAsText();
+			var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+			var data = JsonSerializer.Deserialize<Dictionary<string, TooltipData>>(content, options);
+			
+			_loadedTooltipData = data ?? new Dictionary<string, TooltipData>();
+			GD.Print($"Successfully loaded language: {languageKey}");
+		}
+		catch (Exception ex)
+		{
+			GD.PrintErr($"Error loading or parsing language file for '{languageKey}': {ex.Message}");
+			_loadedTooltipData = new Dictionary<string, TooltipData>(); // Sicherstellen, dass keine alten Daten verwendet werden
+		}
+	}
 
-        /// <summary>
-        /// Durchsucht ein Verzeichnis, liest alle JSON-Dateien und
-        /// fügt die Daten zur internen Datenbank hinzu.
-        /// </summary>
-        private void LoadTooltipsFromPath(string path)
-        {
-            using var dir = DirAccess.Open(path);
+	/// <inheritdoc />
+	public TooltipData? GetTooltipData(string id)
+	{
+		if (_loadedTooltipData.TryGetValue(id, out TooltipData? data))
+		{
+			return data;
+		}
 
-            if (dir == null)
-            {
-                GD.PrintErr($"Tooltip-Verzeichnis für die Sprache '{_currentLanguage}' nicht gefunden unter: {path}");
-                return;
-            }
-
-            dir.ListDirBegin();
-            string fileName = dir.GetNext();
-            while (!string.IsNullOrEmpty(fileName))
-            {
-                if (fileName.EndsWith(".json"))
-                {
-                    LoadTooltipFile(dir.GetCurrentDir() + "/" + fileName);
-                }
-                fileName = dir.GetNext();
-            }
-            dir.ListDirEnd();
-
-            GD.Print($"TooltipDataProvider: {_tooltipDatabase.Count} Tooltips für die Sprache '{_currentLanguage}' geladen.");
-        }
-        
-        /// <summary>
-        /// Lädt eine einzelne JSON-Datei und verarbeitet ihren Inhalt.
-        /// </summary>
-        private void LoadTooltipFile(string filePath)
-        {
-            using var file = Godot.FileAccess.Open(filePath, Godot.FileAccess.ModeFlags.Read);
-            string content = file.GetAsText();
-
-            try
-            {
-                var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-                var tooltips = JsonSerializer.Deserialize<List<TooltipData>>(content, options);
-
-                if (tooltips == null) return;
-
-                foreach (var tooltip in tooltips)
-                {
-                    if (!_tooltipDatabase.TryAdd(tooltip.Id, tooltip))
-                    {
-                        GD.PrintErr($"Doppelte Tooltip-ID '{tooltip.Id}' in '{filePath}'. Wird ignoriert.");
-                    }
-                }
-            }
-            catch (JsonException ex)
-            {
-                GD.PrintErr($"Fehler beim Parsen von '{filePath}': {ex.Message}");
-            }
-        }
-    }
+		GD.PushWarning($"TooltipData with ID '{id}' not found for the current language ('{_currentLanguage}').");
+		return null;
+	}
 }
