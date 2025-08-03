@@ -1,23 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://bc57pqk53266d"]
+[gd_scene load_steps=2 format=3 uid="uid://bc57pqk53266d"]
 
 [ext_resource type="Script" uid="uid://ciasnxuenkdkx" path="res://plugin/Core/TooltipService.cs" id="1_g57km"]
-[ext_resource type="Script" uid="uid://c10aa4tfovehk" path="res://plugin/Data/LanguageMapping.cs" id="2_yicq7"]
-
-[sub_resource type="Resource" id="Resource_1hk47"]
-script = ExtResource("2_yicq7")
-LanguageCode = "de"
-FilePath = "res://demo/tooltip_demo_de.json"
-metadata/_custom_type_script = "uid://c10aa4tfovehk"
-
-[sub_resource type="Resource" id="Resource_khikm"]
-script = ExtResource("2_yicq7")
-LanguageCode = "en"
-FilePath = "res://demo/tooltip_demo_en.json"
-metadata/_custom_type_script = "uid://c10aa4tfovehk"
 
 [node name="Tooltip Service" type="Node" node_paths=PackedStringArray("_tooltipsParent")]
 script = ExtResource("1_g57km")
-_languageMappings = [SubResource("Resource_1hk47"), SubResource("Resource_khikm")]
 _tooltipsParent = NodePath("CanvasLayer/Parent")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
