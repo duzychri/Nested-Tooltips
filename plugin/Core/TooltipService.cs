@@ -2,13 +2,26 @@ namespace NestedTooltips;
 
 public partial class TooltipService : GodotSingelton<TooltipService>
 {
+    [ExportGroup("Language Configuration")]
+    [Export] private LanguageMapping[] _languageMappings = System.Array.Empty<LanguageMapping>();
+    [Export] private string _fallbackLanguageCode = "de";
+
     private const string defaultTooltipPrefabPath = "res://demo/DemoTooltip.tscn";
 
     [Export] private Control _tooltipsParent = null!;
 
     private static readonly Dictionary<ITooltip, TooltipHandler> _activeTooltips = [];
 
+    private static ITooltipDataProvider _dataProvider = null!;
+
     #region Lifecycle Methods
+
+    public override void _Ready()
+    {
+        base._Ready();
+        _dataProvider = CreateTooltipDataProvider();
+    }
+
 
     public override void _Process(double deltaTime)
     {
@@ -22,22 +35,32 @@ public partial class TooltipService : GodotSingelton<TooltipService>
 
     #endregion Lifecycle Methods
 
+    /// <summary>
+    /// Erstellt und konfiguriert den TooltipDataProvider basierend auf den
+    /// Einstellungen im Godot-Inspektor.
+    /// </summary>
+    /// <returns>Eine konfigurierte Instanz des ITooltipDataProvider.</returns>
+    
+    private ITooltipDataProvider CreateTooltipDataProvider()
+    {
+        var languageFilePaths = new Dictionary<string, string>();
+        foreach (var mapping in _languageMappings)
+        {
+            if (mapping != null && !string.IsNullOrEmpty(mapping.LanguageCode))
+            {
+                languageFilePaths[mapping.LanguageCode] = mapping.FilePath;
+            }
+        }
+
+        return new TooltipDataProvider(languageFilePaths, TranslationServer.GetLocale(), _fallbackLanguageCode);
+    }
+    
+    
+
     #region Configuration API
 
-    private static ITooltipDataProvider _dataProvider = CreateTooltipDataProvider();
 
-    private static ITooltipDataProvider CreateTooltipDataProvider()
-    {
-        var languageFilePaths = new Dictionary<string, string>
-        {
-            {"de", "res://demo/tooltip_demo_de.json"},
-            {"en", "res://demo/tooltip_demo_en.json"}
-        };
 
-        string currentLanguage = TranslationServer.GetLocale();
-
-        return new TooltipDataProvider(languageFilePaths, currentLanguage);
-    }
 
     public static ITooltipDataProvider TooltipDataProvider
     {

@@ -25,4 +25,4 @@ project/assembly_name="esp-25-tooltip-plugin"
 
 [internationalization]
 
-locale/test="en"
+locale/test="de"
