@@ -1,7 +1,3 @@
-using Godot;
-using System;
-using System.Collections.Generic;
-
 namespace NestedTooltips;
 
 public partial class TooltipService : GodotSingelton<TooltipService>
@@ -12,13 +8,10 @@ public partial class TooltipService : GodotSingelton<TooltipService>
 
     private static readonly Dictionary<ITooltip, TooltipHandler> _activeTooltips = [];
 
-    private static ITooltipDataProvider _dataProvider = null!;
-
     #region Lifecycle Methods
 
     public override void _Process(double deltaTime)
     {
-        if (_dataProvider == null) return;
         // Naive implementation with ToArray, to avoid the source collection changing while iterating.
         // If this runs too slow we could use CopyTo with a buffer.
         foreach (TooltipHandler handlers in _activeTooltips.Values.ToArray())
@@ -30,6 +23,8 @@ public partial class TooltipService : GodotSingelton<TooltipService>
     #endregion Lifecycle Methods
 
     #region Configuration API
+
+    private static ITooltipDataProvider _dataProvider = BasicTooltipDataProvider.Empty;
 
     public static ITooltipDataProvider TooltipDataProvider
     {
