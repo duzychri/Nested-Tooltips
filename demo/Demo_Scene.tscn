@@ -54,7 +54,7 @@ horizontal_alignment = 1
 script = ExtResource("2_we61h")
 
 [node name="Header Language Settings2" type="Label" parent="Control/VBoxContainer"]
-custom_minimum_size = Vector2(375, 0)
+custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 mouse_filter = 1
@@ -78,11 +78,11 @@ script = ExtResource("6_h36fx")
 _tooltipText = "The amount of time that needs to pass until a tooltip is opened."
 
 [node name="OptionButton" type="OptionButton" parent="Control/VBoxContainer/Language"]
-custom_minimum_size = Vector2(265, 0)
+custom_minimum_size = Vector2(290, 0)
 layout_mode = 2
 
 [node name="Header Tooltip Settings" type="Label" parent="Control/VBoxContainer"]
-custom_minimum_size = Vector2(375, 0)
+custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 mouse_filter = 1
@@ -107,7 +107,7 @@ script = ExtResource("6_h36fx")
 _tooltipText = "The amount of time that needs to pass until a tooltip is opened."
 
 [node name="OptionButton" type="OptionButton" parent="Control/VBoxContainer/Lock Mode"]
-custom_minimum_size = Vector2(265, 0)
+custom_minimum_size = Vector2(290, 0)
 layout_mode = 2
 
 [node name="Show Delay" type="HBoxContainer" parent="Control/VBoxContainer"]

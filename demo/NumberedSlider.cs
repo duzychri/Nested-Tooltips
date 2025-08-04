@@ -35,6 +35,6 @@ public partial class NumberedSlider : HBoxContainer
 
     private void OnSliderValueChanged(double value)
     {
-        _labelAmount.Text = $"{value:0.00}";
+        _labelAmount.Text = $"{value:0.00} sec";
     }
 }
