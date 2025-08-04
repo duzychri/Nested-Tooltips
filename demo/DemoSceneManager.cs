@@ -18,7 +18,7 @@ public partial class DemoSceneManager : Node
         }
         var sceneSpecificProvider = new BasicTooltipDataProvider(
             languagePaths,
-            TranslationServer.GetLocale(),
+            "en",
             _fallbackLanguageCode
         );
         TooltipService.TooltipDataProvider = sceneSpecificProvider;

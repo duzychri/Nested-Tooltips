@@ -100,6 +100,8 @@ public partial class TooltipService
                         _control.LockProgress = isLocked ? 1.0 : 0.0;
                     }
                     break;
+                default:
+                    throw new InvalidOperationException($"Unknown lock mode: {Settings.LockMode}");
             }
 
             // Handle the release logic.
@@ -222,11 +224,29 @@ public partial class TooltipService
 
         private void DestroyInternal()
         {
+            // Do nothing if we already queued free.
             if (_isFreed)
             { return; }
 
+            // Destroy the Godot node.
             _isFreed = true;
             _control.QueueFree();
+
+            // Destroy any children.
+            if (_child != null)
+            {
+                _child.ForceDestroy();
+                _child = null;
+            }
+
+            // Tell the parent that we don't exist anymore.
+            if (_parent != null)
+            {
+                _parent._child = null;
+            }
+
+            // Make sure the service knows that this tooltip is gone.
+            DestroyTooltip(this);
         }
 
         #endregion Utility Methods

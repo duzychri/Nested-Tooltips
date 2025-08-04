@@ -1,8 +1,13 @@
 {
+  "tooltip_explanation_1": {
+    "Id": "tooltip_explanation_1",
+    "Name": "tooltip",
+    "Text": "[p]A [url=tooltip_explanation_1]tooltip[/url] is a small popup that appears when you hover over an UI element.[/p][p]It can contain text, links, and other UI elements. Tooltips can be nested, persistent, and have various settings for pinning and locking.[/p]"
+  },
   "tooltip_small": {
     "Id": "tooltip_small",
     "Name": "Small Tooltip",
-    "Text": "This is a small tooltip."
+    "Text": "This is a small [url=tooltip_explanation_1]tooltip[/url]."
   },
   "tooltip_large": {
     "Id": "tooltip_large",

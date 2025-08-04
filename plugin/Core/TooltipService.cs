@@ -6,6 +6,7 @@ public partial class TooltipService : GodotSingelton<TooltipService>
 
     private const string defaultTooltipPrefabPath = "res://demo/DemoTooltip.tscn";
 
+    private static readonly HashSet<ITooltip> _destroyedTooltips = [];
     private static readonly Dictionary<ITooltip, TooltipHandler> _activeTooltips = [];
 
     #region Lifecycle Methods
@@ -18,6 +19,15 @@ public partial class TooltipService : GodotSingelton<TooltipService>
         {
             handlers.Process(deltaTime);
         }
+
+        // Destroy all tooltips that were queued for destruction.
+        // We do this so we don't brick the IEnumerable returned by the ActiveTooltips property (assuming the developer hasn't copied the collection).
+        foreach (ITooltip tooltip in _destroyedTooltips.ToArray())
+        {
+            if (_activeTooltips.TryGetValue(tooltip, out TooltipHandler? handler))
+            { _activeTooltips.Remove(tooltip); }
+        }
+        _destroyedTooltips.Clear();
     }
 
     #endregion Lifecycle Methods
@@ -101,7 +111,7 @@ public partial class TooltipService : GodotSingelton<TooltipService>
     /// <summary>
     /// All currently active tooltips, including all nested ones.
     /// </summary>
-    public static IEnumerable<ITooltip> ActiveTooltips => _activeTooltips.Keys;
+    public static IEnumerable<ITooltip> ActiveTooltips => _activeTooltips.Keys.Where(t => _destroyedTooltips.Contains(t) == false);
 
     /// <summary>
     /// Creates a new tooltip at the given position with the given pivot and text.
@@ -181,7 +191,7 @@ public partial class TooltipService : GodotSingelton<TooltipService>
         ArgumentNullException.ThrowIfNull(tooltip);
 
         // Check if the tooltip exists.
-        if (_activeTooltips.TryGetValue(tooltip, out var handler) == false)
+        if (_activeTooltips.TryGetValue(tooltip, out TooltipHandler? handler) == false)
         {
             throw new ArgumentException($"Tooltip {tooltip} couldn't be found.", nameof(tooltip));
         }
@@ -263,6 +273,12 @@ public partial class TooltipService : GodotSingelton<TooltipService>
         _activeTooltips.Add(tooltip, tooltipHandler);
 
         return (tooltipHandler, tooltip);
+    }
+
+    private static void DestroyTooltip(TooltipHandler handler)
+    {
+        // Remove the tooltip from the active tooltips.
+        _destroyedTooltips.Add(handler.Tooltip);
     }
 
     #endregion Utility Methods
