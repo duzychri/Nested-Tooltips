@@ -126,7 +126,6 @@ _tooltipText = "The amount of time that needs to pass until a tooltip is opened.
 
 [node name="Slider" parent="Control/VBoxContainer/Show Delay" instance=ExtResource("5_t18ui")]
 layout_mode = 2
-_minValue = 0.05
 _maxValue = 20.0
 _step = 0.05
 

@@ -33,6 +33,7 @@ public partial class TooltipService
 
             Tooltip = new();
 
+            _control.Visible = false;
             _control.OnLinkHoveredStart += OnLinkHoveredStart;
             _control.OnLinkHoveredEnd += OnLinkHoveredEnd;
             _control.OnLinkClicked += OnLinkClicked;
@@ -70,6 +71,9 @@ public partial class TooltipService
 
             // Update how long the tooltip has been alive.
             _aliveTime += deltaTime;
+
+            // Based on the show delay setting we delay the tooltip's visibility.
+            _control.Visible = _aliveTime >= Settings.ShowDelay;
 
             // Update how long the cursor has been away from the tooltip.
             if (_control.IsCursorOverTooltip() || _child != null)

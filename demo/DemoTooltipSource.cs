@@ -36,6 +36,7 @@ public partial class DemoTooltipSource : Control
         var labelPosition = GetScreenPosition();
         Vector2 tooltipPosition = labelPosition + new Vector2(0, -60);
         _tooltipComponent = TooltipService.ShowTooltip(tooltipPosition, (0, 0), _tooltipText);
+        TooltipService.ActionLockTooltip(_tooltipComponent);
     }
 
     private void OnMouseExited()
