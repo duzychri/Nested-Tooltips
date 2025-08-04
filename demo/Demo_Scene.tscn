@@ -49,7 +49,7 @@ alignment = 1
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 bbcode_enabled = true
-text = "Hover over the [url=tooltip_small]highlighted[/url] text to open a tooltip."
+text = "Hover over the [url=highlighted_text_explanation]highlighted[/url] text to open a [url=tooltip_explanation]tooltip[/url]."
 horizontal_alignment = 1
 script = ExtResource("2_we61h")
 

@@ -1,13 +1,23 @@
 {
-  "tooltip_explanation_1": {
-    "Id": "tooltip_explanation_1",
+  "highlighted_text_explanation": {
+    "Id": "highlighted_text_explanation",
+    "Name": "highlighted text",
+    "Text": "Highlighted text inside tooltips can be hovered over to open a nested [url=tooltip_explanation]tooltip[/url]."
+  },
+  "tooltip_explanation": {
+    "Id": "tooltip_explanation",
     "Name": "tooltip",
-    "Text": "[p]A [url=tooltip_explanation_1]tooltip[/url] is a small popup that appears when you hover over an UI element.[/p][p]It can contain text, links, and other UI elements. Tooltips can be nested, persistent, and have various settings for pinning and locking.[/p]"
+    "Text": "[p]A tooltip is a small popup that appears when you hover over an UI element.[/p][p]Tooltips can be nested, persistent, and have various [url=tooltip_settings]settings[/url] for pinning and locking.[/p]"
+  },
+  "tooltip_settings": {
+    "Id": "tooltip_settings",
+    "Name": "tooltip settings",
+    "Text": "You can adjust the settings that determine the behavior of created [url=tooltip_explanation]tooltips[/url] in the settings below the [b]Tooltip Settings[/b] label."
   },
   "tooltip_small": {
     "Id": "tooltip_small",
     "Name": "Small Tooltip",
-    "Text": "This is a small [url=tooltip_explanation_1]tooltip[/url]."
+    "Text": "This is a small [url=tooltip_explanation]tooltip[/url]."
   },
   "tooltip_large": {
     "Id": "tooltip_large",
