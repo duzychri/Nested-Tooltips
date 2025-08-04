@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://cwoc7i6s06l2"]
+
+[ext_resource type="Script" uid="uid://8rx62ck084ux" path="res://demo/NumberedSlider.cs" id="1_4pakw"]
+
+[node name="Numbered Slider" type="HBoxContainer" node_paths=PackedStringArray("_slider", "_labelAmount")]
+theme_override_constants/separation = 10
+alignment = 1
+script = ExtResource("1_4pakw")
+_slider = NodePath("HSlider")
+_labelAmount = NodePath("Label_SliderAmount")
+
+[node name="HSlider" type="HSlider" parent="."]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="Label_SliderAmount" type="Label" parent="."]
+custom_minimum_size = Vector2(55, 0)
+layout_mode = 2
+text = "100.00"
+vertical_alignment = 1

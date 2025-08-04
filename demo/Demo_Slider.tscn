@@ -6,7 +6,6 @@
 theme_override_constants/separation = 10
 alignment = 1
 script = ExtResource("1_xp0yp")
-_name = "ShowDelay"
 _labelName = NodePath("Label_Name")
 _labelAmount = NodePath("Label_SliderAmount")
 _slider = NodePath("HSlider")

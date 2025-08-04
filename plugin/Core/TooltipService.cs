@@ -99,8 +99,8 @@ public partial class TooltipService : GodotSingelton<TooltipService>
         }
         set
         {
-            GD.Print($"TODO: TooltipService: Settings setter called with {value}");
             _settings = value;
+            ClearAllTooltips();
         }
     }
 
@@ -279,6 +279,15 @@ public partial class TooltipService : GodotSingelton<TooltipService>
     {
         // Remove the tooltip from the active tooltips.
         _destroyedTooltips.Add(handler.Tooltip);
+    }
+
+    private static void ClearAllTooltips()
+    {
+        // Clear all active tooltips.
+        foreach (TooltipHandler handler in _activeTooltips.Values.ToArray())
+        {
+            handler.ForceDestroy();
+        }
     }
 
     #endregion Utility Methods
