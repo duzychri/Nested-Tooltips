@@ -27,17 +27,42 @@
 
 ## Usage
 
-The idea of this plugin is to provide a clean and conscise way to create tooltips in Godot. The main class to interact with is the `ToolTipService`.
+The idea of this plugin is to provide a clean and conscise way to create tooltips (with nesting functionality) in Godot.
 
-Its main interaction point is the `ShowTooltip` method, which can be used to display a tooltip at a given position with a given text. The `position` parameter deterines at which position on the screen the tooltip should be displayed. The `pivot` determines the direction that the tooltip is drawn from.  For example, if the pivot is set to `(0.0, 1.0)` (or the top left), then the tooltips top left corner will be at the supplied position. Assuming that the position is the cursors position, then the tooltip will be to the right and below the cursor. The `text` and `tooltipId` parameters are used to determine the content of the tooltip which can be bbcode formatted.
+### Creating a tooltip
 
-The `Settings` property of the `ToolTipService` can be used to configure the behaviour that is used in determining how and when the tooltip will be locked.
+To create a simple tooltip you can use the `ShowTooltip` method in the `TooltipService` class; Use the `text` parameter to set a bbcode marked up text for the created tooltip and use the `position` and `pivot` parameter to set the location that the tooltip should be placed at.
 
-The tooltip itself also  provides two important methods `ForceDestroy` and `SetReleasable`:
+``` C#
 
-- `ForceDestroy` will destroy the tooltip immediately, regardless of whether it is currently locked or not. It will also clean up all child tooltips.
-- `SetReleasable` acxcepts a boolean value that determines whether the tooltip is allowed to destroy itself if it determines that it is no longer needed (like when the curser is no longer hovering over it or over a child tooltip).
+ITooltip tooltip = TooltipService.ShowTooltip(tooltipPosition, TooltipPivot.BottomLeft, tooltipText);
+
+```
+
+For more information about the exact parameters check out [[...create extra file here]].
+
+### Destroying a tooltip
+
+If you want a tooltip to close again there are multiple options:
+
+- If the tooltip is a nested tooltip then it will close automatically should the conditions for it to stay open no longer apply.
+- If you have created a tooltip (for example by using the `ShowTooltip` method) then the `SetReleasable` method will tell the tooltip to close itself as soon as it can. This allows for pinning and nesting to happen, as a pinned tooltip will stay open (as long as the conditions for the pin remain) even when `SetReleasable` is called.
+- `ForceDestroy` will immediatly destroy the tooltip. Even if it is pinned and should stay otherwise open.
+- `ClearTooltips` will destroy all tooltips.
+
+``` C#
+    if (tooltip != null)
+    {
+        TooltipService.ReleaseTooltip(tooltip);
+        tooltip = null;
+    }
+```
+
+### Pinning & Nesting
+
+Tooltips can be *pinned*; doing so stops the tooltip from disappearing when the `ReleaseTooltip` method is called. The primary use if this is to enable nesting behaviours. If the `TimerLock` lock mode is set, then the pin will happen after the specified `LockDelay` in the settings. If the `ActionLock` lock mode is set, then a mouse click on the link inside a tooltip will pin the child tooltip opened from hovering over the link. If you have opened the tooltip yourself (e.g. by using the `ShowTooltip` method) then you have to supply the information that the tooltip should be pinned. Do so by using the `ActionLockTooltip` method in the `TooltipService`.
+
 
 ## Configuration
 
-The tooltip system can be configured by the developer in different ways. You can change the behaviour of how the user can interact with the tooltips using the `Settings` property in the `TooltipService` and you can adjust the style or visuals of the tooltip by creating you own 'prefab' and providing the service a path to it using the `TooltipPrefabPath` property.
+The tooltip system can be configured in different ways. You can change the behaviour of how the user can interact with the tooltips using the `Settings` property in the `TooltipService` and you can adjust the style or visuals of the tooltip by creating you own 'prefab' and providing the service a path to it using the `TooltipPrefabPath` property.
