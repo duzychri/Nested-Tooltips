@@ -217,6 +217,14 @@ public partial class TooltipService : GodotSingelton<TooltipService>
         handler.Release();
     }
 
+    /// <summary>
+    /// Forcefully destroys all exiting tooltips.
+    /// </summary>
+    public static void ClearTooltips()
+    {
+        ClearAllTooltips();
+    }
+
     #endregion API
 
     #region Utility Methods
