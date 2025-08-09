@@ -1,13 +1,23 @@
 {
+  "pinning_explanation": {
+    "Id": "pinning_explanation",
+    "Name": "pinning",
+    "Text": "Open [url=tooltip_explanation]tooltips[/url] can be [b]pinned[/b]. This keeps the [url=tooltip_explanation]tooltip[/url] open even if the condition to open it is no longer true, for example if the user stops hovering over the UI element that opened a [url=tooltip_explanation]tooltip[/url]. This enables the user to open more tooltips, leading to nesting. The exact method to pin a [url=tooltip_explanation]tooltip[/url] can be configured using the [url=tooltip_settings]settings[/url]."
+  },
+  "nesting_explanation": {
+    "Id": "nesting_explanation",
+    "Name": "nesting",
+    "Text": "A nested tooltip is one that has been opened from within another tooltip. The nested tooltip is then the child of the source or parent tooltip.",
+  }
   "highlighted_text_explanation": {
     "Id": "highlighted_text_explanation",
     "Name": "highlighted text",
-    "Text": "Highlighted text inside tooltips can be hovered over to open a nested [url=tooltip_explanation]tooltip[/url]."
+    "Text": "Highlighted text inside [url=tooltip_explanation]tooltips[/url] can be hovered over to open a nested [url=tooltip_explanation]tooltip[/url]."
   },
   "tooltip_explanation": {
     "Id": "tooltip_explanation",
     "Name": "tooltip",
-    "Text": "[p]A tooltip is a small popup that appears when you hover over an UI element.[/p][p]Tooltips can be nested, persistent, and have various [url=tooltip_settings]settings[/url] for pinning and locking.[/p]"
+    "Text": "[p]A tooltip is a small popup that appears when you hover over an UI element.[/p][p]Tooltips can be nested, persistent, and have various [url=tooltip_settings]settings[/url] for [url=pinning_explanation]pinning[/url].[/p]"
   },
   "tooltip_settings": {
     "Id": "tooltip_settings",
@@ -19,10 +29,15 @@
     "Name": "Small Tooltip",
     "Text": "This is a small [url=tooltip_explanation]tooltip[/url]."
   },
+  "bbcode": {
+    "Id": "bbcode",
+    "Name": "bbcode",
+    "Text": "BBcode is a type of markup that can be used in Godot [i]RichTextLabels[/i] to style the text."
+  }
   "tooltip_large": {
     "Id": "tooltip_large",
     "Name": "Large Tooltip",
-    "Text": "This is a large tooltip that gets a width provided when it is created leading to it line breaking to fit the specified width. This is unlike the small tooltip that only matches the length of the string but will not tline break unless those are manually added to the bbcode text as markup."
+    "Text": "This is a large tooltip that gets a width provided when it is created leading to it line breaking to fit the specified width. This is unlike the small tooltip that only matches the length of the string but will not line-break unless those are manually added to the bbcode text as markup."
   },
   "tooltip_disabled_nesting": {
     "Id": "tooltip_disabled_nesting",
