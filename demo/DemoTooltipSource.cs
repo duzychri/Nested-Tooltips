@@ -16,7 +16,7 @@ public partial class DemoTooltipSource : Control
         MouseExited += OnMouseExited;
     }
 
-    private ITooltip? _tooltipComponent;
+    private ITooltip? _tooltip;
 
     private void OnMouseEntered()
     {
@@ -26,25 +26,25 @@ public partial class DemoTooltipSource : Control
             return;
         }
 
-        if (_tooltipComponent != null)
+        if (_tooltip != null)
         {
-            TooltipService.ReleaseTooltip(_tooltipComponent);
-            _tooltipComponent = null;
+            TooltipService.ReleaseTooltip(_tooltip);
+            _tooltip = null;
         }
 
         // Get the absolute position of the label in the viewport.
         var labelPosition = GetScreenPosition();
         Vector2 tooltipPosition = labelPosition + new Vector2(0, -60);
-        _tooltipComponent = TooltipService.ShowTooltip(tooltipPosition, (0, 0), _tooltipText);
-        TooltipService.ActionLockTooltip(_tooltipComponent);
+        _tooltip = TooltipService.ShowTooltip(tooltipPosition, TooltipPivot.BottomLeft, _tooltipText);
+        TooltipService.ActionLockTooltip(_tooltip);
     }
 
     private void OnMouseExited()
     {
-        if (_tooltipComponent != null)
+        if (_tooltip != null)
         {
-            TooltipService.ReleaseTooltip(_tooltipComponent);
-            _tooltipComponent = null;
+            TooltipService.ReleaseTooltip(_tooltip);
+            _tooltip = null;
         }
     }
 }
