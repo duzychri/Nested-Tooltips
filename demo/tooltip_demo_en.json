@@ -7,8 +7,8 @@
   "nesting_explanation": {
     "Id": "nesting_explanation",
     "Name": "nesting",
-    "Text": "A nested tooltip is one that has been opened from within another tooltip. The nested tooltip is then the child of the source or parent tooltip.",
-  }
+    "Text": "A nested tooltip is one that has been opened from within another tooltip. The nested tooltip is then the child of the source or parent tooltip."
+  },
   "highlighted_text_explanation": {
     "Id": "highlighted_text_explanation",
     "Name": "highlighted text",
@@ -33,7 +33,7 @@
     "Id": "bbcode",
     "Name": "bbcode",
     "Text": "BBcode is a type of markup that can be used in Godot [i]RichTextLabels[/i] to style the text."
-  }
+  },
   "tooltip_large": {
     "Id": "tooltip_large",
     "Name": "Large Tooltip",
