@@ -5,8 +5,7 @@ namespace NestedTooltips;
 /// </summary>
 public partial class TooltipControl : Control, ITooltipControl
 {
-    [Export] private Label _lockingLabel = null!;
-    [Export] private Label _unlockingLabel = null!;
+    [Export] private Label _debugLabel = null!;
     [Export] private Control _fullContainer = null!;
     [Export] private RichTextLabel _textLabel = null!;
 
@@ -52,11 +51,9 @@ public partial class TooltipControl : Control, ITooltipControl
         {
             value = Math.Clamp(value, 0.0, 1.0);
             _lockProgress = value;
-            _lockingLabel.Visible = value > 0.0;
-            _lockingLabel.Text = value < 1 ? $"Locking: {value * 100:000}%" : "Locked";
+            UpdateDebugLabel();
         }
     }
-
 
     /// <inheritdoc/>
     public double UnlockProgress
@@ -69,8 +66,7 @@ public partial class TooltipControl : Control, ITooltipControl
         {
             value = Math.Clamp(value, 0.0, 1.0);
             _unlockProgress = value;
-            _unlockingLabel.Visible = value > 0.0;
-            _unlockingLabel.Text = value < 1 ? $"\nUnlocking: {value * 100:000}%" : "\nUnlocked";
+            UpdateDebugLabel();
         }
     }
 
@@ -104,8 +100,7 @@ public partial class TooltipControl : Control, ITooltipControl
 
     public override void _Ready()
     {
-        _lockingLabel.Visible = false;
-        _unlockingLabel.Visible = false;
+        _debugLabel.Visible = false;
 
         _textLabel.MetaHoverStarted += OnMetaHoveredStart;
         _textLabel.MetaHoverEnded += OnMetaHoveredEnd;
@@ -121,6 +116,14 @@ public partial class TooltipControl : Control, ITooltipControl
         // Check if the mouse is currently over the tooltip control.
         Vector2 mousePosition = GetViewport().GetMousePosition();
         return GetGlobalRect().HasPoint(mousePosition);
+    }
+
+    private void UpdateDebugLabel()
+    {
+        bool isVisible = LockProgress > 0.0 || UnlockProgress > 0.0;
+        string text = $"Lock: {LockProgress * 100:000}%\nUnlock: {UnlockProgress * 100:000}%";
+        _debugLabel.Visible = isVisible;
+        _debugLabel.Text = text;
     }
 
     #endregion Other Methods
