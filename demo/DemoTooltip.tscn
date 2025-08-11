@@ -1,9 +1,17 @@
-[gd_scene load_steps=4 format=3 uid="uid://crga22ci3cxxb"]
+[gd_scene load_steps=6 format=3 uid="uid://crga22ci3cxxb"]
 
 [ext_resource type="Script" uid="uid://ypfux3ljeu53" path="res://plugin/Core/TooltipControl.cs" id="1_2idno"]
 [ext_resource type="Texture2D" uid="uid://cxs3oqrx6u0mh" path="res://demo/sprites/DemoTooltip_Sprites.png" id="1_5aqtd"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uai6w"]
+
+[sub_resource type="Gradient" id="Gradient_2idno"]
+offsets = PackedFloat32Array(0, 0.980519)
+colors = PackedColorArray(0, 0, 0, 0.501961, 0, 0, 0, 0.501961)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_5p0i2"]
+gradient = SubResource("Gradient_2idno")
+width = 1
 
 [node name="DemoTooltip" type="PanelContainer" node_paths=PackedStringArray("_debugLabel", "_fullContainer", "_textLabel")]
 custom_minimum_size = Vector2(30, 30)
@@ -19,6 +27,7 @@ _textLabel = NodePath("MarginContainer/RichTextLabel")
 layout_mode = 2
 
 [node name="NinePatchRect" type="NinePatchRect" parent="Background"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -30,6 +39,16 @@ patch_margin_left = 12
 patch_margin_top = 12
 patch_margin_right = 12
 patch_margin_bottom = 12
+
+[node name="TextureRect" type="TextureRect" parent="Background"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture1D_5p0i2")
+expand_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2

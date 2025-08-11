@@ -121,7 +121,7 @@ public partial class TooltipControl : Control, ITooltipControl
     private void UpdateDebugLabel()
     {
         bool isVisible = LockProgress > 0.0 || UnlockProgress > 0.0;
-        string text = $"Lock: {LockProgress * 100:000}%\nUnlock: {UnlockProgress * 100:000}%";
+        string text = $"Lock: {LockProgress * 100:000}% Unlock: {UnlockProgress * 100:000}%";
         _debugLabel.Visible = isVisible;
         _debugLabel.Text = text;
     }
