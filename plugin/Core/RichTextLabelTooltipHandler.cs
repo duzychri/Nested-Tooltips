@@ -1,46 +1,47 @@
 namespace NestedTooltips.Components
 {
-	public partial class RichTextLabelTooltipHandler : RichTextLabel
-	{
-		private RichTextLabel _richTextLabel = null!;
-		private ITooltip? _activeTooltip;
+    public partial class RichTextLabelTooltipHandler : RichTextLabel
+    {
+        private RichTextLabel _richTextLabel = null!;
+        private ITooltip? _activeTooltip;
 
-		public override void _Ready()
-		{
-			this.MetaHoverStarted += OnMetaHoverStarted;
-			this.MetaHoverEnded += OnMetaHoverEnded;
-			this.MetaClicked += OnMetaClicked;
-		}
+        public override void _Ready()
+        {
+            this.MetaHoverStarted += OnMetaHoverStarted;
+            this.MetaHoverEnded += OnMetaHoverEnded;
+            this.MetaClicked += OnMetaClicked;
+        }
 
-		private void OnMetaHoverStarted(Variant meta)
-		{
-			string tooltipId = meta.AsString();
-			if (string.IsNullOrEmpty(tooltipId)) return;
+        private void OnMetaHoverStarted(Variant meta)
+        {
+            string tooltipId = meta.AsString();
+            if (string.IsNullOrEmpty(tooltipId)) return;
 
-			if (_activeTooltip != null)
-			{
-				TooltipService.ReleaseTooltip(_activeTooltip);
-			}
+            if (_activeTooltip != null)
+            {
+                TooltipService.ReleaseTooltip(_activeTooltip);
+            }
 
-			var mousePosition = GetViewport().GetMousePosition();
-			_activeTooltip = TooltipService.ShowTooltipById(mousePosition, TooltipPivot.TopLeft, tooltipId);
-		}
+            // Adjust position to avoid overlap with the cursor.
+            Vector2 mousePosition = GetViewport().GetMousePosition() + new Vector2(10, -10);
+            _activeTooltip = TooltipService.ShowTooltipById(mousePosition, TooltipPivot.BottomLeft, tooltipId);
+        }
 
-		private void OnMetaHoverEnded(Variant meta)
-		{
-			if (_activeTooltip != null)
-			{
-				TooltipService.ReleaseTooltip(_activeTooltip);
-				_activeTooltip = null;
-			}
-		}
+        private void OnMetaHoverEnded(Variant meta)
+        {
+            if (_activeTooltip != null)
+            {
+                TooltipService.ReleaseTooltip(_activeTooltip);
+                _activeTooltip = null;
+            }
+        }
 
-		private void OnMetaClicked(Variant meta)
-		{
-			if (_activeTooltip != null)
-			{
-				TooltipService.ActionLockTooltip(_activeTooltip);
-			}
-		}
-	}
+        private void OnMetaClicked(Variant meta)
+        {
+            if (_activeTooltip != null)
+            {
+                TooltipService.ActionLockTooltip(_activeTooltip);
+            }
+        }
+    }
 }

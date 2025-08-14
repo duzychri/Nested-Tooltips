@@ -7,6 +7,8 @@ public partial class TooltipService
         private TooltipHandler? _child;
         private readonly TooltipHandler? _parent;
         private readonly ITooltipControl _control;
+        private readonly Vector2 _desiredPosition;
+        private readonly TooltipPivot _desiredPivot;
 
         /// <summary>The amount of time that the tooltip has been open.</summary>
         private double _aliveTime = 0.0;
@@ -20,16 +22,23 @@ public partial class TooltipService
         private bool _isFreed = false;
         /// <summary>Indicates that the tooltip was locked by a user interaction.</summary>
         private bool _isActionLocked = false;
+        /// <summary>The last size before it was changed.</summary>
+        private Vector2 _lastSize = Vector2.Zero;
 
         public Tooltip Tooltip { get; private set; }
         public string Text { get => _control.Text; set => _control.Text = value; }
         public Vector2 Size { get => _control.Size; set => _control.Size = value; }
-        public Vector2 Position { get => _control.Position; set => _control.Position = value; }
 
-        public TooltipHandler(ITooltipControl control, TooltipHandler? parent)
+        public TooltipHandler(ITooltipControl control, TooltipHandler? parent, Vector2 desiredPosition, TooltipPivot desiredPivot)
         {
             _control = control;
             _parent = parent;
+
+            // Set the size and the desired location.
+            _desiredPosition = desiredPosition;
+            _desiredPivot = desiredPivot;
+            _lastSize = _control.Size;
+            UpdatePosition();
 
             Tooltip = new();
 
@@ -127,6 +136,15 @@ public partial class TooltipService
                     DestroyInternal();
                 }
             }
+
+            // The size of the tooltip gets calulated after rending we can't immediately set the position.
+            // Because of this we set it in the process method. That way it should update when the size is recalculated.
+            // This could be changed to only be called once, but for simplicity and because of time constraints we'll do it in this way for now.
+            if (_control.Size != _lastSize)
+            {
+                _lastSize = _control.Size;
+                UpdatePosition();
+            }
         }
 
         #endregion Lifecycle Methods
@@ -175,15 +193,10 @@ public partial class TooltipService
             }
 
             // Create the tooltip and set its text.
-            (TooltipHandler childHandler, Tooltip _) = CreateTooltip(this);
+            TooltipPivot pivot = TooltipPivot.BottomCenter; // Default pivot for nested tooltips.
+            (TooltipHandler childHandler, Tooltip _) = CreateTooltip(mousePosition, pivot, this);
             childHandler.Text = tooltipData.Text;
             _child = childHandler;
-
-            // Calculate the position of the tooltip.
-            TooltipPivot pivot = TooltipPivot.BottomCenter; // Default pivot for nested tooltips.
-            Vector2 placementPosition = CalculateNewTooltipLocation(mousePosition, pivot, childHandler.Size);
-            placementPosition = CalculatePositionFromPivot(placementPosition, pivot, childHandler.Size);
-            childHandler.Position = placementPosition;
         }
 
         private void OnLinkHoveredEnd(Vector2 mousePosition, string tooltipTextId)
@@ -225,6 +238,14 @@ public partial class TooltipService
         #endregion Nesting Logic
 
         #region Utility Methods
+
+        private void UpdatePosition()
+        {
+            // Calculate the position of the tooltip.
+            Vector2 placementPosition = CalculateNewTooltipLocation(_desiredPosition, _desiredPivot, _control.Size);
+            placementPosition = CalculatePositionFromPivot(placementPosition, _desiredPivot, _control.Size);
+            _control.Position = placementPosition;
+        }
 
         private void DestroyInternal()
         {

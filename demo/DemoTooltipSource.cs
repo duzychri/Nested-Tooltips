@@ -33,8 +33,8 @@ public partial class DemoTooltipSource : Control
         }
 
         // Get the absolute position of the label in the viewport.
-        var labelPosition = GetScreenPosition();
-        Vector2 tooltipPosition = labelPosition + new Vector2(0, -60);
+        Vector2 labelPosition = GetScreenPosition();
+        Vector2 tooltipPosition = labelPosition;
         _tooltip = TooltipService.ShowTooltip(tooltipPosition, TooltipPivot.BottomLeft, _tooltipText);
         TooltipService.ActionLockTooltip(_tooltip);
     }

@@ -117,6 +117,7 @@ public partial class TooltipControl : Control, ITooltipControl
 
     #region Other Methods
 
+    /// <inheritdoc/>
     public bool IsCursorOverTooltip()
     {
         // Check if the mouse is currently over the tooltip control.

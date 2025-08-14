@@ -135,13 +135,8 @@ public partial class TooltipService : GodotSingelton<TooltipService>
         ArgumentNullException.ThrowIfNull(text);
 
         // Create the tooltip and set its text.
-        (TooltipHandler handler, Tooltip tooltip) = CreateTooltip();
+        (TooltipHandler handler, Tooltip tooltip) = CreateTooltip(position, pivot);
         handler.Text = text;
-
-        // Calculate the position of the tooltip based on the pivot and the size of the tooltip.
-        Vector2 placementPosition = CalculateNewTooltipLocation(position, pivot, handler.Size);
-        placementPosition = CalculatePositionFromPivot(placementPosition, pivot, handler.Size);
-        handler.Position = placementPosition;
 
         return tooltip;
     }
@@ -162,13 +157,8 @@ public partial class TooltipService : GodotSingelton<TooltipService>
         { throw new ArgumentException($"No tooltip data found for id: {tooltipId}", nameof(tooltipId)); }
 
         // Create the tooltip and set its text.
-        (TooltipHandler handler, Tooltip tooltip) = CreateTooltip();
+        (TooltipHandler handler, Tooltip tooltip) = CreateTooltip(position, pivot);
         handler.Text = tooltipData.Text;
-
-        // Calculate the position of the tooltip based on the pivot and the size of the tooltip.
-        Vector2 placementPosition = CalculateNewTooltipLocation(position, pivot, handler.Size);
-        placementPosition = CalculatePositionFromPivot(placementPosition, pivot, handler.Size);
-        handler.Position = placementPosition;
 
         return tooltip;
     }
@@ -273,7 +263,7 @@ public partial class TooltipService : GodotSingelton<TooltipService>
         return (cursorPosition, TooltipPivot.BottomLeft);
     }
 
-    private static (TooltipHandler handler, Tooltip tooltip) CreateTooltip(TooltipHandler? parentHandler = null)
+    private static (TooltipHandler handler, Tooltip tooltip) CreateTooltip(Vector2 position, TooltipPivot pivot, TooltipHandler? parentHandler = null)
     {
         string tooltipPrefabPath = TooltipPrefabPath ?? defaultTooltipPrefabPath;
         PackedScene tooltipScene = ResourceLoader.Load<PackedScene>(tooltipPrefabPath);
@@ -288,7 +278,7 @@ public partial class TooltipService : GodotSingelton<TooltipService>
         if (tooltipControl == null)
         { throw new InvalidOperationException($"The tooltip prefab at '{tooltipPrefabPath}' does not implement ITooltipControl."); }
 
-        TooltipHandler tooltipHandler = new(tooltipControl, parentHandler);
+        TooltipHandler tooltipHandler = new(tooltipControl, parentHandler, position, pivot);
 
         Tooltip tooltip = tooltipHandler.Tooltip;
         _activeTooltips.Add(tooltip, tooltipHandler);

@@ -75,7 +75,12 @@ mouse_filter = 1
 text = "Language"
 vertical_alignment = 1
 script = ExtResource("6_h36fx")
-_tooltipText = "The amount of time that needs to pass until a tooltip is opened."
+_tooltipText = "The amount of time that needs to pass until a tooltip is opened.
+
+
+
+
+beeeeeeep"
 
 [node name="OptionButton" type="OptionButton" parent="Control/VBoxContainer/Language"]
 custom_minimum_size = Vector2(290, 0)
