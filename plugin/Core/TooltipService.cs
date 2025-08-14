@@ -24,7 +24,7 @@ public partial class TooltipService : GodotSingelton<TooltipService>
         // We do this so we don't brick the IEnumerable returned by the ActiveTooltips property (assuming the developer hasn't copied the collection).
         foreach (ITooltip tooltip in _destroyedTooltips.ToArray())
         {
-            if (_activeTooltips.TryGetValue(tooltip, out TooltipHandler? handler))
+            if (_activeTooltips.ContainsKey(tooltip))
             { _activeTooltips.Remove(tooltip); }
         }
         _destroyedTooltips.Clear();
@@ -36,6 +36,10 @@ public partial class TooltipService : GodotSingelton<TooltipService>
 
     private static ITooltipDataProvider _dataProvider = BasicTooltipDataProvider.Empty;
 
+    /// <summary>
+    /// The provider used to retrieve tooltip data by id.
+    /// By default this is set to an empty provider that returns null for all ids.
+    /// </summary>
     public static ITooltipDataProvider TooltipDataProvider
     {
         get => _dataProvider;
@@ -73,10 +77,16 @@ public partial class TooltipService : GodotSingelton<TooltipService>
                 throw new InvalidOperationException($"The tooltip prefab path '{value}' does not point to a valid PackedScene.");
             }
 
-            if (scene.Instantiate() is not ITooltipControl)
+            Node instance = scene.Instantiate();
+            if (instance is not ITooltipControl)
             {
+                // Clean up the instance to avoid memory leaks.
+                instance.QueueFree();
                 throw new InvalidOperationException($"The tooltip prefab at '{value}' does not implement ITooltipControl.");
             }
+
+            // Clean up the instance to avoid memory leaks.
+            instance.QueueFree();
 
             // If all checks pass, set the path.
             _tooltipPrefabPath = value;
@@ -272,8 +282,12 @@ public partial class TooltipService : GodotSingelton<TooltipService>
         if (tooltipScene == null)
         { throw new InvalidOperationException($"Could not load tooltip scene from path: {tooltipPrefabPath}"); }
 
-        TooltipControl tooltipControl = tooltipScene.Instantiate<TooltipControl>();
-        Instance._tooltipsParent.AddChild(tooltipControl);
+        Node tooltipControlNode = tooltipScene.Instantiate();
+        Instance._tooltipsParent.AddChild(tooltipControlNode);
+
+        ITooltipControl? tooltipControl = tooltipControlNode as ITooltipControl;
+        if (tooltipControl == null)
+        { throw new InvalidOperationException($"The tooltip prefab at '{tooltipPrefabPath}' does not implement ITooltipControl."); }
 
         TooltipHandler tooltipHandler = new(tooltipControl, parentHandler);
 
@@ -281,12 +295,6 @@ public partial class TooltipService : GodotSingelton<TooltipService>
         _activeTooltips.Add(tooltip, tooltipHandler);
 
         return (tooltipHandler, tooltip);
-    }
-
-    private static void DestroyTooltip(TooltipHandler handler)
-    {
-        // Remove the tooltip from the active tooltips.
-        _destroyedTooltips.Add(handler.Tooltip);
     }
 
     private static void ClearAllTooltips()

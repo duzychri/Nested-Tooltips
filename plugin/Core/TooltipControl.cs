@@ -5,7 +5,7 @@ namespace NestedTooltips;
 /// </summary>
 public partial class TooltipControl : Control, ITooltipControl
 {
-    [Export] private Label _debugLabel = null!;
+    [ExportGroup("Base Components")]
     [Export] private Control _fullContainer = null!;
     [Export] private RichTextLabel _textLabel = null!;
 
@@ -55,7 +55,7 @@ public partial class TooltipControl : Control, ITooltipControl
         {
             value = Math.Clamp(value, 0.0, 1.0);
             _lockProgress = value;
-            UpdateDebugLabel();
+            UpdateLockingDisplay();
         }
     }
 
@@ -70,7 +70,7 @@ public partial class TooltipControl : Control, ITooltipControl
         {
             value = Math.Clamp(value, 0.0, 1.0);
             _unlockProgress = value;
-            UpdateDebugLabel();
+            UpdateLockingDisplay();
         }
     }
 
@@ -102,9 +102,9 @@ public partial class TooltipControl : Control, ITooltipControl
 
     #region Lifecycle Methods
 
+    /// <inheritdoc/>
     public override void _Ready()
     {
-        _debugLabel.Visible = false;
         _lockIcon.Visible = false;
         _lockProgressBar.Visible = false;
 
@@ -124,13 +124,8 @@ public partial class TooltipControl : Control, ITooltipControl
         return GetGlobalRect().HasPoint(mousePosition);
     }
 
-    private void UpdateDebugLabel()
+    private void UpdateLockingDisplay()
     {
-        //bool isVisible = LockProgress > 0.0 || UnlockProgress > 0.0;
-        //string text = $"Lock: {LockProgress * 100:000}% Unlock: {UnlockProgress * 100:000}%";
-        //_debugLabel.Visible = isVisible;
-        //_debugLabel.Text = text;
-
         // Update lock progress, if we are locking.
         if (LockProgress > 0.0)
         {

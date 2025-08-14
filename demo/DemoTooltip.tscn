@@ -15,13 +15,12 @@ colors = PackedColorArray(0, 0, 0, 0.501961, 0, 0, 0, 0.501961)
 gradient = SubResource("Gradient_2idno")
 width = 1
 
-[node name="DemoTooltip" type="PanelContainer" node_paths=PackedStringArray("_debugLabel", "_fullContainer", "_textLabel", "_lockIcon", "_lockProgressBar")]
+[node name="DemoTooltip" type="PanelContainer" node_paths=PackedStringArray("_fullContainer", "_textLabel", "_lockIcon", "_lockProgressBar")]
 custom_minimum_size = Vector2(30, 30)
 offset_right = 32.0
 offset_bottom = 32.0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_uai6w")
 script = ExtResource("1_2idno")
-_debugLabel = NodePath("Label")
 _fullContainer = NodePath(".")
 _textLabel = NodePath("MarginContainer/RichTextLabel")
 _lockIcon = NodePath("Control/MarginContainer/Lock_Image")

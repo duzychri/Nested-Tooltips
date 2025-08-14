@@ -250,7 +250,7 @@ public partial class TooltipService
             }
 
             // Make sure the service knows that this tooltip is gone.
-            DestroyTooltip(this);
+            _destroyedTooltips.Add(Tooltip);
         }
 
         #endregion Utility Methods

@@ -39,7 +39,14 @@ public interface ITooltipControl
     /// </summary>
     bool Visible { get; set; }
 
+    /// <summary>
+    /// The width and height of the tooltip in pixels.
+    /// </summary>
     public Vector2 Size { get; set; }
+
+    /// <summary>
+    /// The position that the tooltip is displayed at on the screen.
+    /// </summary>
     public Vector2 Position { get; set; }
 
     /// <summary>
