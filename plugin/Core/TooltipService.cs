@@ -247,8 +247,7 @@ public partial class TooltipService : GodotSingelton<TooltipService>
     /// </remarks>
     private static Vector2 CalculatePositionFromPivot(Vector2 position, TooltipPivot pivot, Vector2 tooltipSize)
     {
-        GD.Print($"TODO: TooltipService: CalculatePositionFromPivot({position}, {pivot}, {tooltipSize})");
-        return position;
+        return position - (tooltipSize * (Vector2)pivot);
     }
 
     /// <summary>
