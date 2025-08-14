@@ -2,12 +2,12 @@ namespace NestedTooltips;
 
 /// <summary>
 /// The pivot used to determine in what direction the tooltip should be 'drawn' in relation to the position supplied by the user.
-/// The bottom left corner of the tooltip is represented by (0, 0), the top right corner by (1, 1).
+/// The top left corner of the tooltip is represented by (0, 0), the bottom right corner by (1, 1).
 /// </summary>
 /// <remarks>
 /// <b>For example:</b><br/>
 ///   - If the pivot is set to (0.5, 0.5) (the center) and placed at the mouse positon, then the the mouse will be exactly in the center of the tooltip.<br/>
-///   - If the pivot is set to (0.0, 1.0) (the top left) and placed at the mouse position, then the tooltip will be below and right of the mouse position.<br/>
+///   - If the pivot is set to (0.0, 1.0) (the bottom left) and placed at the mouse position, then the tooltip will be above and right of the mouse position.<br/>
 /// </remarks>
 [DebuggerDisplay("{ToString()}")]
 public readonly struct TooltipPivot
@@ -19,23 +19,23 @@ public readonly struct TooltipPivot
     /// </summary>
     public static readonly TooltipPivot Center = new(0.5f, 0.5f);
     /// <summary>
-    /// Represents the position <c>(0.0, 1.0)</c>.
-    /// </summary>
-    public static readonly TooltipPivot TopLeft = new(0f, 1f);
-    /// <summary>
-    /// Represents the position <c>(1.0, 1.0)</c>.
-    /// </summary>
-    public static readonly TooltipPivot TopRight = new(1f, 1f);
-    /// <summary>
     /// Represents the position <c>(0.0, 0.0)</c>.
     /// </summary>
-    public static readonly TooltipPivot BottomLeft = new(0f, 0f);
+    public static readonly TooltipPivot TopLeft = new(0f, 0f);
     /// <summary>
     /// Represents the position <c>(1.0, 0.0)</c>.
     /// </summary>
-    public static readonly TooltipPivot BottomRight = new(1f, 0f);
+    public static readonly TooltipPivot TopRight = new(1f, 0f);
     /// <summary>
-    /// Represents the position <c>(0.5, 1.0)</c>, which is the center of the bottom edge.
+    /// Represents the position <c>(0.0, 1.0)</c>.
+    /// </summary>
+    public static readonly TooltipPivot BottomLeft = new(0f, 1f);
+    /// <summary>
+    /// Represents the position <c>(1.0, 1.0)</c>.
+    /// </summary>
+    public static readonly TooltipPivot BottomRight = new(1f, 1f);
+    /// <summary>
+    /// Represents the position <c>(0.5, 0.0)</c>, which is the center of the bottom edge.
     /// </summary>
     public static readonly TooltipPivot BottomCenter = new(0.5f, 0f);
 
