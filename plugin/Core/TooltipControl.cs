@@ -9,6 +9,10 @@ public partial class TooltipControl : Control, ITooltipControl
     [Export] private Control _fullContainer = null!;
     [Export] private RichTextLabel _textLabel = null!;
 
+    [ExportGroup("Lock Progress")]
+    [Export] private TextureRect _lockIcon = null!;
+    [Export] private TextureProgressBar _lockProgressBar = null!;
+
     private double _lockProgress = 0.0;
     private double _unlockProgress = 0.0;
 
@@ -101,6 +105,8 @@ public partial class TooltipControl : Control, ITooltipControl
     public override void _Ready()
     {
         _debugLabel.Visible = false;
+        _lockIcon.Visible = false;
+        _lockProgressBar.Visible = false;
 
         _textLabel.MetaHoverStarted += OnMetaHoveredStart;
         _textLabel.MetaHoverEnded += OnMetaHoveredEnd;
@@ -120,10 +126,33 @@ public partial class TooltipControl : Control, ITooltipControl
 
     private void UpdateDebugLabel()
     {
-        bool isVisible = LockProgress > 0.0 || UnlockProgress > 0.0;
-        string text = $"Lock: {LockProgress * 100:000}% Unlock: {UnlockProgress * 100:000}%";
-        _debugLabel.Visible = isVisible;
-        _debugLabel.Text = text;
+        //bool isVisible = LockProgress > 0.0 || UnlockProgress > 0.0;
+        //string text = $"Lock: {LockProgress * 100:000}% Unlock: {UnlockProgress * 100:000}%";
+        //_debugLabel.Visible = isVisible;
+        //_debugLabel.Text = text;
+
+        // Update lock progress, if we are locking.
+        if (LockProgress > 0.0)
+        {
+            _lockIcon.Visible = LockProgress >= 1.0;
+            _lockProgressBar.Visible = LockProgress > 0 && LockProgress < 1.0;
+            _lockProgressBar.Value = LockProgress;
+        }
+
+        // If we are unlocking we overwrite the lock progress bar.
+        if (UnlockProgress > 0.0)
+        {
+            _lockIcon.Visible = false;
+            _lockProgressBar.Value = 1.0 - UnlockProgress;
+            _lockProgressBar.Visible = UnlockProgress > 0 && UnlockProgress < 1.0;
+        }
+
+        // Make sure we don't show the lock stuff if it's not appropriate.
+        if (LockProgress <= 0 && UnlockProgress <= 0)
+        {
+            _lockIcon.Visible = false;
+            _lockProgressBar.Visible = false;
+        }
     }
 
     #endregion Other Methods

@@ -66,3 +66,8 @@ Tooltips can be *pinned*; doing so stops the tooltip from disappearing when the 
 ## Configuration
 
 The tooltip system can be configured in different ways. You can change the behaviour of how the user can interact with the tooltips using the `Settings` property in the `TooltipService` and you can adjust the style or visuals of the tooltip by creating you own 'prefab' and providing the service a path to it using the `TooltipPrefabPath` property.
+
+
+## Credits
+
+The padlock icon used for the default tooltip was created by [Lorc](https://lorcblog.blogspot.com/) from [Game-icons.net](https://game-icons.net/1x1/lorc/padlock.html) and is licensed under the [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/) license.
