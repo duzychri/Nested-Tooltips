@@ -253,14 +253,14 @@ public partial class TooltipService : GodotSingelton<TooltipService>
     /// <summary>
     /// Calculates the position that a newly created, nested tooltip should be placed at, based on:<br/>
     /// - The position of the parent tooltip.<br/>
-    /// - The position of the link that spawned the nested tooltip.<br/>
     /// - The cursor position.<br/>
     /// - The dimensions of the screen.<br/>
     /// </summary>
-    private static (Vector2 position, TooltipPivot pivot) CalculateNestedTooltipLocation(TooltipControl control, Vector2 cursorPosition)
+    private static (Vector2 position, TooltipPivot pivot) CalculateNestedTooltipLocation(TooltipHandler parentTooltipHandler, Vector2 cursorPosition)
     {
-        GD.Print($"TODO: TooltipService: CalculateNestedTooltipLocation({control}, {cursorPosition})");
-        return (cursorPosition, TooltipPivot.BottomLeft);
+        TooltipPivot pivot = TooltipPivot.BottomCenter; // Default pivot for nested tooltips.
+        GD.Print($"TODO: TooltipService: CalculateNestedTooltipLocation({parentTooltipHandler}, {cursorPosition})");
+        return (cursorPosition, pivot);
     }
 
     private static (TooltipHandler handler, Tooltip tooltip) CreateTooltip(Vector2 position, TooltipPivot pivot, TooltipHandler? parentHandler = null)

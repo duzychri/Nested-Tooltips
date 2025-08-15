@@ -173,7 +173,7 @@ public partial class TooltipService
 
         #region Nesting Logic
 
-        private void OnLinkHoveredStart(Vector2 mousePosition, string tooltipTextId)
+        private void OnLinkHoveredStart(Vector2 cursorPosition, string tooltipTextId)
         {
             // We don't care about doing anything if we aren't locked.
             if (_wasLocked == false)
@@ -193,13 +193,13 @@ public partial class TooltipService
             }
 
             // Create the tooltip and set its text.
-            TooltipPivot pivot = TooltipPivot.BottomCenter; // Default pivot for nested tooltips.
-            (TooltipHandler childHandler, Tooltip _) = CreateTooltip(mousePosition, pivot, this);
+            (Vector2 nestedPosition, TooltipPivot nestedPivot) = CalculateNestedTooltipLocation(this, cursorPosition);
+            (TooltipHandler childHandler, Tooltip _) = CreateTooltip(nestedPosition, nestedPivot, this);
             childHandler.Text = tooltipData.Text;
             _child = childHandler;
         }
 
-        private void OnLinkHoveredEnd(Vector2 mousePosition, string tooltipTextId)
+        private void OnLinkHoveredEnd(Vector2 cursorPosition, string tooltipTextId)
         {
             // If the tooltip has a child, we need to release it.
             if (_child != null)
@@ -208,7 +208,7 @@ public partial class TooltipService
             }
         }
 
-        private void OnLinkClicked(Vector2 mousePosition, string tooltipTextId)
+        private void OnLinkClicked(Vector2 cursorPosition, string tooltipTextId)
         {
             // We don't care about doing anything if we aren't locked.
             if (_wasLocked == false)
