@@ -47,12 +47,12 @@
   "tooltip_normal_nesting": {
     "Id": "tooltip_normal_nesting",
     "Name": "Standard Nested Tooltip",
-    "Text": "This is a normal nesting tooltip. Dependend on what settings you have chosen this tooltip can be pinned. Currently you have the time lock setting enabled, which means that this tooltip will be pinned after {LockTime} seconds of being open. After that has happened you can move your mouse into this tooltip to hover over links. Like [url=tooltip_nested_example]this one[/url]!"
+    "Text": "This is a normal nesting tooltip. Dependend on what settings you have chosen this tooltip can be pinned.\nCurrently you have the time lock setting enabled,\n which means that this tooltip will be pinned after {LockTime} seconds of being open.\nAfter that has happened you can move your mouse into this tooltip to hover over links.\n Like [url=tooltip_nested_example]this one[/url]!"
   },
   "tooltip_nested_example": {
     "Id": "tooltip_nested_example",
     "Name": "Nested Example",
-    "Text": "This is the nested tooltip, opened from another one."
+    "Text": "This is the nested tooltip, opened from another one. Like [url=tooltip_nested_example]this one[/url]!"
   },
   "tooltip_wonky_location": {
     "Id": "tooltip_wonky_location",
@@ -67,6 +67,26 @@
   "tooltip_multiple": {
     "Id": "tooltip_multiple",
     "Name": "Multiple Tooltips",
-    "Text": "This ui element spawns multiple tooltips at the same time. These tooltips will be in all the corners of the screen. You can test how the different pin-settings interact with multiple open tooltips and how nested tooltips are spawned when you spawn them in invalid locations that would normally be outside the screen."
+    "Text": "This ui element spawns multiple tooltips at the same time.\n These tooltips will be in all the corners of the screen.\n You can test how the different pin-settings interact with multiple\n open tooltips and how nested tooltips are spawned when you spawn them in invalid locations\n that would normally be outside the screen."
+  },
+  "tooltip_multiple_top_right":{
+    "Id": "tooltip_multiple_top_right",
+    "Name": "tooltip_multiple_top_right",
+    "Text": "tooltip_multiple_top_right"
+  },
+  "tooltip_multiple_bottom_right":{
+    "Id":  "tooltip_multiple_bottom_right",
+    "Name": "tooltip_multiple_bottom_right",
+    "Text": "tooltip_multiple_bottom_right"
+  },
+  "tooltip_multiple_top_left":{
+    "Id": "tooltip_multiple_top_left",
+    "Name": "tooltip_multiple_top_left",
+    "Text": "tooltip_multiple_top_left"
+  },
+  "tooltip_multiple_bottom_left":{
+    "Id": "tooltip_multiple_bottom_left",
+    "Name": "tooltip_multiple_bottom_left",
+    "Text": "tooltip_multiple_bottom_left"
   }
 }

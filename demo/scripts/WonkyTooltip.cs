@@ -20,7 +20,7 @@ public partial class WonkyTooltip : Button
     private void OnMouseEntered()
     {
         GD.Print($"{tooltipId}");
-        Vector2 position = GetScreenPosition();
-        tooltip = TooltipService.ShowTooltipById(position, TooltipPivot.BottomLeft, tooltipId);
+        Vector2 position = new Vector2(0.0f, 0.0f);
+        tooltip = TooltipService.ShowTooltipById(position, TooltipPivot.TopLeft, tooltipId);
     }
 }
