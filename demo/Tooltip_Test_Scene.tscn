@@ -1,109 +1,175 @@
-[gd_scene load_steps=8 format=3 uid="uid://crga22ci3cxxb"]
+[gd_scene load_steps=8 format=3 uid="uid://cfm54tyfi5lqc"]
 
-[ext_resource type="Script" uid="uid://ypfux3ljeu53" path="res://plugin/Core/TooltipControl.cs" id="1_2idno"]
-[ext_resource type="Texture2D" uid="uid://cxs3oqrx6u0mh" path="res://demo/sprites/DemoTooltip_Sprites.png" id="1_5aqtd"]
-[ext_resource type="Texture2D" uid="uid://b35dfx5xpeqrn" path="res://demo/sprites/progress_circle.png" id="3_5p0i2"]
-[ext_resource type="Texture2D" uid="uid://x2svt0sd4ad2" path="res://demo/sprites/padlock.png" id="4_ksyrx"]
+[ext_resource type="Script" uid="uid://bj0eaiwpe6i0l" path="res://demo/DemoSceneManager.cs" id="1_bglyn"]
+[ext_resource type="Script" uid="uid://c10aa4tfovehk" path="res://plugin/Data/LanguageMapping.cs" id="2_apviv"]
+[ext_resource type="Script" uid="uid://dmudg2jv5v2ar" path="res://plugin/Core/RichTextLabelTooltipHandler.cs" id="2_we61h"]
+[ext_resource type="PackedScene" uid="uid://cwoc7i6s06l2" path="res://demo/Numbered_Slider.tscn" id="5_t18ui"]
+[ext_resource type="Script" uid="uid://dq0hqp410ufvo" path="res://demo/DemoTooltipSource.cs" id="6_h36fx"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uai6w"]
+[sub_resource type="Resource" id="Resource_t18ui"]
+script = ExtResource("2_apviv")
+LanguageCode = "en"
+FilePath = "res://demo/tooltip_demo_en.json"
+metadata/_custom_type_script = "uid://c10aa4tfovehk"
 
-[sub_resource type="Gradient" id="Gradient_2idno"]
-offsets = PackedFloat32Array(0, 0.980519)
-colors = PackedColorArray(0, 0, 0, 0.501961, 0, 0, 0, 0.501961)
+[sub_resource type="Resource" id="Resource_h36fx"]
+script = ExtResource("2_apviv")
+LanguageCode = "de"
+FilePath = "res://demo/tooltip_demo_de.json"
+metadata/_custom_type_script = "uid://c10aa4tfovehk"
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_5p0i2"]
-gradient = SubResource("Gradient_2idno")
-width = 1
-
-[node name="DemoTooltip" type="PanelContainer" node_paths=PackedStringArray("_fullContainer", "_textLabel", "_lockIcon", "_lockProgressBar")]
-custom_minimum_size = Vector2(30, 30)
-offset_right = 32.0
-offset_bottom = 32.0
-theme_override_styles/panel = SubResource("StyleBoxEmpty_uai6w")
-script = ExtResource("1_2idno")
-_fullContainer = NodePath(".")
-_textLabel = NodePath("MarginContainer/RichTextLabel")
-_lockIcon = NodePath("Control/MarginContainer/Lock_Image")
-_lockProgressBar = NodePath("Control/MarginContainer/Lock_Progress")
-
-[node name="Background" type="Control" parent="."]
-layout_mode = 2
-
-[node name="NinePatchRect" type="NinePatchRect" parent="Background"]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("1_5aqtd")
-patch_margin_left = 12
-patch_margin_top = 12
-patch_margin_right = 12
-patch_margin_bottom = 12
-
-[node name="TextureRect" type="TextureRect" parent="Background"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = SubResource("GradientTexture1D_5p0i2")
-expand_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="."]
-layout_mode = 2
-theme_override_constants/margin_left = 16
-theme_override_constants/margin_top = 16
-theme_override_constants/margin_right = 16
-theme_override_constants/margin_bottom = 16
-
-[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer"]
-clip_contents = false
-layout_mode = 2
-localize_numeral_system = false
-bbcode_enabled = true
-text = "asdasdasdasd"
-fit_content = true
-autowrap_mode = 0
-
-[node name="Label" type="Label" parent="."]
-visible = false
-layout_mode = 2
-size_flags_vertical = 1
-text = "Locking: 000"
-clip_text = true
+[node name="Demo Scene" type="Node" node_paths=PackedStringArray("_lockTypeSelector", "_showDelaySlider", "_lockDelaySlider", "_unlockDelaySlider", "_languageSelector")]
+script = ExtResource("1_bglyn")
+_lockTypeSelector = NodePath("Control/VBoxContainer/Lock Mode/OptionButton")
+_showDelaySlider = NodePath("Control/VBoxContainer/Show Delay/Slider")
+_lockDelaySlider = NodePath("Control/VBoxContainer/Lock Delay/Slider")
+_unlockDelaySlider = NodePath("Control/VBoxContainer/Unlock Delay/Slider")
+_languageMappings = [SubResource("Resource_t18ui"), SubResource("Resource_h36fx")]
+_languageSelector = NodePath("Control/VBoxContainer/Language/OptionButton")
 
 [node name="Control" type="Control" parent="."]
-layout_mode = 2
-size_flags_horizontal = 8
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Control"]
-layout_mode = 2
-offset_bottom = 55.0
-scale = Vector2(0.05, 0.05)
-size_flags_horizontal = 8
-theme_override_constants/margin_left = 50
-theme_override_constants/margin_top = 50
-theme_override_constants/margin_right = 50
-theme_override_constants/margin_bottom = 50
+[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+alignment = 1
 
-[node name="Lock_Progress" type="TextureProgressBar" parent="Control/MarginContainer"]
-visible = false
+[node name="RichTextLabel" type="RichTextLabel" parent="Control/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
-max_value = 1.0
-step = 0.0
-value = 0.6
-fill_mode = 4
-texture_under = ExtResource("3_5p0i2")
-texture_over = ExtResource("3_5p0i2")
-texture_progress = ExtResource("3_5p0i2")
-tint_under = Color(0.255659, 0.255659, 0.255659, 1)
-tint_over = Color(1, 0.301961, 1, 0)
+bbcode_enabled = true
+text = "Hover over the [url=highlighted_text_explanation]highlighted[/url] text to open a [url=tooltip_explanation]tooltip[/url]."
+horizontal_alignment = 1
+script = ExtResource("2_we61h")
 
-[node name="Lock_Image" type="TextureRect" parent="Control/MarginContainer"]
-visible = false
+[node name="Header Language Settings2" type="Label" parent="Control/VBoxContainer"]
+custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
-texture = ExtResource("4_ksyrx")
+size_flags_horizontal = 4
+mouse_filter = 1
+text = "Language Settings"
+vertical_alignment = 1
+uppercase = true
+script = ExtResource("6_h36fx")
+
+[node name="Language" type="HBoxContainer" parent="Control/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Label_Name" type="Label" parent="Control/VBoxContainer/Language"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+mouse_filter = 1
+text = "Language"
+vertical_alignment = 1
+script = ExtResource("6_h36fx")
+_tooltipText = "The amount of time that needs to pass until a tooltip is opened.
+
+
+
+
+beeeeeeep"
+
+[node name="OptionButton" type="OptionButton" parent="Control/VBoxContainer/Language"]
+custom_minimum_size = Vector2(290, 0)
+layout_mode = 2
+
+[node name="Header Tooltip Settings" type="Label" parent="Control/VBoxContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_filter = 1
+text = "Tooltip Settings"
+vertical_alignment = 1
+uppercase = true
+script = ExtResource("6_h36fx")
+_tooltipText = "The settings that determine how tooltips are displayed and pinned."
+
+[node name="Lock Mode" type="HBoxContainer" parent="Control/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Label_Name" type="Label" parent="Control/VBoxContainer/Lock Mode"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+mouse_filter = 1
+text = "Lock Mode"
+vertical_alignment = 1
+script = ExtResource("6_h36fx")
+_tooltipText = "The amount of time that needs to pass until a tooltip is opened."
+
+[node name="OptionButton" type="OptionButton" parent="Control/VBoxContainer/Lock Mode"]
+custom_minimum_size = Vector2(290, 0)
+layout_mode = 2
+
+[node name="Show Delay" type="HBoxContainer" parent="Control/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Label_Name" type="Label" parent="Control/VBoxContainer/Show Delay"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+mouse_filter = 1
+text = "Show Delay"
+vertical_alignment = 1
+script = ExtResource("6_h36fx")
+_tooltipText = "The amount of time that needs to pass until a tooltip is opened."
+
+[node name="Slider" parent="Control/VBoxContainer/Show Delay" instance=ExtResource("5_t18ui")]
+layout_mode = 2
+_maxValue = 20.0
+_step = 0.05
+
+[node name="Lock Delay" type="HBoxContainer" parent="Control/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Label_Name" type="Label" parent="Control/VBoxContainer/Lock Delay"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+mouse_filter = 1
+text = "Lock Delay"
+vertical_alignment = 1
+script = ExtResource("6_h36fx")
+_tooltipText = "The amount of time that needs to pass until a tooltip is opened."
+
+[node name="Slider" parent="Control/VBoxContainer/Lock Delay" instance=ExtResource("5_t18ui")]
+layout_mode = 2
+_minValue = 0.05
+_maxValue = 20.0
+_step = 0.05
+
+[node name="Unlock Delay" type="HBoxContainer" parent="Control/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Label_Name" type="Label" parent="Control/VBoxContainer/Unlock Delay"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+mouse_filter = 1
+text = "Unlock Delay"
+vertical_alignment = 1
+script = ExtResource("6_h36fx")
+_tooltipText = "The amount of time that needs to pass until a tooltip is opened."
+
+[node name="Slider" parent="Control/VBoxContainer/Unlock Delay" instance=ExtResource("5_t18ui")]
+layout_mode = 2
+_minValue = 0.05
+_maxValue = 20.0
+_step = 0.05
