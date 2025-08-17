@@ -1,10 +1,15 @@
-[gd_scene load_steps=8 format=3 uid="uid://cfm54tyfi5lqc"]
+[gd_scene load_steps=13 format=3 uid="uid://cfm54tyfi5lqc"]
 
 [ext_resource type="Script" uid="uid://bj0eaiwpe6i0l" path="res://demo/DemoSceneManager.cs" id="1_bglyn"]
 [ext_resource type="Script" uid="uid://c10aa4tfovehk" path="res://plugin/Data/LanguageMapping.cs" id="2_apviv"]
 [ext_resource type="Script" uid="uid://dmudg2jv5v2ar" path="res://plugin/Core/RichTextLabelTooltipHandler.cs" id="2_we61h"]
 [ext_resource type="PackedScene" uid="uid://cwoc7i6s06l2" path="res://demo/Numbered_Slider.tscn" id="5_t18ui"]
+[ext_resource type="Script" uid="uid://yx08en6x2itg" path="res://demo/scripts/SmallTooltip.cs" id="6_c1e8w"]
 [ext_resource type="Script" uid="uid://dq0hqp410ufvo" path="res://demo/DemoTooltipSource.cs" id="6_h36fx"]
+[ext_resource type="Script" uid="uid://bsbu0iwgj8wf4" path="res://demo/scripts/LargeTooltip.cs" id="7_tplxe"]
+[ext_resource type="Script" uid="uid://dnir4mjmk1sue" path="res://demo/scripts/NestedTooltip.cs" id="8_f5saa"]
+[ext_resource type="Script" uid="uid://cmi6bb7ub8r8h" path="res://demo/scripts/WonkyTooltip.cs" id="9_dbc7n"]
+[ext_resource type="Script" uid="uid://nbtkoocxtew2" path="res://demo/scripts/MultipleTooltip.cs" id="11_1hpw1"]
 
 [sub_resource type="Resource" id="Resource_t18ui"]
 script = ExtResource("2_apviv")
@@ -40,6 +45,10 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 2.0
+offset_bottom = 2.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 10
@@ -173,3 +182,38 @@ layout_mode = 2
 _minValue = 0.05
 _maxValue = 20.0
 _step = 0.05
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 23
+alignment = 1
+
+[node name="SmallTooltip" type="Button" parent="Control/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+text = "Small"
+script = ExtResource("6_c1e8w")
+
+[node name="LargeTooltip" type="Button" parent="Control/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+text = "Large"
+script = ExtResource("7_tplxe")
+
+[node name="NestedTooltip" type="Button" parent="Control/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+text = "Nested"
+script = ExtResource("8_f5saa")
+
+[node name="WonkyTooltip" type="Button" parent="Control/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+text = "Wonky"
+script = ExtResource("9_dbc7n")
+
+[node name="MultipleTooltips" type="Button" parent="Control/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+text = "Multiple"
+script = ExtResource("11_1hpw1")
