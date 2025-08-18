@@ -4,7 +4,7 @@ public partial class TooltipService : GodotSingelton<TooltipService>
 {
     [Export] private Control _tooltipsParent = null!;
 
-    private const string defaultTooltipPrefabPath = "res://demo/DemoTooltip.tscn";
+    private const string defaultTooltipPrefabPath = "res://plugin/Prefabs/DefaultTooltip_Prefab.tscn";
 
     private static readonly HashSet<ITooltip> _destroyedTooltips = [];
     private static readonly Dictionary<ITooltip, TooltipHandler> _activeTooltips = [];
