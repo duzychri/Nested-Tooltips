@@ -12,8 +12,6 @@ public partial class TooltipService
         private double _aliveTime = 0.0;
         /// <summary>The time that the cursor has not been hovering over the tooltip.</summary>
         private double _cursorAwayTime = 0.0;
-        /// <summary>Indicates if the tooltip is or was locked by a user interaction.</summary>
-        private bool _wasLocked = false;
         /// <summary>Indicates that the tooltip should be destroyed under the right conditions.</summary>
         private bool _queuedForRelease = false;
         /// <summary>Shows that the tooltip has been deleted and should not be processed anymore.</summary>
@@ -30,6 +28,18 @@ public partial class TooltipService
         public string Text { get => _control.Text; set => _control.Text = value; }
         public Vector2 Size { get => _control.Size; set => _control.Size = value; }
 
+        /// <summary>Indicates if the tooltip is or was locked by a user interaction.</summary>
+        private bool WasLocked
+        {
+            get => _wasLocked;
+            set
+            {
+                _wasLocked = value;
+                _control.IsInteractable = value;
+            }
+        }
+        private bool _wasLocked = false;
+
         public TooltipHandler(ITooltipControl control, TooltipHandler? parent, Vector2 desiredPosition, TooltipPivot desiredPivot, int? width)
         {
             _control = control;
@@ -42,6 +52,7 @@ public partial class TooltipService
             UpdatePosition();
 
             _control.Visible = false;
+            _control.IsInteractable = false;
             _control.OnLinkHoveredStart += OnLinkHoveredStart;
             _control.OnLinkHoveredEnd += OnLinkHoveredEnd;
             _control.OnLinkClicked += OnLinkClicked;
@@ -65,7 +76,7 @@ public partial class TooltipService
         public void Release()
         {
             // Check if we are locked. If not, then we can just delete the tooltip immediately.
-            if (_wasLocked == false)
+            if (WasLocked == false)
             {
                 DestroyInternal();
                 return;
@@ -96,7 +107,8 @@ public partial class TooltipService
             _aliveTime += deltaTime;
 
             // Based on the show delay setting we delay the tooltip's visibility.
-            _control.Visible = _aliveTime >= Settings.ShowDelay;
+            bool isVisible = _aliveTime >= Settings.ShowDelay;
+            _control.Visible = isVisible;
 
             // Update how long the cursor has been away from the tooltip.
             if (_control.IsCursorOverTooltip() || Child != null)
@@ -117,13 +129,13 @@ public partial class TooltipService
                     {
                         (bool isLocked, double progress) = IsLockedByTimerLock();
                         _control.LockProgress = progress;
-                        _wasLocked = _wasLocked || isLocked;
+                        WasLocked = WasLocked || isLocked;
                     }
                     break;
                 case TooltipLockMode.ActionLock:
                     {
                         bool isLocked = IsLockedByActionLock();
-                        _wasLocked = _wasLocked || isLocked;
+                        WasLocked = WasLocked || isLocked;
                         _control.LockProgress = isLocked ? 1.0 : 0.0;
                     }
                     break;
@@ -190,7 +202,7 @@ public partial class TooltipService
         private void OnLinkHoveredStart(Vector2 cursorPosition, string tooltipTextId)
         {
             // We don't care about doing anything if we aren't locked.
-            if (_wasLocked == false)
+            if (WasLocked == false)
             { return; }
 
             // Do not create another nested tooltip while there's already one open.
@@ -225,7 +237,7 @@ public partial class TooltipService
         private void OnLinkClicked(Vector2 cursorPosition, string tooltipTextId)
         {
             // We don't care about doing anything if we aren't locked.
-            if (_wasLocked == false)
+            if (WasLocked == false)
             { return; }
 
             // We already hovered over the link, so we should have a child tooltip.

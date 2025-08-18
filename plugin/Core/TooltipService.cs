@@ -1,5 +1,8 @@
 namespace NestedTooltips;
 
+/// <summary>
+/// Service for managing tooltips in the application.
+/// </summary>
 public partial class TooltipService : GodotSingelton<TooltipService>
 {
     [Export] private Control _tooltipsParent = null!;

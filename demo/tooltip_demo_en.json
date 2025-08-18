@@ -2,6 +2,7 @@
   "pinning_explanation": {
     "Id": "pinning_explanation",
     "Name": "pinning",
+    "desiredWidth": 300,
     "Text": "Open [url=tooltip_explanation]tooltips[/url] can be [b]pinned[/b]. This keeps the [url=tooltip_explanation]tooltip[/url] open even if the condition to open it is no longer true, for example if the user stops hovering over the UI element that opened a [url=tooltip_explanation]tooltip[/url]. This enables the user to open more tooltips, leading to nesting. The exact method to pin a [url=tooltip_explanation]tooltip[/url] can be configured using the [url=tooltip_settings]settings[/url]."
   },
   "nesting_explanation": {
