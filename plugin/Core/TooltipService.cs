@@ -129,13 +129,14 @@ public partial class TooltipService : GodotSingelton<TooltipService>
     /// <param name="position">The position of the tooltip.</param>
     /// <param name="pivot">The pivot of the tooltip. Determines where the tooltip is anchored in relation to the position.</param>
     /// <param name="text">The bbcode formatted text of the tooltip.</param>
+    /// <param name="width">The desired width of the tooltip in pixels. If not set, the tooltip will be as wide as it needs to be based on the text.</param>
     /// <returns>The created tooltip component.</returns>
-    public static ITooltip ShowTooltip(Vector2 position, TooltipPivot pivot, string text)
+    public static ITooltip ShowTooltip(Vector2 position, TooltipPivot pivot, string text, int? width = null)
     {
         ArgumentNullException.ThrowIfNull(text);
 
         // Create the tooltip and set its text.
-        (TooltipHandler handler, Tooltip tooltip) = CreateTooltip(position, pivot);
+        (TooltipHandler handler, Tooltip tooltip) = CreateTooltip(position, pivot, null);
         handler.Text = text;
 
         return tooltip;
@@ -147,8 +148,9 @@ public partial class TooltipService : GodotSingelton<TooltipService>
     /// <param name="position">The position of the tooltip.</param>
     /// <param name="pivot">The pivot of the tooltip. Determines where the tooltip is anchored in relation to the position.</param>
     /// <param name="tooltipId">The id of the tooltip which text should be used.</param>
+    /// <param name="width">The desired width of the tooltip in pixels. If not set, the tooltip will be as wide as it needs to be based on the text.</param>
     /// <returns>The created tooltip component.</returns>
-    public static ITooltip ShowTooltipById(Vector2 position, TooltipPivot pivot, string tooltipId)
+    public static ITooltip ShowTooltipById(Vector2 position, TooltipPivot pivot, string tooltipId, int? width = null)
     {
         ArgumentNullException.ThrowIfNull(tooltipId);
 
@@ -157,7 +159,7 @@ public partial class TooltipService : GodotSingelton<TooltipService>
         { throw new ArgumentException($"No tooltip data found for id: {tooltipId}", nameof(tooltipId)); }
 
         // Create the tooltip and set its text.
-        (TooltipHandler handler, Tooltip tooltip) = CreateTooltip(position, pivot);
+        (TooltipHandler handler, Tooltip tooltip) = CreateTooltip(position, pivot, width ?? tooltipData.DesiredWidth);
         handler.Text = tooltipData.Text;
 
         return tooltip;
@@ -263,7 +265,7 @@ public partial class TooltipService : GodotSingelton<TooltipService>
         return (cursorPosition, pivot);
     }
 
-    private static (TooltipHandler handler, Tooltip tooltip) CreateTooltip(Vector2 position, TooltipPivot pivot, TooltipHandler? parentHandler = null)
+    private static (TooltipHandler handler, Tooltip tooltip) CreateTooltip(Vector2 position, TooltipPivot pivot, int? width, TooltipHandler? parentHandler = null)
     {
         string tooltipPrefabPath = TooltipPrefabPath ?? defaultTooltipPrefabPath;
         PackedScene tooltipScene = ResourceLoader.Load<PackedScene>(tooltipPrefabPath);
@@ -278,7 +280,7 @@ public partial class TooltipService : GodotSingelton<TooltipService>
         if (tooltipControl == null)
         { throw new InvalidOperationException($"The tooltip prefab at '{tooltipPrefabPath}' does not implement ITooltipControl."); }
 
-        TooltipHandler tooltipHandler = new(tooltipControl, parentHandler, position, pivot);
+        TooltipHandler tooltipHandler = new(tooltipControl, parentHandler, position, pivot, width);
 
         Tooltip tooltip = tooltipHandler.Tooltip;
         _activeTooltips.Add(tooltip, tooltipHandler);

@@ -5,6 +5,14 @@ namespace NestedTooltips;
 /// </summary>
 public class BasicTooltipDataProvider : ITooltipDataProvider
 {
+    private static readonly JsonSerializerOptions SerializerOptions = new()
+    {
+        WriteIndented = true,
+        PropertyNameCaseInsensitive = true,
+        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+    };
+
     private readonly Dictionary<string, string> _languageFilePaths;
 
     private string _currentLanguage;
@@ -85,8 +93,7 @@ public class BasicTooltipDataProvider : ITooltipDataProvider
         {
             using var file = Godot.FileAccess.Open(filePath, Godot.FileAccess.ModeFlags.Read);
             string content = file.GetAsText();
-            var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-            var data = JsonSerializer.Deserialize<Dictionary<string, TooltipData>>(content, options);
+            var data = JsonSerializer.Deserialize<Dictionary<string, TooltipData>>(content, SerializerOptions);
 
             _loadedTooltipData = data ?? new Dictionary<string, TooltipData>();
             GD.Print($"Successfully loaded tooltips from: {filePath}");

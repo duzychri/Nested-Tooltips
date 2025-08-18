@@ -29,7 +29,7 @@ public partial class TooltipService
         public string Text { get => _control.Text; set => _control.Text = value; }
         public Vector2 Size { get => _control.Size; set => _control.Size = value; }
 
-        public TooltipHandler(ITooltipControl control, TooltipHandler? parent, Vector2 desiredPosition, TooltipPivot desiredPivot)
+        public TooltipHandler(ITooltipControl control, TooltipHandler? parent, Vector2 desiredPosition, TooltipPivot desiredPivot, int? width)
         {
             _control = control;
             _parent = parent;
@@ -46,6 +46,18 @@ public partial class TooltipService
             _control.OnLinkHoveredStart += OnLinkHoveredStart;
             _control.OnLinkHoveredEnd += OnLinkHoveredEnd;
             _control.OnLinkClicked += OnLinkClicked;
+
+            // If the width is set then we want that to become the desired (min & max at the same time) width.
+            if (width.HasValue)
+            {
+                _control.MinimumWidth = width.Value;
+                _control.WrapText = true;
+            }
+            else
+            {
+                _control.MinimumWidth = 0;
+                _control.WrapText = false;
+            }
         }
 
         public void Release()
@@ -194,7 +206,7 @@ public partial class TooltipService
 
             // Create the tooltip and set its text.
             (Vector2 nestedPosition, TooltipPivot nestedPivot) = CalculateNestedTooltipLocation(this, cursorPosition);
-            (TooltipHandler childHandler, Tooltip _) = CreateTooltip(nestedPosition, nestedPivot, this);
+            (TooltipHandler childHandler, Tooltip _) = CreateTooltip(nestedPosition, nestedPivot, tooltipData.DesiredWidth, this);
             childHandler.Text = tooltipData.Text;
             _child = childHandler;
         }

@@ -16,6 +16,8 @@ public partial class TooltipControl : Control, ITooltipControl
     private double _lockProgress = 0.0;
     private double _unlockProgress = 0.0;
 
+    private const int RequiredMinimumWidth = 30;
+
     #region Properties
 
     /// <inheritdoc/>
@@ -25,7 +27,7 @@ public partial class TooltipControl : Control, ITooltipControl
         set
         {
             Vector2 size = _fullContainer.CustomMinimumSize;
-            size.X = value;
+            size.X = Math.Max(RequiredMinimumWidth, value);
             _fullContainer.CustomMinimumSize = size;
         }
     }

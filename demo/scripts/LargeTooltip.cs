@@ -21,6 +21,6 @@ public partial class LargeTooltip : Button
     {
         GD.Print($"{tooltipId}");
         Vector2 position = GetScreenPosition();
-        tooltip = TooltipService.ShowTooltipById(position, TooltipPivot.BottomLeft, tooltipId);
+        tooltip = TooltipService.ShowTooltipById(position, TooltipPivot.BottomLeft, tooltipId, width: 300);
     }
 }

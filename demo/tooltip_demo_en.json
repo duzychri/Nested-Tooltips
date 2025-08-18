@@ -42,6 +42,7 @@
   "tooltip_disabled_nesting": {
     "Id": "tooltip_disabled_nesting",
     "Name": "Disabled Nesting",
+    "DesiredWidth": 300,
     "Text": "This is a tooltip with disabled (or rather not enabled nesting). The tooltip component is provided with this information and then determines itself how it should display links to other tooltips. It is also not interactable; mouse movement and events that hit this tooltip are ignored/passed through."
   },
   "tooltip_normal_nesting": {
@@ -69,22 +70,22 @@
     "Name": "Multiple Tooltips",
     "Text": "This ui element spawns multiple tooltips at the same time.\n These tooltips will be in all the corners of the screen.\n You can test how the different pin-settings interact with multiple\n open tooltips and how nested tooltips are spawned when you spawn them in invalid locations\n that would normally be outside the screen."
   },
-  "tooltip_multiple_top_right":{
+  "tooltip_multiple_top_right": {
     "Id": "tooltip_multiple_top_right",
     "Name": "tooltip_multiple_top_right",
     "Text": "tooltip_multiple_top_right"
   },
-  "tooltip_multiple_bottom_right":{
-    "Id":  "tooltip_multiple_bottom_right",
+  "tooltip_multiple_bottom_right": {
+    "Id": "tooltip_multiple_bottom_right",
     "Name": "tooltip_multiple_bottom_right",
     "Text": "tooltip_multiple_bottom_right"
   },
-  "tooltip_multiple_top_left":{
+  "tooltip_multiple_top_left": {
     "Id": "tooltip_multiple_top_left",
     "Name": "tooltip_multiple_top_left",
     "Text": "tooltip_multiple_top_left"
   },
-  "tooltip_multiple_bottom_left":{
+  "tooltip_multiple_bottom_left": {
     "Id": "tooltip_multiple_bottom_left",
     "Name": "tooltip_multiple_bottom_left",
     "Text": "tooltip_multiple_bottom_left"
