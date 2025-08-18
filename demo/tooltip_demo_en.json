@@ -1,94 +1,80 @@
 {
-  "pinning_explanation": {
-    "Id": "pinning_explanation",
-    "Name": "pinning",
+  "pinningExplanation": {
+    "id": "pinning_explanation",
     "desiredWidth": 300,
-    "Text": "Open [url=tooltip_explanation]tooltips[/url] can be [b]pinned[/b]. This keeps the [url=tooltip_explanation]tooltip[/url] open even if the condition to open it is no longer true, for example if the user stops hovering over the UI element that opened a [url=tooltip_explanation]tooltip[/url]. This enables the user to open more tooltips, leading to nesting. The exact method to pin a [url=tooltip_explanation]tooltip[/url] can be configured using the [url=tooltip_settings]settings[/url]."
+    "text": "Open [url=tooltip_explanation]tooltips[/url] can be [b]pinned[/b]. This keeps the [url=tooltip_explanation]tooltip[/url] open even if the condition to open it is no longer true, for example if the user stops hovering over the UI element that opened a [url=tooltip_explanation]tooltip[/url]. This enables the user to open more tooltips, leading to nesting. The exact method to pin a [url=tooltip_explanation]tooltip[/url] can be configured using the [url=tooltip_settings]settings[/url]."
   },
-  "nesting_explanation": {
-    "Id": "nesting_explanation",
-    "Name": "nesting",
-    "Text": "A nested tooltip is one that has been opened from within another tooltip. The nested tooltip is then the child of the source or parent tooltip."
+  "nestingExplanation": {
+    "id": "nesting_explanation",
+    "desiredWidth": 300,
+    "text": "A [b]nested[/b] [url=tooltip_explanation]tooltip[/url] is one that has been opened from within another [url=tooltip_explanation]tooltip[/url]. The nested [url=tooltip_explanation]tooltip[/url] is then the child of the source or parent [url=tooltip_explanation]tooltip[/url]."
   },
-  "highlighted_text_explanation": {
-    "Id": "highlighted_text_explanation",
-    "Name": "highlighted text",
-    "Text": "Highlighted text inside [url=tooltip_explanation]tooltips[/url] can be hovered over to open a nested [url=tooltip_explanation]tooltip[/url]."
+  "highlightedTextExplanation": {
+    "id": "highlighted_text_explanation",
+    "desiredWidth": 300,
+    "text": "Highlighted text inside [url=tooltip_explanation]tooltips[/url] can be hovered over to open a nested [url=tooltip_explanation]tooltip[/url]."
   },
-  "tooltip_explanation": {
-    "Id": "tooltip_explanation",
-    "Name": "tooltip",
-    "Text": "[p]A tooltip is a small popup that appears when you hover over an UI element.[/p][p]Tooltips can be nested, persistent, and have various [url=tooltip_settings]settings[/url] for [url=pinning_explanation]pinning[/url].[/p]"
+  "tooltipExplanation": {
+    "id": "tooltip_explanation",
+    "desiredWidth": 300,
+    "text": "[p]A tooltip is a small popup that appears when you hover over an UI element.[/p][p]Tooltips can be [url=nesting_explanation]nested[/url] and have various [url=tooltip_settings]settings[/url] for [url=pinning_explanation]pinning[/url].[/p]"
   },
-  "tooltip_settings": {
-    "Id": "tooltip_settings",
-    "Name": "tooltip settings",
-    "Text": "You can adjust the settings that determine the behavior of created [url=tooltip_explanation]tooltips[/url] in the settings below the [b]Tooltip Settings[/b] label."
+  "tooltipSettings": {
+    "id": "tooltip_settings",
+    "desiredWidth": 300,
+    "text": "You can adjust the settings that determine the behavior of created [url=tooltip_explanation]tooltips[/url] in the settings below the [b]Tooltip Settings[/b] label."
   },
-  "tooltip_small": {
-    "Id": "tooltip_small",
-    "Name": "Small Tooltip",
-    "Text": "This is a small [url=tooltip_explanation]tooltip[/url]."
+  "tooltipSmall": {
+    "id": "tooltip_small",
+    "text": "This is a small [url=tooltip_explanation]tooltip[/url]."
   },
   "bbcode": {
-    "Id": "bbcode",
-    "Name": "bbcode",
-    "Text": "BBcode is a type of markup that can be used in Godot [i]RichTextLabels[/i] to style the text."
+    "id": "bbcode",
+    "text": "BBcode is a type of markup that can be used in Godot [i]RichTextLabels[/i] to style the text."
   },
-  "tooltip_large": {
-    "Id": "tooltip_large",
-    "Name": "Large Tooltip",
-    "Text": "This is a large tooltip that gets a width provided when it is created leading to it line breaking to fit the specified width. This is unlike the small tooltip that only matches the length of the string but will not line-break unless those are manually added to the bbcode text as markup."
+  "tooltipLarge": {
+    "id": "tooltip_large",
+    "text": "This is a large tooltip that gets a width provided when it is created leading to it line breaking to fit the specified width. This is unlike the small tooltip that only matches the length of the string but will not line-break unless those are manually added to the [url=bbcode]bbcode[/url] text as markup."
   },
-  "tooltip_disabled_nesting": {
-    "Id": "tooltip_disabled_nesting",
-    "Name": "Disabled Nesting",
-    "DesiredWidth": 300,
-    "Text": "This is a tooltip with disabled (or rather not enabled nesting). The tooltip component is provided with this information and then determines itself how it should display links to other tooltips. It is also not interactable; mouse movement and events that hit this tooltip are ignored/passed through."
+  "tooltipDisabledNesting": {
+    "id": "tooltip_disabled_nesting",
+    "desiredWidth": 300,
+    "text": "This is a tooltip with disabled (or rather not enabled nesting). The tooltip component is provided with this information and then determines itself how it should display links to other tooltips. It is also not interactable; mouse movement and events that hit this tooltip are ignored/passed through."
   },
-  "tooltip_normal_nesting": {
-    "Id": "tooltip_normal_nesting",
-    "Name": "Standard Nested Tooltip",
-    "Text": "This is a normal nesting tooltip. Dependend on what settings you have chosen this tooltip can be pinned.\nCurrently you have the time lock setting enabled,\n which means that this tooltip will be pinned after {LockTime} seconds of being open.\nAfter that has happened you can move your mouse into this tooltip to hover over links.\n Like [url=tooltip_nested_example]this one[/url]!"
+  "tooltipNormalNesting": {
+    "id": "tooltip_normal_nesting",
+    "text": "This is a normal nesting tooltip. Dependend on what settings you have chosen this tooltip can be pinned.\nCurrently you have the time lock setting enabled,\n which means that this tooltip will be pinned after {LockTime} seconds of being open.\nAfter that has happened you can move your mouse into this tooltip to hover over links.\n Like [url=tooltip_nested_example]this one[/url]!"
   },
-  "tooltip_nested_example": {
-    "Id": "tooltip_nested_example",
-    "Name": "Nested Example",
-    "Text": "This is the nested tooltip, opened from another one. Like [url=tooltip_nested_example]this one[/url]!"
+  "tooltipNestedExample": {
+    "id": "tooltip_nested_example",
+    "text": "This is the nested tooltip, opened from another one. Like [url=tooltip_nested_example]this one[/url]!"
   },
-  "tooltip_wonky_location": {
-    "Id": "tooltip_wonky_location",
-    "Name": "Wonky Location",
-    "Text": "This ui element spawns a tooltip in a wonky location. Can you even reach this befor the lock runs out and the tooltip disappears again?"
+  "tooltipWonkyLocation": {
+    "id": "tooltip_wonky_location",
+    "text": "This ui element spawns a tooltip in a wonky location. Can you even reach this befor the lock runs out and the tooltip disappears again?"
   },
-  "tooltip_persistent": {
-    "Id": "tooltip_persistent",
-    "Name": "Persistent Tooltip",
-    "Text": "This ui element spawns a tooltip and then just lets it sit there and never cleans it up. But you can press the button next to this to clear all tooltips that are currently open. Alternatively changing any setting will also close all currently open tooltips."
+  "tooltipPersistent": {
+    "id": "tooltip_persistent",
+    "text": "This ui element spawns a tooltip and then just lets it sit there and never cleans it up. But you can press the button next to this to clear all tooltips that are currently open. Alternatively changing any setting will also close all currently open tooltips."
   },
-  "tooltip_multiple": {
-    "Id": "tooltip_multiple",
-    "Name": "Multiple Tooltips",
-    "Text": "This ui element spawns multiple tooltips at the same time.\n These tooltips will be in all the corners of the screen.\n You can test how the different pin-settings interact with multiple\n open tooltips and how nested tooltips are spawned when you spawn them in invalid locations\n that would normally be outside the screen."
+  "tooltipMultiple": {
+    "id": "tooltip_multiple",
+    "text": "This ui element spawns multiple tooltips at the same time.\n These tooltips will be in all the corners of the screen.\n You can test how the different pin-settings interact with multiple\n open tooltips and how nested tooltips are spawned when you spawn them in invalid locations\n that would normally be outside the screen."
   },
-  "tooltip_multiple_top_right": {
-    "Id": "tooltip_multiple_top_right",
-    "Name": "tooltip_multiple_top_right",
-    "Text": "tooltip_multiple_top_right"
+  "tooltipMultipleTopRight": {
+    "id": "tooltip_multiple_top_right",
+    "text": "tooltip_multiple_top_right"
   },
-  "tooltip_multiple_bottom_right": {
-    "Id": "tooltip_multiple_bottom_right",
-    "Name": "tooltip_multiple_bottom_right",
-    "Text": "tooltip_multiple_bottom_right"
+  "tooltipMultipleBottomRight": {
+    "id": "tooltip_multiple_bottom_right",
+    "text": "tooltip_multiple_bottom_right"
   },
-  "tooltip_multiple_top_left": {
-    "Id": "tooltip_multiple_top_left",
-    "Name": "tooltip_multiple_top_left",
-    "Text": "tooltip_multiple_top_left"
+  "tooltipMultipleTopLeft": {
+    "id": "tooltip_multiple_top_left",
+    "text": "tooltip_multiple_top_left"
   },
-  "tooltip_multiple_bottom_left": {
-    "Id": "tooltip_multiple_bottom_left",
-    "Name": "tooltip_multiple_bottom_left",
-    "Text": "tooltip_multiple_bottom_left"
+  "tooltipMultipleBottomLeft": {
+    "id": "tooltip_multiple_bottom_left",
+    "text": "tooltip_multiple_bottom_left"
   }
 }
