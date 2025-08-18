@@ -1,7 +1,7 @@
 namespace NestedTooltips;
 
 /// <summary>
-/// The pivot used to determine in what direction the tooltip should be 'drawn' in relation to the position supplied by the user.
+/// The pivot is used to determine in what direction the tooltip should be 'drawn' in relation to the position supplied by the user.
 /// The top left corner of the tooltip is represented by (0, 0), the bottom right corner by (1, 1).
 /// </summary>
 /// <remarks>
