@@ -17,9 +17,12 @@ public interface ITooltip
     /// The bbcode formatted text of the tooltip.
     /// </summary>
     public string Text { get; }
-
     /// <summary>
-    /// Event that is called after this tooltip is destroyed.
+    /// The position that the tooltip is displayed at on the screen.
     /// </summary>
-    public event Action? OnTooltipDestroyed;
+    public Vector2 Position { get; }
+    /// <summary>
+    /// The pivot point of the tooltip, which determines how the tooltip is positioned relative to its <see cref="Position"/>.
+    /// </summary>
+    public TooltipPivot Pivot { get; }
 }

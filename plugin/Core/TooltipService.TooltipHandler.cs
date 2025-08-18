@@ -4,8 +4,6 @@ public partial class TooltipService
 {
     private class TooltipHandler
     {
-        private TooltipHandler? _child;
-        private readonly TooltipHandler? _parent;
         private readonly ITooltipControl _control;
         private readonly Vector2 _desiredPosition;
         private readonly TooltipPivot _desiredPivot;
@@ -25,22 +23,23 @@ public partial class TooltipService
         /// <summary>The last size before it was changed.</summary>
         private Vector2 _lastSize = Vector2.Zero;
 
-        public Tooltip Tooltip { get; private set; }
+        public TooltipHandler? Parent { get; }
+        public TooltipHandler? Child { get; private set; }
+
+        public ITooltip Tooltip { get; private set; }
         public string Text { get => _control.Text; set => _control.Text = value; }
         public Vector2 Size { get => _control.Size; set => _control.Size = value; }
 
         public TooltipHandler(ITooltipControl control, TooltipHandler? parent, Vector2 desiredPosition, TooltipPivot desiredPivot, int? width)
         {
             _control = control;
-            _parent = parent;
+            Parent = parent;
 
             // Set the size and the desired location.
             _desiredPosition = desiredPosition;
             _desiredPivot = desiredPivot;
             _lastSize = _control.Size;
             UpdatePosition();
-
-            Tooltip = new();
 
             _control.Visible = false;
             _control.OnLinkHoveredStart += OnLinkHoveredStart;
@@ -58,6 +57,9 @@ public partial class TooltipService
                 _control.MinimumWidth = 0;
                 _control.WrapText = false;
             }
+
+            // Set the readonly tooltip.
+            Tooltip = new Tooltip(() => Child?.Tooltip, parent?.Tooltip, Text, _desiredPosition, _desiredPivot);
         }
 
         public void Release()
@@ -97,7 +99,7 @@ public partial class TooltipService
             _control.Visible = _aliveTime >= Settings.ShowDelay;
 
             // Update how long the cursor has been away from the tooltip.
-            if (_control.IsCursorOverTooltip() || _child != null)
+            if (_control.IsCursorOverTooltip() || Child != null)
             {
                 _cursorAwayTime = 0.0;
                 _control.UnlockProgress = 0.0;
@@ -139,7 +141,7 @@ public partial class TooltipService
 
                 bool isCursorOverTooltip = _control.IsCursorOverTooltip();
                 bool isUnlocked = GetUnlockProgress() >= 1;
-                bool noOpenChild = _child == null;
+                bool noOpenChild = Child == null;
 
                 bool canRelease = isCursorOverTooltip == false && isUnlocked && noOpenChild;
 
@@ -206,17 +208,17 @@ public partial class TooltipService
 
             // Create the tooltip and set its text.
             (Vector2 nestedPosition, TooltipPivot nestedPivot) = CalculateNestedTooltipLocation(this, cursorPosition);
-            (TooltipHandler childHandler, Tooltip _) = CreateTooltip(nestedPosition, nestedPivot, tooltipData.DesiredWidth, this);
+            (TooltipHandler childHandler, ITooltip _) = CreateTooltip(nestedPosition, nestedPivot, tooltipData.DesiredWidth, this);
             childHandler.Text = tooltipData.Text;
-            _child = childHandler;
+            Child = childHandler;
         }
 
         private void OnLinkHoveredEnd(Vector2 cursorPosition, string tooltipTextId)
         {
             // If the tooltip has a child, we need to release it.
-            if (_child != null)
+            if (Child != null)
             {
-                _child.Release();
+                Child.Release();
             }
         }
 
@@ -228,23 +230,23 @@ public partial class TooltipService
 
             // We already hovered over the link, so we should have a child tooltip.
             // Make sure we do have one.
-            if (_child == null)
+            if (Child == null)
             {
                 GD.PushError($"No child tooltip found for link click with id: {tooltipTextId}. This is a bug and should not happen!");
                 return;
             }
 
             // Send a message to the child that it was clicked and it will handle the locking itself.
-            _child.OnThisClicked();
+            Child.OnThisClicked();
         }
 
         private void DestroyChild()
         {
-            if (_child == null)
+            if (Child == null)
             { return; }
 
-            _child.ForceDestroy();
-            _child = null;
+            Child.ForceDestroy();
+            Child = null;
         }
 
         #endregion Nesting Logic
@@ -270,16 +272,16 @@ public partial class TooltipService
             _control.QueueFree();
 
             // Destroy any children.
-            if (_child != null)
+            if (Child != null)
             {
-                _child.ForceDestroy();
-                _child = null;
+                Child.ForceDestroy();
+                Child = null;
             }
 
             // Tell the parent that we don't exist anymore.
-            if (_parent != null)
+            if (Parent != null)
             {
-                _parent._child = null;
+                Parent.Child = null;
             }
 
             // Make sure the service knows that this tooltip is gone.
