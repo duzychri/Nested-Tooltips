@@ -269,7 +269,7 @@ public partial class TooltipService : GodotSingelton<TooltipService>
  private static (Vector2 position, TooltipPivot pivot) CalculateNestedTooltipLocation(TooltipHandler parentTooltipHandler, Vector2 cursorPosition)
 {
     // Get the current viewport size and its center to determine screen quadrants.
-    var viewportSize = DisplayServer.WindowGetSize();
+    var viewportSize = DisplayServer.WindowGetSize(); /// correct way to find out the size of the viewport like in the example for multipleTooltips?
     var screenCenter = viewportSize / 2.0f;
 
     TooltipPivot pivot;
@@ -298,7 +298,7 @@ public partial class TooltipService : GodotSingelton<TooltipService>
             pivot = TooltipPivot.BottomRight;
         }
     }
-    (float clampedX, float clampedY) = CalculateNewTooltipLocation(cursorPosition, pivot, tooltipSize);
+    (float clampedX, float clampedY) = CalculateNewTooltipLocation(cursorPosition, pivot, tooltipSize); ///how can i get the tooltipSize inside this Method?
 
 
     
