@@ -1,30 +1,30 @@
 {
-  "pinningExplanation": {
+  "pinning_explanation": {
     "id": "pinning_explanation",
     "desiredWidth": 300,
     "text": "Open [url=tooltip_explanation]tooltips[/url] can be [b]pinned[/b]. This keeps the [url=tooltip_explanation]tooltip[/url] open even if the condition to open it is no longer true, for example if the user stops hovering over the UI element that opened a [url=tooltip_explanation]tooltip[/url]. This enables the user to open more tooltips, leading to nesting. The exact method to pin a [url=tooltip_explanation]tooltip[/url] can be configured using the [url=tooltip_settings]settings[/url]."
   },
-  "nestingExplanation": {
+  "nesting_explanation": {
     "id": "nesting_explanation",
     "desiredWidth": 300,
     "text": "A [b]nested[/b] [url=tooltip_explanation]tooltip[/url] is one that has been opened from within another [url=tooltip_explanation]tooltip[/url]. The nested [url=tooltip_explanation]tooltip[/url] is then the child of the source or parent [url=tooltip_explanation]tooltip[/url]."
   },
-  "highlightedTextExplanation": {
+  "highlighted_text_explanation": {
     "id": "highlighted_text_explanation",
     "desiredWidth": 300,
     "text": "Highlighted text inside [url=tooltip_explanation]tooltips[/url] can be hovered over to open a nested [url=tooltip_explanation]tooltip[/url]."
   },
-  "tooltipExplanation": {
+  "tooltip_explanation": {
     "id": "tooltip_explanation",
     "desiredWidth": 300,
     "text": "[p]A tooltip is a small popup that appears when you hover over an UI element.[/p][p]Tooltips can be [url=nesting_explanation]nested[/url] and have various [url=tooltip_settings]settings[/url] for [url=pinning_explanation]pinning[/url].[/p]"
   },
-  "tooltipSettings": {
+  "tooltip_settings": {
     "id": "tooltip_settings",
     "desiredWidth": 300,
     "text": "You can adjust the settings that determine the behavior of created [url=tooltip_explanation]tooltips[/url] in the settings below the [b]Tooltip Settings[/b] label."
   },
-  "tooltipSmall": {
+  "tooltip_small": {
     "id": "tooltip_small",
     "text": "This is a small [url=tooltip_explanation]tooltip[/url]."
   },
@@ -32,48 +32,48 @@
     "id": "bbcode",
     "text": "BBcode is a type of markup that can be used in Godot [i]RichTextLabels[/i] to style the text."
   },
-  "tooltipLarge": {
+  "tooltip_large": {
     "id": "tooltip_large",
     "text": "This is a large tooltip that gets a width provided when it is created leading to it line breaking to fit the specified width. This is unlike the small tooltip that only matches the length of the string but will not line-break unless those are manually added to the [url=bbcode]bbcode[/url] text as markup."
   },
-  "tooltipDisabledNesting": {
+  "tooltip_disabled_nesting": {
     "id": "tooltip_disabled_nesting",
     "desiredWidth": 300,
     "text": "This is a tooltip with disabled (or rather not enabled nesting). The tooltip component is provided with this information and then determines itself how it should display links to other tooltips. It is also not interactable; mouse movement and events that hit this tooltip are ignored/passed through."
   },
-  "tooltipNormalNesting": {
+  "tooltip_normal_nesting": {
     "id": "tooltip_normal_nesting",
     "text": "This is a normal nesting tooltip. Dependend on what settings you have chosen this tooltip can be pinned.\nCurrently you have the time lock setting enabled,\n which means that this tooltip will be pinned after {LockTime} seconds of being open.\nAfter that has happened you can move your mouse into this tooltip to hover over links.\n Like [url=tooltip_nested_example]this one[/url]!"
   },
-  "tooltipNestedExample": {
+  "tooltip_nested_example": {
     "id": "tooltip_nested_example",
     "text": "This is the nested tooltip, opened from another one. Like [url=tooltip_nested_example]this one[/url]!"
   },
-  "tooltipWonkyLocation": {
+  "tooltip_wonky_location": {
     "id": "tooltip_wonky_location",
     "text": "This ui element spawns a tooltip in a wonky location. Can you even reach this befor the lock runs out and the tooltip disappears again?"
   },
-  "tooltipPersistent": {
+  "tooltip_persistent": {
     "id": "tooltip_persistent",
     "text": "This ui element spawns a tooltip and then just lets it sit there and never cleans it up. But you can press the button next to this to clear all tooltips that are currently open. Alternatively changing any setting will also close all currently open tooltips."
   },
-  "tooltipMultiple": {
+  "tooltip_multiple": {
     "id": "tooltip_multiple",
     "text": "This ui element spawns multiple tooltips at the same time.\n These tooltips will be in all the corners of the screen.\n You can test how the different pin-settings interact with multiple\n open tooltips and how nested tooltips are spawned when you spawn them in invalid locations\n that would normally be outside the screen."
   },
-  "tooltipMultipleTopRight": {
+  "tooltip_multiple_top_right": {
     "id": "tooltip_multiple_top_right",
     "text": "tooltip_multiple_top_right"
   },
-  "tooltipMultipleBottomRight": {
+  "tooltip_multiple_bottom_right": {
     "id": "tooltip_multiple_bottom_right",
     "text": "tooltip_multiple_bottom_right"
   },
-  "tooltipMultipleTopLeft": {
+  "tooltip_multiple_top_left": {
     "id": "tooltip_multiple_top_left",
     "text": "tooltip_multiple_top_left"
   },
-  "tooltipMultipleBottomLeft": {
+  "tooltip_multiple_bottom_left": {
     "id": "tooltip_multiple_bottom_left",
     "text": "tooltip_multiple_bottom_left"
   }
