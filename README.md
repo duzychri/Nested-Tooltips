@@ -4,7 +4,11 @@ This project is a plugin for Godot 4.4.1 that provides a customizable tooltip sy
 
 Nested tooltips are a feature that enables tooltips to open additional child tooltips when interacting with specific elements, such as links or buttons, within the parent tooltip. This behavior allows for hierarchical or contextual information to be displayed seamlessly, enhancing the user experience.
 
-## Setup
+## Project Installation
+
+If you want to use this plugin in your own Godot project, you can follow the steps below to install it. Either clone the repository and extract the contents of the `addons/nested-tooltips` folder into your own project or get the project from the [Godot Asset Library](https://godotengine.org/asset-library/asset).
+
+## Project Setup
 
 These are the steps you need to follow to set up the project on your local machine. The project was created using Windows and no guarantee is made that it will work on other platforms. It is likely that it will work on Linux and MacOS. Because it is written in C# won't currently work for the web export of Godot.
 
