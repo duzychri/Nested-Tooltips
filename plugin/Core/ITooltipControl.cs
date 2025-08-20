@@ -64,6 +64,13 @@ public interface ITooltipControl
     /// </summary>
     event Action<Vector2, string>? OnLinkHoveredStart;
 
+    /// <summary>
+    /// Removes the control from the scene.
+    /// </summary>
     void QueueFree();
+
+    /// <summary>
+    /// Returns <see langword="true"/> if the cursor is currently hovering over the tooltip.
+    /// </summary>
     bool IsCursorOverTooltip();
 }

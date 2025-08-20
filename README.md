@@ -41,7 +41,12 @@ To create a simple tooltip you can use the `ShowTooltip` method in the `TooltipS
 
 ``` C#
 
-ITooltip tooltip = TooltipService.ShowTooltip(tooltipPosition, TooltipPivot.BottomLeft, tooltipText, width);
+ITooltip tooltip = TooltipService.ShowTooltip(
+    tooltipPosition, 
+    TooltipPivot.BottomLeft, 
+    tooltipText,
+    width
+);
 
 ```
 
@@ -82,16 +87,62 @@ The tooltip system can be configured in different ways. You can change the behav
 
 ### Settings
 
-...
+The `Settings` property can be used to configure the behaviour of the created tooltips.
+
+You can set it like this:
+
+``` C#
+
+TooltipService.Settings = new()
+{
+	ShowDelay = 0.25f,
+
+	LockDelay = 0.5f,
+	UnlockDelay = 0.5f,
+	LockMode = TooltipLockMode.TimerLock,
+};
+
+```
+
+- `LockMode` sets the behaviour that locks the tooltip. `TimerLock` locks the tooltip if it stays open for a certain amount of time, `ActionLock` locks the tooltip if the `ActionLockTooltip` is called or (for nested tooltips) if the source text of a tooltip is clicked by the cursor.
+- `ShowDelay` determines the delay in seconds until the tooltip is shown after the `ShowTooltip` is called.
+- `LockDelay` is used if the `TimerLock` lock mode is set and determines the amount of time that has to pass with the tooltip open for it to be locked.
+- `UnlockDelay` is the amount of time required until the tooltip is destroyed again if it was released and the user is not currently hovering over the tooltip.
+
+Hint: As the `TooltipSettings` is a record type, you can use the `with` expression to easily change the settings.
+
+```C#
+
+TooltipService.Settings = TooltipService.Settings with { ShowDelay = (float)value };
+
+```
 
 ### Data provider
 
-... 
+The `TooltipDataProvider` property can be set with a class that implements the `ITooltipDataProvider` interface. The providers `GetTooltipData(id)` method is called with the id (for example using the `ShowTooltipById` method) of a tooltip to get that tooltips information.
+
+The tooltip data itself has three properties:
+
+- `Id` is the id that the provider uses to identify the relevant data.
+- `Text` is the bbcode markup text that is shown in the tooltip.
+- `DesiredWidth` is an optional parameter that, when set, sets the size of the tooltip and makes the tooltip try to line break the text. This can be overriden by the `width` parameter of the show tooltip methods.
+
+You can implement your own data provider or use the provided `BasicTooltipDataProvider` data provider that loads files from a json file.
+
+``` C#
+
+TooltipService.TooltipDataProvider = new(
+    jsonFilePath
+);
+
+```
 
 ### Tooltip prefab
 
-...
+The `TooltipPrefabPath` property determines the path of the 'prefab' scene used to create the control that is shown inside Godot when a tooltip is created. By default a simple tooltip prefab is used but you can supply your own control scene if the root node of it implements `ITooltipControl`. To see an example of how to implement such a control check the `BasicTooltipControl` class.
 
 ## Credits
+
+This plugin was created for the 'Einführung in die Spieleprogrammierung' lecture by [Christoph Duzy](https://duzychri.github.io/) and *Marcin Kuhnert*.
 
 The padlock icon used for the default tooltip was created by [Lorc](https://lorcblog.blogspot.com/) from [Game-icons.net](https://game-icons.net/1x1/lorc/padlock.html) and is licensed under the [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/) license.
