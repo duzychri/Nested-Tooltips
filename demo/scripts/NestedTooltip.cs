@@ -1,9 +1,10 @@
-using NestedTooltips;
+namespace NestedTooltips.DemoScene;
 
 public partial class NestedTooltip : Button
 {
     private List<ITooltip> _activeTooltips = new List<ITooltip>();
-    [Export] private string tooltipId = "tooltip_normal_nesting";
+    private const string tooltipId = "tooltip_normal_nesting";
+
     public override void _Ready()
     {
         MouseEntered += OnMouseEntered;
@@ -13,8 +14,8 @@ public partial class NestedTooltip : Button
     private void OnMouseExit()
     {
         var activeTooltip = _activeTooltips[0];
-		TooltipService.ReleaseTooltip(activeTooltip);
-		_activeTooltips = new List<ITooltip>();
+        TooltipService.ReleaseTooltip(activeTooltip);
+        _activeTooltips = new List<ITooltip>();
     }
 
     private void OnMouseEntered()
