@@ -1,8 +1,4 @@
-using Godot;
 using NestedTooltips;
-using System;
-using System.Numerics;
-using System.Collections.Generic;
 
 public partial class MultipleTooltip : Button
 {

@@ -1,6 +1,4 @@
-using Godot;
 using NestedTooltips;
-using System;
 
 public partial class SmallTooltip : Button
 {
