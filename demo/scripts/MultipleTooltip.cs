@@ -2,12 +2,13 @@ namespace NestedTooltips.DemoScene;
 
 public partial class MultipleTooltip : Button
 {
-    private List<ITooltip> _activeTooltips = new List<ITooltip>();
-    private const string tooltipIdMain = "tooltip_multiple";
-    private const string tooltipId1 = "tooltip_multiple_top_right";
-    private const string tooltipId2 = "tooltip_multiple_bottom_right";
-    private const string tooltipId3 = "tooltip_multiple_top_left";
-    private const string tooltipId4 = "tooltip_multiple_bottom_left";
+    private const string TooltipIdMain = "tooltip_multiple";
+    private const string TooltipIdTopRight = "tooltip_multiple_top_right";
+    private const string TooltipIdBottomRight = "tooltip_multiple_bottom_right";
+    private const string TooltipIdTopLeft = "tooltip_multiple_top_left";
+    private const string TooltipIdBottomLeft = "tooltip_multiple_bottom_left";
+
+    private readonly List<ITooltip> _activeTooltips = [];
 
     public override void _Ready()
     {
@@ -17,7 +18,7 @@ public partial class MultipleTooltip : Button
 
     private void OnMouseExited()
     {
-        foreach (var activeTooltip in _activeTooltips)
+        foreach (ITooltip activeTooltip in _activeTooltips)
         {
             TooltipService.ReleaseTooltip(activeTooltip);
         }
@@ -26,17 +27,20 @@ public partial class MultipleTooltip : Button
 
     private void OnMouseEntered()
     {
-        Godot.Vector2 screenSize = GetViewport().GetVisibleRect().Size;
-        Godot.Vector2 position = GetScreenPosition();
-        Godot.Vector2 position1 = new Godot.Vector2(screenSize.X, 0.0f);
-        Godot.Vector2 position2 = new Godot.Vector2(screenSize.X, screenSize.Y);
-        Godot.Vector2 position3 = new Godot.Vector2(0.0f, 0.0f);
-        Godot.Vector2 position4 = new Godot.Vector2(0.0f, screenSize.Y);
+        Vector2 screenSize = GetViewport().GetVisibleRect().Size;
+        Vector2 buttonPosition = GetScreenPosition();
 
-        _activeTooltips.Add(TooltipService.ShowTooltipById(position, TooltipPivot.BottomLeft, tooltipIdMain));
-        _activeTooltips.Add(TooltipService.ShowTooltipById(position1, TooltipPivot.TopRight, tooltipId1));
-        _activeTooltips.Add(TooltipService.ShowTooltipById(position2, TooltipPivot.BottomRight, tooltipId2));
-        _activeTooltips.Add(TooltipService.ShowTooltipById(position3, TooltipPivot.TopLeft, tooltipId3));
-        _activeTooltips.Add(TooltipService.ShowTooltipById(position4, TooltipPivot.BottomLeft, tooltipId4));
+        // Predefined tooltip positions
+        Vector2 positionTopRight = new Vector2(screenSize.X, 0.0f);
+        Vector2 positionBottomRight = new Vector2(screenSize.X, screenSize.Y);
+        Vector2 positionTopLeft = new Vector2(0.0f, 0.0f);
+        Vector2 positionBottomLeft = new Vector2(0.0f, screenSize.Y);
+
+        // Display tooltips
+        _activeTooltips.Add(TooltipService.ShowTooltipById(buttonPosition, TooltipPivot.BottomLeft, TooltipIdMain));
+        _activeTooltips.Add(TooltipService.ShowTooltipById(positionTopRight, TooltipPivot.TopRight, TooltipIdTopRight));
+        _activeTooltips.Add(TooltipService.ShowTooltipById(positionBottomRight, TooltipPivot.BottomRight, TooltipIdBottomRight));
+        _activeTooltips.Add(TooltipService.ShowTooltipById(positionTopLeft, TooltipPivot.TopLeft, TooltipIdTopLeft));
+        _activeTooltips.Add(TooltipService.ShowTooltipById(positionBottomLeft, TooltipPivot.BottomLeft, TooltipIdBottomLeft));
     }
 }
