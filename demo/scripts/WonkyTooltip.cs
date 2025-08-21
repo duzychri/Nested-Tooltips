@@ -4,7 +4,7 @@ using System;
 
 public partial class WonkyTooltip : Button
 {
-    private ITooltip tooltip;
+	private List<ITooltip> _activeTooltips = new List<ITooltip>();
     [Export] private string tooltipId = "tooltip_wonky_location";
     public override void _Ready()
     {
@@ -14,13 +14,14 @@ public partial class WonkyTooltip : Button
 
     private void OnMouseExit()
     {
-        TooltipService.ReleaseTooltip(tooltip);
+		var activeTooltip = _activeTooltips[0];
+		TooltipService.ReleaseTooltip(activeTooltip);
+		_activeTooltips = new List<ITooltip>();
     }
 
     private void OnMouseEntered()
     {
-        GD.Print($"{tooltipId}");
         Vector2 position = new Vector2(0.0f, 0.0f);
-        tooltip = TooltipService.ShowTooltipById(position, TooltipPivot.TopLeft, tooltipId);
+		_activeTooltips.Add(TooltipService.ShowTooltipById(position, TooltipPivot.BottomLeft, tooltipId));
     }
 }

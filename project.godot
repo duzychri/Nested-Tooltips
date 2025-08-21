@@ -19,6 +19,10 @@ config/icon="res://icon.svg"
 
 TooltipServicePrefab="*res://plugin/Prefabs/TooltipService_Prefab.tscn"
 
+[display]
+
+window/size/viewport_width=1006
+
 [dotnet]
 
 project/assembly_name="esp-25-tooltip-plugin"

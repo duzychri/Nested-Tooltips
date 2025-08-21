@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cfm54tyfi5lqc"]
+[gd_scene load_steps=15 format=3 uid="uid://cfm54tyfi5lqc"]
 
 [ext_resource type="Script" uid="uid://bj0eaiwpe6i0l" path="res://demo/DemoSceneManager.cs" id="1_bglyn"]
 [ext_resource type="Script" uid="uid://c10aa4tfovehk" path="res://plugin/Data/LanguageMapping.cs" id="2_apviv"]
@@ -9,7 +9,9 @@
 [ext_resource type="Script" uid="uid://bsbu0iwgj8wf4" path="res://demo/scripts/LargeTooltip.cs" id="7_tplxe"]
 [ext_resource type="Script" uid="uid://dnir4mjmk1sue" path="res://demo/scripts/NestedTooltip.cs" id="8_f5saa"]
 [ext_resource type="Script" uid="uid://cmi6bb7ub8r8h" path="res://demo/scripts/WonkyTooltip.cs" id="9_dbc7n"]
+[ext_resource type="Script" uid="uid://caypx5fiwstjx" path="res://demo/scripts/CloseOnButton.cs" id="10_f5saa"]
 [ext_resource type="Script" uid="uid://nbtkoocxtew2" path="res://demo/scripts/MultipleTooltip.cs" id="11_1hpw1"]
+[ext_resource type="Script" uid="uid://b6dm1t52nqs7y" path="res://demo/scripts/Clamped.cs" id="11_tplxe"]
 
 [sub_resource type="Resource" id="Resource_t18ui"]
 script = ExtResource("2_apviv")
@@ -212,8 +214,20 @@ layout_mode = 2
 text = "Wonky"
 script = ExtResource("9_dbc7n")
 
+[node name="CloseOnButton" type="Button" parent="Control/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+text = "Close on Button Click"
+script = ExtResource("10_f5saa")
+
 [node name="MultipleTooltips" type="Button" parent="Control/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 text = "Multiple"
 script = ExtResource("11_1hpw1")
+
+[node name="ClampedTooltip" type="Button" parent="Control/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+text = "Clamped"
+script = ExtResource("11_tplxe")
