@@ -1,42 +1,102 @@
 {
+  "pinning_explanation": {
+	"Id": "pinning_explanation",
+	"Name": "pinning",
+	"Text": "Offene [url=tooltip_explanation]Tooltips[/url] können [b]angeheftet[/b] werden. Dadurch bleibt der [url=tooltip_explanation]Tooltip[/url] auch dann geöffnet, wenn die Bedingung zum Öffnen nicht mehr erfüllt ist, zum Beispiel wenn der Benutzer nicht mehr über das UI-Element schwebt, das einen [url=tooltip_explanation]Tooltip[/url] geöffnet hat. Dies ermöglicht es dem Benutzer, weitere Tooltips zu öffnen, was zu einer Verschachtelung führt. Die genaue Methode zum Anheften eines [url=tooltip_explanation]Tooltips[/url] kann über die [url=tooltip_settings]Einstellungen[/url] konfiguriert werden."
+  },
+  "nesting_explanation": {
+	"Id": "nesting_explanation",
+	"Name": "nesting",
+	"Text": "Ein verschachtelter Tooltip ist einer, der aus einem anderen Tooltip heraus geöffnet wurde. Der verschachtelte Tooltip ist dann das Kind des Quell- oder Eltern-Tooltips."
+  },
+  "highlighted_text_explanation": {
+	"Id": "highlighted_text_explanation",
+	"Name": "highlighted text",
+	"Text": "Hervorgehobener Text innerhalb von [url=tooltip_explanation]Tooltips[/url] kann überfahren werden, um einen verschachtelten [url=tooltip_explanation]Tooltip[/url] zu öffnen."
+  },
+  "tooltip_explanation": {
+	"Id": "tooltip_explanation",
+	"Name": "tooltip",
+	"Text": "[p]Ein Tooltip ist ein kleines Popup, das erscheint, wenn Sie mit der Maus über ein UI-Element fahren.[/p][p]Tooltips können verschachtelt und persistent sein und verschiedene [url=tooltip_settings]Einstellungen[/url] zum [url=pinning_explanation]Anheften[/url] haben.[/p]"
+  },
+  "tooltip_settings": {
+	"Id": "tooltip_settings",
+	"Name": "tooltip settings",
+	"Text": "Sie können die Einstellungen, die das Verhalten der erstellten [url=tooltip_explanation]Tooltips[/url] bestimmen, in den Einstellungen unter der Bezeichnung [b]Tooltip-Einstellungen[/b] anpassen."
+  },
   "tooltip_small": {
-    "Id": "tooltip_small",
-    "Name": "Kleiner Tooltip",
-    "Text": "Dies ist ein kleiner Tooltip."
+	"Id": "tooltip_small",
+	"Name": "Small Tooltip",
+	"Text": "Dies ist ein kleiner [url=tooltip_explanation]Tooltip[/url]."
+  },
+  "bbcode": {
+	"Id": "bbcode",
+	"Name": "bbcode",
+	"Text": "BBCode ist eine Art von Markup, das in Godot [i]RichTextLabels[/i] verwendet werden kann, um den Text zu formaten."
   },
   "tooltip_large": {
-    "Id": "tooltip_large",
-    "Name": "Großer Tooltip",
-    "Text": "Dies ist ein großer Tooltip, dem beim Erstellen eine feste Breite zugewiesen wird, was zu einem Zeilenumbruch führt. Im Gegensatz dazu passt sich der kleine Tooltip nur der Textlänge an und bricht nicht um, es sei denn, man fügt den Umbruch manuell per BBCode hinzu."
+	"Id": "tooltip_large",
+	"Name": "Large Tooltip",
+	"Text": "Dies ist ein großer Tooltip, dem bei seiner Erstellung eine Breite zugewiesen wird, was zu einem Zeilenumbruch führt, um sich der angegebenen Breite anzupassen. Dies unterscheidet sich vom kleinen Tooltip, der nur der Länge des Textes entspricht, aber keinen Zeilenumbruch durchführt, es sei denn, dieser wird manuell zum BBCode-Text als Markup hinzugefügt."
   },
   "tooltip_disabled_nesting": {
-    "Id": "tooltip_disabled_nesting",
-    "Name": "Deaktivierte Verschachtelung",
-    "Text": "Dies ist ein Tooltip mit deaktivierter Verschachtelung. Die Komponente erhält diese Information und entscheidet selbst, wie sie Links zu anderen Tooltips anzeigt. Er ist nicht interaktiv; Mausereignisse werden ignoriert und durchgelassen."
+	"Id": "tooltip_disabled_nesting",
+	"Name": "Disabled Nesting",
+	"Text": "Dies ist ein Tooltip mit deaktivierter (oder besser gesagt nicht aktivierter) Verschachtelung. Die Tooltip-Komponente erhält diese Information und bestimmt dann selbst, wie sie Links zu anderen Tooltips anzeigen soll. Er ist auch nicht interaktiv; Mausbewegungen und Ereignisse, die diesen Tooltip treffen, werden ignoriert/durchgelassen."
   },
   "tooltip_normal_nesting": {
-    "Id": "tooltip_normal_nesting",
-    "Name": "Standard-Tooltip mit Verschachtelung",
-    "Text": "Dies ist ein normaler verschachtelter Tooltip. Je nach Einstellung kann er angeheftet werden. Aktuell ist die Zeitsperre aktiv, d.h. der Tooltip wird nach {LockTime} Sekunden fixiert. Danach kannst du mit der Maus über Links fahren, so wie über [url=tooltip_nested_example]diesen hier[/url]!"
+	"Id": "tooltip_normal_nesting",
+	"Name": "Standard Nested Tooltip",
+	"Text": "Dies ist ein normaler verschachtelter Tooltip. Abhängig von den gewählten Einstellungen kann dieser Tooltip angeheftet werden.\nDerzeit ist die Zeitsperre-Einstellung aktiviert,\n was bedeutet, dass dieser Tooltip nach {LockTime} Sekunden des Offenseins angeheftet wird.\nDanach können Sie Ihre Maus in diesen Tooltip bewegen, um über Links zu schweben.\n Wie [url=tooltip_nested_example]diesen hier[/url]!"
   },
   "tooltip_nested_example": {
-    "Id": "tooltip_nested_example",
-    "Name": "Verschachteltes Beispiel",
-    "Text": "Dies ist der verschachtelte Tooltip, der aus einem anderen geöffnet wurde."
+	"Id": "tooltip_nested_example",
+	"Name": "Nested Example",
+	"Text": "Dies ist der verschachtelte Tooltip, der aus einem anderen geöffnet wurde. Wie [url=tooltip_nested_example]dieser hier[/url]!"
   },
   "tooltip_wonky_location": {
-    "Id": "tooltip_wonky_location",
-    "Name": "Seltsame Position",
-    "Text": "Dieses UI-Element erzeugt einen Tooltip an einer merkwürdigen Position. Kannst du ihn überhaupt erreichen, bevor die Sperre abläuft und er wieder verschwindet?"
+	"Id": "tooltip_wonky_location",
+	"Name": "Wonky Location",
+	"Text": "Dieses UI-Element erzeugt einen Tooltip an einer seltsamen Stelle. Kannst du ihn überhaupt erreichen, bevor die Sperre abläuft und der Tooltip wieder verschwindet?"
   },
   "tooltip_persistent": {
-    "Id": "tooltip_persistent",
-    "Name": "Dauerhafter Tooltip",
-    "Text": "Dieses UI-Element erzeugt einen Tooltip und entfernt ihn nie. Du kannst aber den Knopf daneben drücken, um alle offenen Tooltips zu schließen. Auch das Ändern einer Einstellung schließt alle Tooltips."
+	"Id": "tooltip_persistent",
+	"Name": "Persistent Tooltip",
+	"Text": "Dieses UI-Element erzeugt einen Tooltip und lässt ihn einfach dort, ohne ihn jemals zu bereinigen. Sie können jedoch die Schaltfläche daneben drücken, um alle aktuell geöffneten Tooltips zu löschen. Alternativ schließt auch das Ändern einer beliebigen Einstellung alle aktuell geöffneten Tooltips."
   },
   "tooltip_multiple": {
-    "Id": "tooltip_multiple",
-    "Name": "Mehrere Tooltips",
-    "Text": "Dieses UI-Element erzeugt mehrere Tooltips gleichzeitig in allen Ecken des Bildschirms. Du kannst so testen, wie die Anheft-Einstellungen mit mehreren Tooltips interagieren und wie neue Tooltips an ungültigen Positionen (außerhalb des Bildschirms) behandelt werden."
+	"Id": "tooltip_multiple",
+	"Name": "Multiple Tooltips",
+	"Text": "Dieses UI-Element erzeugt mehrere Tooltips gleichzeitig.\n Diese Tooltips befinden sich in allen Ecken des Bildschirms.\n Sie können testen, wie die verschiedenen Anheft-Einstellungen mit mehreren\n offenen Tooltips interagieren und wie verschachtelte Tooltips erzeugt werden, wenn Sie sie an ungültigen Positionen erzeugen,\n die normalerweise außerhalb des Bildschirms liegen würden."
+  },
+  "tooltip_multiple_top_right": {
+	"Id": "tooltip_multiple_top_right",
+	"Name": "tooltip_multiple_top_right",
+	"Text": "tooltip_multiple_oben_rechts"
+  },
+  "tooltip_multiple_bottom_right": {
+	"Id": "tooltip_multiple_bottom_right",
+	"Name": "tooltip_multiple_bottom_right",
+	"Text": "tooltip_multiple_unten_rechts"
+  },
+  "tooltip_multiple_top_left": {
+	"Id": "tooltip_multiple_top_left",
+	"Name": "tooltip_multiple_top_links",
+	"Text": "tooltip_multiple_oben_links"
+  },
+  "tooltip_multiple_bottom_left": {
+	"Id": "tooltip_multiple_bottom_left",
+	"Name": "tooltip_multiple_bottom_left",
+	"Text": "tooltip_multiple_unten_links"
+  },
+  "tooltip_clamped": {
+	"Id": "tooltip_clamped",
+	"Name": "tooltip_clamped",
+	"Text": "Dies funktioniert nur, wenn die Breite größer als 1006 Pixel ist ................................................................................................................................."
+  },
+  "tooltip_close_tooltip": {
+	"Id": "tooltip_close_tooltip",
+	"Name": "tooltip_close_tooltip",
+	"Text": "Dieser Tooltip schließt sich nur, wenn Sie auf den Button klicken"
   }
 }

@@ -20,7 +20,6 @@ public partial class MultipleTooltip : Button
 
 	private void OnMouseExit()
 	{
-		GD.Print($"{_activeTooltips.Count}");
 		foreach (var activeTooltip in _activeTooltips)
 		{
 			TooltipService.ReleaseTooltip(activeTooltip);
@@ -31,18 +30,17 @@ public partial class MultipleTooltip : Button
 	private void OnMouseEntered()
 	{
 		Godot.Vector2 screenSize = GetViewport().GetVisibleRect().Size;
-		GD.Print($"{screenSize}");
 		Godot.Vector2 position = GetScreenPosition();
 		Godot.Vector2 position1 = new Godot.Vector2(screenSize.X, 0.0f);
 		Godot.Vector2 position2 = new Godot.Vector2(screenSize.X, screenSize.Y);
 		Godot.Vector2 position3 = new Godot.Vector2(0.0f, 0.0f);
 		Godot.Vector2 position4 = new Godot.Vector2(0.0f, screenSize.Y);
 
-		_activeTooltips.Add(TooltipService.ShowTooltip(position, TooltipPivot.BottomLeft, tooltipIdMain));
-		_activeTooltips.Add(TooltipService.ShowTooltip(position1, TooltipPivot.TopRight, tooltipId1));
-		_activeTooltips.Add(TooltipService.ShowTooltip(position2, TooltipPivot.BottomRight, tooltipId2));
-		_activeTooltips.Add(TooltipService.ShowTooltip(position3, TooltipPivot.TopLeft, tooltipId3));
-		_activeTooltips.Add(TooltipService.ShowTooltip(position4, TooltipPivot.BottomLeft, tooltipId4));
+		_activeTooltips.Add(TooltipService.ShowTooltipById(position, TooltipPivot.BottomLeft, tooltipIdMain));
+		_activeTooltips.Add(TooltipService.ShowTooltipById(position1, TooltipPivot.TopRight, tooltipId1));
+		_activeTooltips.Add(TooltipService.ShowTooltipById(position2, TooltipPivot.BottomRight, tooltipId2));
+		_activeTooltips.Add(TooltipService.ShowTooltipById(position3, TooltipPivot.TopLeft, tooltipId3));
+		_activeTooltips.Add(TooltipService.ShowTooltipById(position4, TooltipPivot.BottomLeft, tooltipId4));
 
 	}
 }

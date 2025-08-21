@@ -2,20 +2,19 @@ using Godot;
 using NestedTooltips;
 using System;
 
-public partial class LargeTooltip : Button
+public partial class CloseOnButton : Button
 {
 	private List<ITooltip> _activeTooltips = new List<ITooltip>();
-	[Export] private string tooltipId = "tooltip_large";
+	[Export] private string tooltipId = "tooltip_close_tooltip";
 	public override void _Ready()
 	{
 		MouseEntered += OnMouseEntered;
-		MouseExited += OnMouseExit;
+		Pressed += OnPressed;
 	}
 
-	private void OnMouseExit()
+	private void OnPressed()
 	{
-		var activeTooltip = _activeTooltips[0];
-		TooltipService.ReleaseTooltip(activeTooltip);
+		TooltipService.ClearTooltips();
 		_activeTooltips = new List<ITooltip>();
 	}
 

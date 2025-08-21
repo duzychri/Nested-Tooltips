@@ -88,5 +88,15 @@
     "Id": "tooltip_multiple_bottom_left",
     "Name": "tooltip_multiple_bottom_left",
     "Text": "tooltip_multiple_bottom_left"
+  },
+  "tooltip_clamped":{
+    "Id": "tooltip_clamped",
+    "Name": "tooltip_clamped",
+    "Text": "This works only if the width is bigger then 1006pixel ................................................................................................................................."
+  },
+  "tooltip_close_tooltip":{
+    "Id": "tooltip_close_tooltip",
+    "Name": "tooltip_close_tooltip",
+    "Text": "This tooltip only close if you click the button"
   }
 }

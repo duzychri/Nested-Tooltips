@@ -38,18 +38,9 @@ public partial class DemoSceneManager : Node
             if (mapping != null && !string.IsNullOrEmpty(mapping.LanguageCode))
             {
                 _languageSelector.AddItem(mapping.LanguageCode, n);
-                _languageSelector.ItemSelected += (long index) =>
-                {
-                    if (index < 0 || index >= _languageMappings.Length)
-                    {
-                        GD.PushError("Invalid language selected.");
-                        return;
-                    }
-
-                    GD.PushWarning($"TODO: Language set to: {mapping.LanguageCode}");
-                };
             }
         }
+        _languageSelector.ItemSelected += OnLanguageSelected;
 
         // Set up the settings controls.
         _lockTypeSelector.AddItem("Timer Lock", (int)TooltipLockMode.TimerLock);
@@ -73,6 +64,27 @@ public partial class DemoSceneManager : Node
         {
             TooltipService.Settings = TooltipService.Settings with { UnlockDelay = (float)value };
         };
+    }
+
+    private void OnLanguageSelected(long index)
+    {
+        if (index < 0 || index >= _languageSelector.GetItemCount())
+        {
+            GD.PushError("Invalid language selected.");
+            return;
+        }
+
+        string selectedLanguageCode = _languageSelector.GetItemText((int)index);
+
+        // 1. Change the language for the custom TooltipService
+        if (TooltipService.TooltipDataProvider is BasicTooltipDataProvider provider)
+        {
+            provider.CurrentLanguage = selectedLanguageCode;
+        }
+
+        // 2. Change the language for the rest of the game using Godot's localization system
+        TranslationServer.SetLocale(selectedLanguageCode);
+        GD.Print($"Game language set to: {selectedLanguageCode}");
     }
 
     private void OnLockTypeSelected(long index)

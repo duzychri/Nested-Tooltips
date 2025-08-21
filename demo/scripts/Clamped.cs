@@ -2,10 +2,10 @@ using Godot;
 using NestedTooltips;
 using System;
 
-public partial class SmallTooltip : Button
+public partial class Clamped : Button
 {
 	private List<ITooltip> _activeTooltips = new List<ITooltip>();
-	[Export] private string tooltipId = "tooltip_small";
+	[Export] private string tooltipId = "tooltip_clamped";
 	public override void _Ready()
 	{
 		MouseEntered += OnMouseEntered;
@@ -22,5 +22,6 @@ public partial class SmallTooltip : Button
 	private void OnMouseEntered()
 	{
 		Vector2 position = GetScreenPosition();
-		_activeTooltips.Add(TooltipService.ShowTooltipById(position, TooltipPivot.BottomLeft, tooltipId));	}
+		_activeTooltips.Add(TooltipService.ShowTooltipById(position, TooltipPivot.BottomLeft, tooltipId));
+	}
 }

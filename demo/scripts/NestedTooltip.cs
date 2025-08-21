@@ -4,7 +4,7 @@ using System;
 
 public partial class NestedTooltip : Button
 {
-    private ITooltip tooltip;
+    private List<ITooltip> _activeTooltips = new List<ITooltip>();
     [Export] private string tooltipId = "tooltip_normal_nesting";
     public override void _Ready()
     {
@@ -14,13 +14,14 @@ public partial class NestedTooltip : Button
 
     private void OnMouseExit()
     {
-        TooltipService.ReleaseTooltip(tooltip);
+        var activeTooltip = _activeTooltips[0];
+		TooltipService.ReleaseTooltip(activeTooltip);
+		_activeTooltips = new List<ITooltip>();
     }
 
     private void OnMouseEntered()
     {
-        GD.Print($"{tooltipId}");
         Vector2 position = GetScreenPosition();
-        tooltip = TooltipService.ShowTooltipById(position, TooltipPivot.BottomLeft, tooltipId);
+        _activeTooltips.Add(TooltipService.ShowTooltipById(position, TooltipPivot.BottomLeft, tooltipId));
     }
 }

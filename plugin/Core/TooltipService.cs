@@ -244,17 +244,15 @@ public partial class TooltipService : GodotSingelton<TooltipService>
     /// Validates that the position for the new tooltip fits within the bounds of the screen and returns a fallback if it does not.
     /// Does not try to smartly position the tooltip, this method is for the case that the user has already supplied a position and we only need to check if it is valid!
     /// </summary>
-    private static Vector2 CalculateNewTooltipLocation(Vector2 cursorPosition, TooltipPivot pivot, Vector2 size)
+    private static Vector2 CalculateNewTooltipLocation(Vector2 position, TooltipPivot pivot, Vector2 size)
     {
+       
         // Get the current viewport size to handle screen resizing.
         var viewportSize = DisplayServer.WindowGetSize();
 
-        // Calculate the initial desired top-left position of the tooltip based on the cursor and pivot.
-        Vector2 initialPosition = CalculatePositionFromPivot(cursorPosition, pivot, size);
-
         // Clamp the position to ensure the entire tooltip stays within the screen bounds.
-        float clampedX = Mathf.Clamp(initialPosition.X, 0, viewportSize.X - size.X);
-        float clampedY = Mathf.Clamp(initialPosition.Y, 0, viewportSize.Y - size.Y);
+        float clampedX = Mathf.Clamp(position.X, 0,Mathf.Max(0, viewportSize.X - size.X));
+        float clampedY = Mathf.Clamp(position.Y, 0,Mathf.Max(0, viewportSize.Y - size.Y));
 
         return new Vector2(clampedX, clampedY);
     }
@@ -266,47 +264,41 @@ public partial class TooltipService : GodotSingelton<TooltipService>
     /// - The dimensions of the screen.<br/>
     /// </summary>
 
- private static (Vector2 position, TooltipPivot pivot) CalculateNestedTooltipLocation(TooltipHandler parentTooltipHandler, Vector2 cursorPosition)
-{
-    // Get the current viewport size and its center to determine screen quadrants.
-    var viewportSize = DisplayServer.WindowGetSize(); /// correct way to find out the size of the viewport like in the example for multipleTooltips?
-    var screenCenter = viewportSize / 2.0f;
-
-    TooltipPivot pivot;
-
-    // Determine the best pivot based on which screen quadrant the cursor is in.
-    // This places the tooltip in the direction with the most available space.
-    if (cursorPosition.X < screenCenter.X) // Cursor is on the left half of the screen
+    private static (Vector2 position, TooltipPivot pivot) CalculateNestedTooltipLocation(TooltipHandler parentTooltipHandler, Vector2 position)
     {
-        if (cursorPosition.Y < screenCenter.Y) // Top-Left Quadrant -> open bottom-right
+        // Get the current viewport size and its center to determine screen quadrants.
+        var viewportSize = DisplayServer.WindowGetSize(); /// correct way to find out the size of the viewport like in the example for multipleTooltips?
+        var screenCenter = viewportSize / 2;
+
+        TooltipPivot pivot;
+
+        // Determine the best pivot based on which screen quadrant the cursor is in.
+        // This places the tooltip in the direction with the most available space.
+        if (position.X < screenCenter.X) // Cursor is on the left half of the screen
         {
-            pivot = TooltipPivot.TopLeft;
+            if (position.Y < screenCenter.Y) // Top-Left Quadrant -> open bottom-right
+            {
+                pivot = TooltipPivot.TopLeft;
+            }
+            else // Bottom-Left Quadrant -> open top-right
+            {
+                pivot = TooltipPivot.BottomLeft;
+            }
         }
-        else // Bottom-Left Quadrant -> open top-right
+        else // Cursor is on the right half of the screen
         {
-            pivot = TooltipPivot.BottomLeft;
+            if (position.Y < screenCenter.Y) // Top-Right Quadrant -> open bottom-left
+            {
+                pivot = TooltipPivot.TopRight;
+            }
+            else // Bottom-Right Quadrant -> open top-left
+            {
+                pivot = TooltipPivot.BottomRight;
+            }
         }
+        return (position, pivot); 
     }
-    else // Cursor is on the right half of the screen
-    {
-        if (cursorPosition.Y < screenCenter.Y) // Top-Right Quadrant -> open bottom-left
-        {
-            pivot = TooltipPivot.TopRight;
-        }
-        else // Bottom-Right Quadrant -> open top-left
-        {
-            pivot = TooltipPivot.BottomRight;
-        }
-    }
-    (float clampedX, float clampedY) = CalculateNewTooltipLocation(cursorPosition, pivot, tooltipSize); ///how can i get the tooltipSize inside this Method?
 
-
-    
-
-    // The final clamped position represents the top-left corner of the tooltip.
-    // Therefore, the pivot for the final placement is always TopLeft.
-    return (new Vector2(clampedX, clampedY), TooltipPivot.TopLeft);
-}
 
     private static (TooltipHandler handler, Tooltip tooltip) CreateTooltip(Vector2 position, TooltipPivot pivot, TooltipHandler? parentHandler = null)
     {
