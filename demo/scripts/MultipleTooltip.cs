@@ -12,16 +12,16 @@ public partial class MultipleTooltip : Button
     public override void _Ready()
     {
         MouseEntered += OnMouseEntered;
-        MouseExited += OnMouseExit;
+        MouseExited += OnMouseExited;
     }
 
-    private void OnMouseExit()
+    private void OnMouseExited()
     {
         foreach (var activeTooltip in _activeTooltips)
         {
             TooltipService.ReleaseTooltip(activeTooltip);
         }
-        _activeTooltips = new List<ITooltip>();
+        _activeTooltips.Clear();
     }
 
     private void OnMouseEntered()

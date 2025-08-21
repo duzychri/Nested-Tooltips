@@ -2,25 +2,27 @@ namespace NestedTooltips.DemoScene;
 
 public partial class SmallTooltip : Button
 {
-    private List<ITooltip> _activeTooltips = new List<ITooltip>();
+    private ITooltip? _activeTooltip;
     private const string tooltipId = "tooltip_small";
 
     public override void _Ready()
     {
         MouseEntered += OnMouseEntered;
-        MouseExited += OnMouseExit;
+        MouseExited += OnMouseExited;
     }
 
-    private void OnMouseExit()
+    private void OnMouseExited()
     {
-        var activeTooltip = _activeTooltips[0];
-        TooltipService.ReleaseTooltip(activeTooltip);
-        _activeTooltips = new List<ITooltip>();
+        if (_activeTooltip != null)
+        {
+            TooltipService.ReleaseTooltip(_activeTooltip);
+            _activeTooltip = null;
+        }
     }
 
     private void OnMouseEntered()
     {
         Vector2 position = GetScreenPosition();
-        _activeTooltips.Add(TooltipService.ShowTooltipById(position, TooltipPivot.BottomLeft, tooltipId));
+        _activeTooltip = TooltipService.ShowTooltipById(position, TooltipPivot.BottomLeft, tooltipId);
     }
 }

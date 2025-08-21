@@ -2,7 +2,7 @@ namespace NestedTooltips.DemoScene;
 
 public partial class CloseOnButton : Button
 {
-    private List<ITooltip> _activeTooltips = new List<ITooltip>();
+    private ITooltip? _activeTooltip;
     private const string tooltipId = "tooltip_close_tooltip";
 
     public override void _Ready()
@@ -14,12 +14,12 @@ public partial class CloseOnButton : Button
     private void OnPressed()
     {
         TooltipService.ClearTooltips();
-        _activeTooltips = new List<ITooltip>();
+        _activeTooltip = null;
     }
 
     private void OnMouseEntered()
     {
         Vector2 position = GetScreenPosition();
-        _activeTooltips.Add(TooltipService.ShowTooltipById(position, TooltipPivot.BottomLeft, tooltipId));
+        _activeTooltip = TooltipService.ShowTooltipById(position, TooltipPivot.BottomLeft, tooltipId);
     }
 }
