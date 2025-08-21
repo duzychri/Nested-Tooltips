@@ -20,7 +20,7 @@ public partial class Clamped : Button
 
     private void OnMouseEntered()
     {
-        Vector2 position = GetScreenPosition();
+        Vector2 position = new Vector2(-1000, -1000); // Place tooltip outside the screen bounds
         _activeTooltips.Add(TooltipService.ShowTooltipById(position, TooltipPivot.BottomLeft, tooltipId));
     }
 }

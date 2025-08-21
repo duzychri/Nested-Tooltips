@@ -77,13 +77,13 @@
     "id": "tooltip_multiple_bottom_left",
     "text": "tooltip_multiple_bottom_left"
   },
-  "tooltip_clamped":{
-    "Id": "tooltip_clamped",
-    "Text": "This works only if the width is bigger then 1006pixel ................................................................................................................................."
+  "tooltip_clamped": {
+    "id": "tooltip_clamped",
+    "desiredWidth": 300,
+    "text": "This tooltip will be placed outside the bounds of the screen, but should be moved back be be visible to you."
   },
-  "tooltip_close_tooltip":{
-    "Id": "tooltip_close_tooltip",
-    "Text": "This tooltip only close if you click the button"
+  "tooltip_close_tooltip": {
+    "id": "tooltip_close_tooltip",
+    "text": "This tooltip only close if you click the button"
   }
-
 }
