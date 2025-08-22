@@ -43,7 +43,7 @@
   },
   "tooltip_normal_nesting": {
     "id": "tooltip_normal_nesting",
-    "text": "This is a normal nesting tooltip. Dependend on what settings you have chosen this tooltip can be pinned.\nCurrently you have the time lock setting enabled,\n which means that this tooltip will be pinned after {LockTime} seconds of being open.\nAfter that has happened you can move your mouse into this tooltip to hover over links.\n Like [url=tooltip_nested_example]this one[/url]!"
+    "text": "This is a normal nesting tooltip. Dependend on what settings you have chosen this tooltip can be pinned.\nCurrently you have the time lock setting enabled,\n which means that this tooltip will be pinned after [b]LockTime[/b] seconds of being open.\nAfter that has happened you can move your mouse into this tooltip to hover over links.\n Like [url=tooltip_nested_example]this one[/url]!"
   },
   "tooltip_nested_example": {
     "id": "tooltip_nested_example",

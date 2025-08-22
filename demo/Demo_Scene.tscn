@@ -16,13 +16,13 @@
 [sub_resource type="Resource" id="Resource_t18ui"]
 script = ExtResource("2_f5saa")
 LanguageCode = "en"
-FilePath = "res://demo/tooltip datas/tooltip_demo_en.json"
+FilePath = "res://demo/tooltip_datas/tooltip_demo_en.json"
 metadata/_custom_type_script = "uid://c10aa4tfovehk"
 
 [sub_resource type="Resource" id="Resource_h36fx"]
 script = ExtResource("2_f5saa")
 LanguageCode = "de"
-FilePath = "res://demo/tooltip datas/tooltip_demo_de.json"
+FilePath = "res://demo/tooltip_datas/tooltip_demo_de.json"
 metadata/_custom_type_script = "uid://c10aa4tfovehk"
 
 [node name="Demo Scene" type="Node" node_paths=PackedStringArray("_lockTypeSelector", "_showDelaySlider", "_lockDelaySlider", "_unlockDelaySlider", "_languageSelector")]

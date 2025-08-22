@@ -19,7 +19,7 @@ public partial class CloseOnButton : Button
 
     private void OnMouseEntered()
     {
-        if (_activeTooltip != null)
+        if (_activeTooltip == null)
         {
             Vector2 position = GetViewport().GetVisibleRect().Size / 2;
             _activeTooltip = TooltipService.ShowTooltipById(position, TooltipPivot.BottomLeft, tooltipId);
