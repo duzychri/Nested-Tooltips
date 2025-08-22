@@ -21,7 +21,6 @@ public partial class DemoSceneManager : Node
             return;
         }
 
-
         // Configure the tooltip service.
         if (_languageMappings.Length < 0 || string.IsNullOrWhiteSpace(_languageMappings.First().FilePath))
         {

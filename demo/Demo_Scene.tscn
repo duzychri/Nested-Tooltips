@@ -72,6 +72,17 @@ grow_vertical = 2
 theme_override_constants/separation = 10
 alignment = 1
 
+[node name="Main Header" type="Label" parent="Control/VBoxContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_filter = 1
+theme_override_font_sizes/font_size = 64
+text = "Nested Tooltips Plugin"
+vertical_alignment = 1
+uppercase = true
+script = ExtResource("4_nrlhs")
+
 [node name="RichTextLabel" type="RichTextLabel" parent="Control/VBoxContainer"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2

@@ -15,6 +15,11 @@ config/features=PackedStringArray("4.4", "C#", "Forward Plus")
 boot_splash/show_image=false
 config/icon="res://icon.svg"
 
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
+
 [dotnet]
 
 project/assembly_name="esp-25-tooltip-plugin"
