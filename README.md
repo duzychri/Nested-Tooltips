@@ -85,6 +85,16 @@ Tooltips can be *pinned*; doing so stops the tooltip from disappearing when the 
     TooltipService.ActionLockTooltip(tooltip);
 ```
 
+### Links & Nested Tooltips
+
+To create a link inside a tooltip that opens a nested tooltip when clicked, you can use the you can wrap the text that you want to be a link in the `[url=tooltip_id]text[/url]` bbcode tag. The text inside the tag will be shown to the user and the `tooltip_id` will be used to look up the tooltip text of the nested tooltip. Dependend on the settings the tooltip will then be displayed when the user hovers over the link text.
+
+To see some examples of bbcode markup with the url tags set check out the `demo/tooltip_datas/tooltip_demo_en.json` file.
+
+``` bbcode
+A [i]nested[/i] [url=tooltip_explanation]tooltip[/url] is one that has been opened from within another [url=tooltip_explanation]tooltip[/url]. The nested [url=tooltip_explanation]tooltip[/url] is then the child of the source or parent [url=tooltip_explanation]tooltip[/url].
+```
+
 ## Configuration
 
 The tooltip system can be configured in different ways. You can change the behaviour of how the user can interact with the tooltips using the `Settings` property in the `TooltipService` and you can adjust the style or visuals of the tooltip by creating you own 'prefab' and providing the service a path to it using the `TooltipPrefabPath` property. The `TooltipDataProvider` property can be set to an implementation of the `ITooltipDataProvider` interface to provide the tooltip system with data for tooltips that are created using the `ShowTooltipById` method.
