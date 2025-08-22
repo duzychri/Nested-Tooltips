@@ -281,11 +281,15 @@ public partial class TooltipService : GodotSingelton<TooltipService>
     /// </summary>
     private static (Vector2 position, TooltipPivot pivot) CalculateNestedTooltipLocation(Vector2 position)
     {
+        const float offsetFactor = 15f; // Offset factor to avoid overlap with the cursor.
+
         // Get the current viewport size and its center to determine screen quadrants.
         Vector2I viewportSize = DisplayServer.WindowGetSize(); /// correct way to find out the size of the viewport like in the example for multipleTooltips?
         Vector2 screenCenter = (Vector2)viewportSize / 2f;
 
         TooltipPivot pivot;
+        // Offset to avoid overlap with the cursor.
+        Vector2 offset = Vector2.Zero;
 
         // Determine the best pivot based on which screen quadrant the cursor is in.
         // This places the tooltip in the direction with the most available space.
@@ -294,10 +298,12 @@ public partial class TooltipService : GodotSingelton<TooltipService>
             if (position.Y < screenCenter.Y) // Top-Left Quadrant -> open bottom-right
             {
                 pivot = TooltipPivot.TopLeft;
+                offset = new Vector2(+1, +1) * offsetFactor;
             }
             else // Bottom-Left Quadrant -> open top-right
             {
                 pivot = TooltipPivot.BottomLeft;
+                offset = new Vector2(+1, -1) * offsetFactor;
             }
         }
         else // Cursor is on the right half of the screen
@@ -305,12 +311,16 @@ public partial class TooltipService : GodotSingelton<TooltipService>
             if (position.Y < screenCenter.Y) // Top-Right Quadrant -> open bottom-left
             {
                 pivot = TooltipPivot.TopRight;
+                offset = new Vector2(-1, +1) * offsetFactor;
             }
             else // Bottom-Right Quadrant -> open top-left
             {
                 pivot = TooltipPivot.BottomRight;
+                offset = new Vector2(-1, -1) * offsetFactor;
             }
         }
+        position += offset;
+
         return (position, pivot);
     }
 
