@@ -3,7 +3,7 @@ namespace NestedTooltips.DemoScene;
 public partial class WonkyTooltip : Button
 {
     private ITooltip? _activeTooltip;
-    private const string tooltipId = "tooltip_wonky_location";
+    private const string tooltipId = "test_button_far_away";
 
     public override void _Ready()
     {

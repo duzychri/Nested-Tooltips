@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cfm54tyfi5lqc"]
+[gd_scene load_steps=17 format=3 uid="uid://cfm54tyfi5lqc"]
 
 [ext_resource type="Script" uid="uid://bj0eaiwpe6i0l" path="res://demo/DemoSceneManager.cs" id="1_bglyn"]
 [ext_resource type="Script" uid="uid://c10aa4tfovehk" path="res://demo/utilities/LanguageMapping.cs" id="2_f5saa"]
@@ -25,6 +25,13 @@ LanguageCode = "de"
 FilePath = "res://demo/tooltip_datas/tooltip_demo_de.json"
 metadata/_custom_type_script = "uid://c10aa4tfovehk"
 
+[sub_resource type="Gradient" id="Gradient_f5saa"]
+colors = PackedColorArray(0.498758, 0.3135, 0.55, 1, 0.207606, 0.190561, 0.279963, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_dbc7n"]
+gradient = SubResource("Gradient_f5saa")
+fill_from = Vector2(0, 1)
+
 [node name="Demo Scene" type="Node" node_paths=PackedStringArray("_lockTypeSelector", "_showDelaySlider", "_lockDelaySlider", "_unlockDelaySlider", "_languageSelector")]
 script = ExtResource("1_bglyn")
 _lockTypeSelector = NodePath("Control/VBoxContainer/Lock Mode/OptionButton")
@@ -41,6 +48,15 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_dbc7n")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control"]
 layout_mode = 1
@@ -73,6 +89,7 @@ text = "Language Settings"
 vertical_alignment = 1
 uppercase = true
 script = ExtResource("4_nrlhs")
+_tooltipText = "The [i]settings[/i] that change the language used for the [url=tooltip_explanation]tooltips[/url]."
 
 [node name="Language" type="HBoxContainer" parent="Control/VBoxContainer"]
 layout_mode = 2
@@ -86,15 +103,13 @@ mouse_filter = 1
 text = "Language"
 vertical_alignment = 1
 script = ExtResource("4_nrlhs")
-_tooltipText = "The amount of time that needs to pass until a tooltip is opened.
-
-
-
-
-beeeeeeep"
+_tooltipText = "The language used in the [url=tooltip_explanation]tooltips[/url]."
 
 [node name="OptionButton" type="OptionButton" parent="Control/VBoxContainer/Language"]
 custom_minimum_size = Vector2(290, 0)
+layout_mode = 2
+
+[node name="Divider 1" type="MarginContainer" parent="Control/VBoxContainer"]
 layout_mode = 2
 
 [node name="Header Tooltip Settings" type="Label" parent="Control/VBoxContainer"]
@@ -106,7 +121,7 @@ text = "Tooltip Settings"
 vertical_alignment = 1
 uppercase = true
 script = ExtResource("4_nrlhs")
-_tooltipText = "The settings that determine how tooltips are displayed and pinned."
+_tooltipText = "The [i]settings[/i] that determine how [url=tooltip_explanation]tooltips[/url] are displayed and [url=pinning_explanation]pinned[/url]."
 
 [node name="Lock Mode" type="HBoxContainer" parent="Control/VBoxContainer"]
 layout_mode = 2
@@ -117,10 +132,10 @@ alignment = 1
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 mouse_filter = 1
-text = "Lock Mode"
+text = "Pin Mode"
 vertical_alignment = 1
 script = ExtResource("4_nrlhs")
-_tooltipText = "The amount of time that needs to pass until a tooltip is opened."
+_tooltipText = "The mode that determines how a [url=tooltip_explanation]tooltip[/url]  is [url=pinning_explanation]pinned[/url]."
 
 [node name="OptionButton" type="OptionButton" parent="Control/VBoxContainer/Lock Mode"]
 custom_minimum_size = Vector2(290, 0)
@@ -138,7 +153,7 @@ mouse_filter = 1
 text = "Show Delay"
 vertical_alignment = 1
 script = ExtResource("4_nrlhs")
-_tooltipText = "The amount of time that needs to pass until a tooltip is opened."
+_tooltipText = "The amount of time that needs to pass until a [url=tooltip_explanation]tooltip[/url] is opened in seconds."
 
 [node name="Slider" parent="Control/VBoxContainer/Show Delay" instance=ExtResource("5_1hpw1")]
 layout_mode = 2
@@ -154,10 +169,10 @@ alignment = 1
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 mouse_filter = 1
-text = "Lock Delay"
+text = "Pin Delay"
 vertical_alignment = 1
 script = ExtResource("4_nrlhs")
-_tooltipText = "The amount of time that needs to pass until a tooltip is opened."
+_tooltipText = "The amount of time that needs to pass until a [url=tooltip_explanation]tooltip[/url] is [url=pinning_explanation]pinned[/url].. Assuming the Pin Mode is set to [i]TimerLock[/i]."
 
 [node name="Slider" parent="Control/VBoxContainer/Lock Delay" instance=ExtResource("5_1hpw1")]
 layout_mode = 2
@@ -177,7 +192,7 @@ mouse_filter = 1
 text = "Unlock Delay"
 vertical_alignment = 1
 script = ExtResource("4_nrlhs")
-_tooltipText = "The amount of time that needs to pass until a tooltip is opened."
+_tooltipText = "The amount of time that needs to pass until a [url=tooltip_explanation]tooltip[/url]  is [url=pinning_explanation]unpinned[/url] and destroyed."
 
 [node name="Slider" parent="Control/VBoxContainer/Unlock Delay" instance=ExtResource("5_1hpw1")]
 layout_mode = 2
@@ -185,49 +200,69 @@ _minValue = 0.05
 _maxValue = 20.0
 _step = 0.05
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Control/VBoxContainer"]
+[node name="Divider 2" type="MarginContainer" parent="Control/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 10
+
+[node name="Header Tooltip Settings2" type="Label" parent="Control/VBoxContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_filter = 1
+text = "Test Buttons"
+vertical_alignment = 1
+uppercase = true
+script = ExtResource("4_nrlhs")
+_tooltipText = "Some buttons to test and show off the functionality of what the [url=tooltip_explanation]tooltip[/url] system can do."
+
+[node name="Button Container 1" type="HBoxContainer" parent="Control/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 23
 alignment = 1
 
-[node name="SmallTooltip" type="Button" parent="Control/VBoxContainer/HBoxContainer"]
+[node name="SmallTooltip" type="Button" parent="Control/VBoxContainer/Button Container 1"]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 text = "Small"
 script = ExtResource("6_c1e8w")
 
-[node name="LargeTooltip" type="Button" parent="Control/VBoxContainer/HBoxContainer"]
+[node name="LargeTooltip" type="Button" parent="Control/VBoxContainer/Button Container 1"]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 text = "Large"
 script = ExtResource("7_tplxe")
 
-[node name="NestedTooltip" type="Button" parent="Control/VBoxContainer/HBoxContainer"]
+[node name="NestedTooltip" type="Button" parent="Control/VBoxContainer/Button Container 1"]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 text = "Nested"
 script = ExtResource("8_f5saa")
 
-[node name="WonkyTooltip" type="Button" parent="Control/VBoxContainer/HBoxContainer"]
+[node name="WonkyTooltip" type="Button" parent="Control/VBoxContainer/Button Container 1"]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
-text = "Wonky"
+text = "Far Away"
 script = ExtResource("9_dbc7n")
 
-[node name="CloseOnButton" type="Button" parent="Control/VBoxContainer/HBoxContainer"]
+[node name="Button Container 2" type="HBoxContainer" parent="Control/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 23
+alignment = 1
+
+[node name="CloseOnButton" type="Button" parent="Control/VBoxContainer/Button Container 2"]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 text = "Close on 
 Button Click"
 script = ExtResource("10_f5saa")
 
-[node name="MultipleTooltips" type="Button" parent="Control/VBoxContainer/HBoxContainer"]
+[node name="MultipleTooltips" type="Button" parent="Control/VBoxContainer/Button Container 2"]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 text = "Multiple"
 script = ExtResource("11_1hpw1")
 
-[node name="ClampedTooltip" type="Button" parent="Control/VBoxContainer/HBoxContainer"]
+[node name="ClampedTooltip" type="Button" parent="Control/VBoxContainer/Button Container 2"]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 text = "Clamped"

@@ -7,7 +7,7 @@
   "nesting_explanation": {
     "id": "nesting_explanation",
     "desiredWidth": 300,
-    "text": "A [b]nested[/b] [url=tooltip_explanation]tooltip[/url] is one that has been opened from within another [url=tooltip_explanation]tooltip[/url]. The nested [url=tooltip_explanation]tooltip[/url] is then the child of the source or parent [url=tooltip_explanation]tooltip[/url]."
+    "text": "A [i]nested[/i] [url=tooltip_explanation]tooltip[/url] is one that has been opened from within another [url=tooltip_explanation]tooltip[/url]. The nested [url=tooltip_explanation]tooltip[/url] is then the child of the source or parent [url=tooltip_explanation]tooltip[/url]."
   },
   "highlighted_text_explanation": {
     "id": "highlighted_text_explanation",
@@ -17,7 +17,7 @@
   "tooltip_explanation": {
     "id": "tooltip_explanation",
     "desiredWidth": 300,
-    "text": "[p]A tooltip is a small popup that appears when you hover over an UI element.[/p][p]Tooltips can be [url=nesting_explanation]nested[/url] and have various [url=tooltip_settings]settings[/url] for [url=pinning_explanation]pinning[/url].[/p]"
+    "text": "[p]A [i]tooltip[/i] is a small popup that appears when you hover over a UI element.[/p][p]Tooltips can be [url=nesting_explanation]nested[/url] and have various [url=tooltip_settings]settings[/url] for [url=pinning_explanation]pinning[/url].[/p]"
   },
   "tooltip_settings": {
     "id": "tooltip_settings",
@@ -43,23 +43,23 @@
   },
   "tooltip_normal_nesting": {
     "id": "tooltip_normal_nesting",
-    "text": "This is a normal nesting tooltip. Dependend on what settings you have chosen this tooltip can be pinned.\nCurrently you have the time lock setting enabled,\n which means that this tooltip will be pinned after [b]LockTime[/b] seconds of being open.\nAfter that has happened you can move your mouse into this tooltip to hover over links.\n Like [url=tooltip_nested_example]this one[/url]!"
+    "text": "This is a normal nesting tooltip. Depending on what settings you have chosen this tooltip can be pinned.\nCurrently you have the time lock setting enabled,\n which means that this tooltip will be pinned after [b]LockTime[/b] seconds of being open.\nAfter that has happened you can move your mouse into this tooltip to hover over links.\n Like [url=tooltip_nested_example]this one[/url]!"
   },
   "tooltip_nested_example": {
     "id": "tooltip_nested_example",
     "text": "This is the nested tooltip, opened from another one. Like [url=tooltip_nested_example]this one[/url]!"
   },
-  "tooltip_wonky_location": {
-    "id": "tooltip_wonky_location",
-    "text": "This ui element spawns a tooltip in a wonky location. Can you even reach this befor the lock runs out and the tooltip disappears again?"
+  "test_button_far_away": {
+    "id": "test_button_far_away",
+    "text": "This UI element spawns a tooltip in a far away location. Can you even reach this before the lock runs out and the tooltip disappears again?"
   },
   "tooltip_persistent": {
     "id": "tooltip_persistent",
-    "text": "This ui element spawns a tooltip and then just lets it sit there and never cleans it up. But you can press the button next to this to clear all tooltips that are currently open. Alternatively changing any setting will also close all currently open tooltips."
+    "text": "This UI element spawns a tooltip and then just lets it sit there and never cleans it up. But you can press the button next to this to clear all tooltips that are currently open. Alternatively changing any setting will also close all currently open tooltips."
   },
   "tooltip_multiple": {
     "id": "tooltip_multiple",
-    "text": "This ui element spawns multiple tooltips at the same time.\n These tooltips will be in all the corners of the screen.\n You can test how the different pin-settings interact with multiple\n open tooltips and how nested tooltips are spawned when you spawn them in invalid locations\n that would normally be outside the screen."
+    "text": "This UI element spawns multiple tooltips at the same time.\n These tooltips will be in all the corners of the screen.\n You can test how the different pin-settings interact with multiple\n open tooltips and how nested tooltips are spawned when you spawn them in invalid locations\n that would normally be outside the screen."
   },
   "tooltip_multiple_top_right": {
     "id": "tooltip_multiple_top_right",
@@ -80,10 +80,10 @@
   "tooltip_clamped": {
     "id": "tooltip_clamped",
     "desiredWidth": 300,
-    "text": "This tooltip will be placed outside the bounds of the screen, but should be moved back be be visible to you."
+    "text": "This tooltip will be placed outside the bounds of the screen, but should be moved back to be visible to you."
   },
   "tooltip_close_tooltip": {
     "id": "tooltip_close_tooltip",
-    "text": "This tooltip only close if you click the button"
+    "text": "This tooltip only closes if you click the button"
   }
 }
