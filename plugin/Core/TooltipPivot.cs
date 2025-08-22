@@ -1,3 +1,6 @@
+using Godot;
+using System.Diagnostics;
+
 namespace NestedTooltips;
 
 /// <summary>

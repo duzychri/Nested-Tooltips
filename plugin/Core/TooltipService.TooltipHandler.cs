@@ -1,3 +1,6 @@
+using Godot;
+using System;
+
 namespace NestedTooltips;
 
 public partial class TooltipService

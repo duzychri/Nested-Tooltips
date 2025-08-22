@@ -1,6 +1,10 @@
-#pragma warning disable IDE0130 // Namespace does not match folder structure
+using Godot;
+using System;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using System.Collections.Generic;
+
 namespace NestedTooltips;
-#pragma warning restore IDE0130 // Namespace does not match folder structure
 
 /// <summary>
 /// Provides the <see cref="TooltipData"/> required for nested tooltips from language-specific files.
