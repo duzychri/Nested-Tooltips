@@ -1,4 +1,6 @@
+#pragma warning disable IDE0130 // Namespace does not match folder structure
 namespace NestedTooltips;
+#pragma warning restore IDE0130 // Namespace does not match folder structure
 
 /// <summary>
 /// Provides the <see cref="TooltipData"/> required for nested tooltips from language-specific files.
@@ -13,7 +15,7 @@ public class BasicTooltipDataProvider : ITooltipDataProvider
         DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
     };
 
-    private Dictionary<string, TooltipData> _loadedTooltipData = [];
+    private readonly Dictionary<string, TooltipData> _loadedTooltipData = [];
 
     public static BasicTooltipDataProvider Empty { get; } = new();
 

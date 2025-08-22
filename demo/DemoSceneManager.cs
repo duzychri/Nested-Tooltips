@@ -16,7 +16,7 @@ public partial class DemoSceneManager : Node
     public override void _Ready()
     {
         // Configure the tooltip service.
-        if (_languageMappings.Any() == false || string.IsNullOrWhiteSpace(_languageMappings.First().FilePath))
+        if (_languageMappings.Length < 0 || string.IsNullOrWhiteSpace(_languageMappings.First().FilePath))
         {
             GD.PushError("No valid language mappings found. Please check your configuration.");
         }
@@ -43,19 +43,19 @@ public partial class DemoSceneManager : Node
         _lockTypeSelector.ItemSelected += OnLockTypeSelected;
 
         _showDelaySlider.Value = TooltipService.Settings.ShowDelay;
-        _showDelaySlider.ValueChanged += (double value) =>
+        _showDelaySlider.ValueChanged += value =>
         {
             TooltipService.Settings = TooltipService.Settings with { ShowDelay = (float)value };
         };
 
         _lockDelaySlider.Value = TooltipService.Settings.LockDelay;
-        _lockDelaySlider.ValueChanged += (double value) =>
+        _lockDelaySlider.ValueChanged += value =>
         {
             TooltipService.Settings = TooltipService.Settings with { LockDelay = (float)value };
         };
 
         _unlockDelaySlider.Value = TooltipService.Settings.UnlockDelay;
-        _unlockDelaySlider.ValueChanged += (double value) =>
+        _unlockDelaySlider.ValueChanged += value =>
         {
             TooltipService.Settings = TooltipService.Settings with { UnlockDelay = (float)value };
         };

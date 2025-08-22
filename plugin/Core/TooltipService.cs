@@ -29,8 +29,7 @@ public partial class TooltipService : GodotSingelton<TooltipService>
         // We do this so we don't brick the IEnumerable returned by the ActiveTooltips property (assuming the developer hasn't copied the collection).
         foreach (ITooltip tooltip in _destroyedTooltips.ToArray())
         {
-            if (_activeTooltips.ContainsKey(tooltip))
-            { _activeTooltips.Remove(tooltip); }
+            _activeTooltips.Remove(tooltip);
         }
         _destroyedTooltips.Clear();
     }
@@ -147,7 +146,7 @@ public partial class TooltipService : GodotSingelton<TooltipService>
         ArgumentNullException.ThrowIfNull(text);
 
         // Create the tooltip and set its text.
-        (TooltipHandler handler, ITooltip tooltip) = CreateTooltip(position, pivot, null);
+        (TooltipHandler handler, ITooltip tooltip) = CreateTooltip(position, pivot, width);
         handler.Text = text;
 
         return tooltip;
@@ -257,7 +256,7 @@ public partial class TooltipService : GodotSingelton<TooltipService>
     /// Validates that the position for the new tooltip fits within the bounds of the screen and returns a fallback if it does not.
     /// Does not try to smartly position the tooltip, this method is for the case that the user has already supplied a position and we only need to check if it is valid!
     /// </summary>
-    private static Vector2 CalculateNewTooltipLocation(Vector2 position, TooltipPivot pivot, Vector2 size)
+    private static Vector2 CalculateNewTooltipLocation(Vector2 position, Vector2 size)
     {
         // Get the current viewport size to handle screen resizing.
         Vector2I viewportSize = DisplayServer.WindowGetSize();
@@ -275,7 +274,7 @@ public partial class TooltipService : GodotSingelton<TooltipService>
     /// - The cursor position.<br/>
     /// - The dimensions of the screen.<br/>
     /// </summary>
-    private static (Vector2 position, TooltipPivot pivot) CalculateNestedTooltipLocation(TooltipHandler parentTooltipHandler, Vector2 position)
+    private static (Vector2 position, TooltipPivot pivot) CalculateNestedTooltipLocation(Vector2 position)
     {
         // Get the current viewport size and its center to determine screen quadrants.
         Vector2I viewportSize = DisplayServer.WindowGetSize(); /// correct way to find out the size of the viewport like in the example for multipleTooltips?
@@ -321,8 +320,7 @@ public partial class TooltipService : GodotSingelton<TooltipService>
         Node tooltipControlNode = tooltipScene.Instantiate();
         Instance._tooltipsParent.AddChild(tooltipControlNode);
 
-        ITooltipControl? tooltipControl = tooltipControlNode as ITooltipControl;
-        if (tooltipControl == null)
+        if (tooltipControlNode is not ITooltipControl tooltipControl)
         { throw new InvalidOperationException($"The tooltip prefab at '{tooltipPrefabPath}' does not implement ITooltipControl."); }
 
         TooltipHandler tooltipHandler = new(tooltipControl, parentHandler, position, pivot, width);

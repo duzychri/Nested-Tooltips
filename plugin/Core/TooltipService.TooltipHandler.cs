@@ -219,7 +219,7 @@ public partial class TooltipService
             }
 
             // Create the tooltip and set its text.
-            (Vector2 nestedPosition, TooltipPivot nestedPivot) = CalculateNestedTooltipLocation(this, cursorPosition);
+            (Vector2 nestedPosition, TooltipPivot nestedPivot) = CalculateNestedTooltipLocation(cursorPosition);
             (TooltipHandler childHandler, ITooltip _) = CreateTooltip(nestedPosition, nestedPivot, tooltipData.DesiredWidth, this);
             childHandler.Text = tooltipData.Text;
             Child = childHandler;
@@ -228,10 +228,7 @@ public partial class TooltipService
         private void OnLinkHoveredEnd(Vector2 cursorPosition, string tooltipTextId)
         {
             // If the tooltip has a child, we need to release it.
-            if (Child != null)
-            {
-                Child.Release();
-            }
+            Child?.Release();
         }
 
         private void OnLinkClicked(Vector2 cursorPosition, string tooltipTextId)
@@ -269,7 +266,7 @@ public partial class TooltipService
         {
             // Calculate the position of the tooltip.
             Vector2 placementPosition = CalculatePositionFromPivot(_desiredPosition, _desiredPivot, _control.Size);
-            placementPosition = CalculateNewTooltipLocation(placementPosition, _desiredPivot, _control.Size);
+            placementPosition = CalculateNewTooltipLocation(placementPosition, _control.Size);
 
             _control.Position = placementPosition;
         }
