@@ -6,7 +6,7 @@ Nested tooltips are a feature that enables tooltips to open additional child too
 
 ## Project Installation
 
-If you want to use this plugin in your own Godot project, you can follow the steps below to install it. Either clone the repository and extract the contents of the `addons/nested-tooltips` folder into your own project or get the project from the [Godot Asset Library](https://godotengine.org/asset-library/asset).
+If you want to use this plugin in your own Godot project, you can follow the steps below to install it. Either clone the repository and extract the contents of the `addons/nested_tooltips` folder into your own project or get the project from the [Godot Asset Library](https://godotengine.org/asset-library/asset).
 
 ## Project Setup
 
@@ -29,6 +29,16 @@ These are the steps you need to follow to set up the project on your local machi
 4. Click on `📁 Import` in the top left below the Godot logo
 5. Navigate to the folder where you cloned the repository and select the `project.godot` file
 6. Click `Open` to import the project and either use the `☑ Edit now` toggle or open the project from the list
+
+### Enabling the plugin
+
+To use the demo scene you will need to enable the plugin in the project settings. To do so:
+
+1. Open the Project Settings by clicking on `Project` in the top menu and selecting `Project Settings`.
+2. In the Project Settings window, navigate to the `Plugins` tab.
+3. Find the `Nested Tooltips` plugin in the list and enable it by checking the box next to it.
+
+This registers an autoload script that will enable the tooltip system functionality.
 
 ### Running the project
 
