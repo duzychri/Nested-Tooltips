@@ -23,7 +23,7 @@ These are the steps you need to follow to set up the project on your local machi
 
 ### Installing Godot & Opening the project
 
-1. Download [Godot 4.4.1 (stable)](https://godotengine.org/download/archive/4.4.1-stable/) for **Windows .NET** ([direct download link](https://github.com/godotengine/godot-builds/releases/download/4.4.1-stable/Godot_v4.4.1-stable_mono_win64.zip))
+1. Download [Godot 4.4 (stable)](https://godotengine.org/download/archive/4.4-stable/) for **Windows .NET** ([direct download link](https://github.com/godotengine/godot-builds/releases/download/4.4-stable/Godot_v4.4-stable_mono_win64.zip))
 2. Extract the downloaded zip file to a folder of your choice
 3. Click the `Godot_v4.4.1-stable_mono_win64.exe` file to run the Godot editor
 4. Click on `📁 Import` in the top left below the Godot logo
