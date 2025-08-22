@@ -15,6 +15,13 @@ public partial class DemoSceneManager : Node
 
     public override void _Ready()
     {
+        if (TooltipService.Instance == null)
+        {
+            GD.PrintErr("HEY! The tooltip service doesn't exist. This likely means you didn't enable the plugin. Go to the README.md file and check out the 'Enabling the plugin' section.");
+            return;
+        }
+
+
         // Configure the tooltip service.
         if (_languageMappings.Length < 0 || string.IsNullOrWhiteSpace(_languageMappings.First().FilePath))
         {
