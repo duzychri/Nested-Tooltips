@@ -52,6 +52,9 @@ public partial class TooltipService : GodotSingelton<TooltipService>
         {
             ArgumentNullException.ThrowIfNull(value);
             _dataProvider = value;
+
+            // Destroy all currently active tooltips.
+            ClearAllTooltips();
         }
     }
 
@@ -95,6 +98,9 @@ public partial class TooltipService : GodotSingelton<TooltipService>
 
             // If all checks pass, set the path.
             _tooltipPrefabPath = value;
+
+            // Destroy all currently active tooltips.
+            ClearAllTooltips();
         }
     }
 

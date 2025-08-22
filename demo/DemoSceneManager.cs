@@ -16,20 +16,15 @@ public partial class DemoSceneManager : Node
     public override void _Ready()
     {
         // Configure the tooltip service.
-        Dictionary<string, string> languagePaths = [];
-        foreach (LanguageMapping mapping in _languageMappings)
+        if (_languageMappings.Any() == false || string.IsNullOrWhiteSpace(_languageMappings.First().FilePath))
         {
-            if (mapping != null && !string.IsNullOrEmpty(mapping.LanguageCode))
-            {
-                languagePaths[mapping.LanguageCode] = mapping.FilePath;
-            }
+            GD.PushError("No valid language mappings found. Please check your configuration.");
         }
-        BasicTooltipDataProvider sceneSpecificProvider = new(
-            languagePaths,
-            "en",
-            _fallbackLanguageCode
-        );
-        TooltipService.TooltipDataProvider = sceneSpecificProvider;
+        else
+        {
+            BasicTooltipDataProvider sceneSpecificProvider = new(_languageMappings.First().FilePath);
+            TooltipService.TooltipDataProvider = sceneSpecificProvider;
+        }
 
         // Set up the language selector.
         for (int n = 0; n < _languageMappings.Length; n++)
@@ -76,15 +71,13 @@ public partial class DemoSceneManager : Node
 
         string selectedLanguageCode = _languageSelector.GetItemText((int)index);
 
-        // 1. Change the language for the custom TooltipService
-        if (TooltipService.TooltipDataProvider is BasicTooltipDataProvider provider)
-        {
-            provider.CurrentLanguage = selectedLanguageCode;
-        }
+        // Change the language for the custom TooltipService.
+        string jsonFilePath = _languageMappings.FirstOrDefault(m => m.LanguageCode == selectedLanguageCode)?.FilePath
+            ?? _languageMappings.First().FilePath;
+        TooltipService.TooltipDataProvider = new BasicTooltipDataProvider(jsonFilePath);
 
-        // 2. Change the language for the rest of the game using Godot's localization system
+        // Change the language for the rest of the game using Godot's localization system.
         TranslationServer.SetLocale(selectedLanguageCode);
-        GD.Print($"Game language set to: {selectedLanguageCode}");
     }
 
     private void OnLockTypeSelected(long index)
