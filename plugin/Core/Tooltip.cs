@@ -1,5 +1,8 @@
 namespace NestedTooltips;
 
+/// <summary>
+/// The readonly class that represents a created tooltip.
+/// </summary>
 public class Tooltip : ITooltip
 {
     /// <inheritdoc />

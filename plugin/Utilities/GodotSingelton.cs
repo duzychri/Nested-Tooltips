@@ -1,4 +1,4 @@
-namespace NestedTooltips;
+namespace NestedTooltips.Internals;
 
 /// <summary>
 /// Implements the singleton pattern for a Godot node.

@@ -1,8 +1,8 @@
 [gd_scene load_steps=15 format=3 uid="uid://cfm54tyfi5lqc"]
 
 [ext_resource type="Script" uid="uid://bj0eaiwpe6i0l" path="res://demo/DemoSceneManager.cs" id="1_bglyn"]
-[ext_resource type="Script" uid="uid://c10aa4tfovehk" path="res://plugin/Data/LanguageMapping.cs" id="2_apviv"]
-[ext_resource type="Script" uid="uid://dmudg2jv5v2ar" path="res://plugin/Core/RichTextLabelTooltipHandler.cs" id="2_we61h"]
+[ext_resource type="Script" uid="uid://c10aa4tfovehk" path="res://demo/LanguageMapping.cs" id="2_apviv"]
+[ext_resource type="Script" uid="uid://dmudg2jv5v2ar" path="res://demo/RichTextLabelTooltipHandler.cs" id="2_we61h"]
 [ext_resource type="PackedScene" uid="uid://cwoc7i6s06l2" path="res://demo/Numbered_Slider.tscn" id="5_t18ui"]
 [ext_resource type="Script" uid="uid://yx08en6x2itg" path="res://demo/scripts/SmallTooltip.cs" id="6_c1e8w"]
 [ext_resource type="Script" uid="uid://dq0hqp410ufvo" path="res://demo/DemoTooltipSource.cs" id="6_h36fx"]
@@ -217,7 +217,8 @@ script = ExtResource("9_dbc7n")
 [node name="CloseOnButton" type="Button" parent="Control/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
-text = "Close on Button Click"
+text = "Close on 
+Button Click"
 script = ExtResource("10_f5saa")
 
 [node name="MultipleTooltips" type="Button" parent="Control/VBoxContainer/HBoxContainer"]

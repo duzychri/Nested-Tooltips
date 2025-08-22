@@ -270,7 +270,7 @@ public partial class TooltipService
             // Calculate the position of the tooltip.
             Vector2 placementPosition = CalculatePositionFromPivot(_desiredPosition, _desiredPivot, _control.Size);
             placementPosition = CalculateNewTooltipLocation(placementPosition, _desiredPivot, _control.Size);
-            
+
             _control.Position = placementPosition;
         }
 

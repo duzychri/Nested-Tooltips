@@ -1,7 +1,7 @@
 namespace NestedTooltips;
 
 /// <summary>
-/// The Godot node that represents a tooltip in the UI.
+/// A default implementation of a tooltip control.
 /// </summary>
 public partial class TooltipControl : Control, ITooltipControl
 {

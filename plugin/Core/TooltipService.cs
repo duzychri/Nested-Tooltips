@@ -1,3 +1,5 @@
+using NestedTooltips.Internals;
+
 namespace NestedTooltips;
 
 /// <summary>
@@ -251,13 +253,12 @@ public partial class TooltipService : GodotSingelton<TooltipService>
     /// </summary>
     private static Vector2 CalculateNewTooltipLocation(Vector2 position, TooltipPivot pivot, Vector2 size)
     {
-       
         // Get the current viewport size to handle screen resizing.
-        var viewportSize = DisplayServer.WindowGetSize();
+        Vector2I viewportSize = DisplayServer.WindowGetSize();
 
         // Clamp the position to ensure the entire tooltip stays within the screen bounds.
-        float clampedX = Mathf.Clamp(position.X, 0,Mathf.Max(0, viewportSize.X - size.X));
-        float clampedY = Mathf.Clamp(position.Y, 0,Mathf.Max(0, viewportSize.Y - size.Y));
+        float clampedX = Mathf.Clamp(position.X, 0, Mathf.Max(0, viewportSize.X - size.X));
+        float clampedY = Mathf.Clamp(position.Y, 0, Mathf.Max(0, viewportSize.Y - size.Y));
 
         return new Vector2(clampedX, clampedY);
     }
@@ -268,12 +269,11 @@ public partial class TooltipService : GodotSingelton<TooltipService>
     /// - The cursor position.<br/>
     /// - The dimensions of the screen.<br/>
     /// </summary>
-
     private static (Vector2 position, TooltipPivot pivot) CalculateNestedTooltipLocation(TooltipHandler parentTooltipHandler, Vector2 position)
     {
         // Get the current viewport size and its center to determine screen quadrants.
-        var viewportSize = DisplayServer.WindowGetSize(); /// correct way to find out the size of the viewport like in the example for multipleTooltips?
-        var screenCenter = viewportSize / 2;
+        Vector2I viewportSize = DisplayServer.WindowGetSize(); /// correct way to find out the size of the viewport like in the example for multipleTooltips?
+        Vector2 screenCenter = (Vector2)viewportSize / 2f;
 
         TooltipPivot pivot;
 
@@ -301,9 +301,8 @@ public partial class TooltipService : GodotSingelton<TooltipService>
                 pivot = TooltipPivot.BottomRight;
             }
         }
-        return (position, pivot); 
+        return (position, pivot);
     }
-
 
     private static (TooltipHandler handler, ITooltip tooltip) CreateTooltip(Vector2 position, TooltipPivot pivot, int? width, TooltipHandler? parentHandler = null)
     {

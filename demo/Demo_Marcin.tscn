@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://bj0eaiwpe6i0l" path="res://demo/DemoSceneManager.cs" id="1_bglyn"]
 [ext_resource type="PackedScene" uid="uid://bjjlowca4mukg" path="res://demo/Demo_Slider.tscn" id="2_7pyyh"]
-[ext_resource type="Script" uid="uid://dmudg2jv5v2ar" path="res://plugin/Core/RichTextLabelTooltipHandler.cs" id="2_fas8k"]
-[ext_resource type="Script" uid="uid://c10aa4tfovehk" path="res://plugin/Data/LanguageMapping.cs" id="2_md662"]
+[ext_resource type="Script" uid="uid://dmudg2jv5v2ar" path="res://demo/RichTextLabelTooltipHandler.cs" id="2_fas8k"]
+[ext_resource type="Script" uid="uid://c10aa4tfovehk" path="res://demo/LanguageMapping.cs" id="2_md662"]
 
 [sub_resource type="Resource" id="Resource_y77t2"]
 script = ExtResource("2_md662")
