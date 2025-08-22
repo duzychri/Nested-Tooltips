@@ -89,7 +89,7 @@ text = "Language Settings"
 vertical_alignment = 1
 uppercase = true
 script = ExtResource("4_nrlhs")
-_tooltipText = "The [i]settings[/i] that change the language used for the [url=tooltip_explanation]tooltips[/url]."
+_tooltipText = "The [i]settings[/i] that show of how you could change the language used for the [url=tooltip_explanation]tooltips[/url]."
 
 [node name="Language" type="HBoxContainer" parent="Control/VBoxContainer"]
 layout_mode = 2
