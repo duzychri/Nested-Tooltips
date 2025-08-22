@@ -167,6 +167,6 @@ The `TooltipPrefabPath` property determines the path of the 'prefab' scene used 
 
 ## Credits
 
-This plugin was created for the 'Einführung in die Spieleprogrammierung' lecture by [Christoph Duzy](https://duzychri.github.io/) and *Marcin Kuhnert*.
+This plugin was created for the 'Einführung in die Spieleprogrammierung' lecture by [Christoph Duzy](https://duzychri.github.io/) and [Marcin Kuhnert](https://github.com/RoyaLxPole).
 
 The padlock icon used for the default tooltip was created by [Lorc](https://lorcblog.blogspot.com/) from [Game-icons.net](https://game-icons.net/1x1/lorc/padlock.html) and is licensed under the [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/) license.
