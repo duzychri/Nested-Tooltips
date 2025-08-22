@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://bbcwh2003pmhl"]
 
-[ext_resource type="Script" uid="uid://ypfux3ljeu53" path="res://plugin/Core/TooltipControl.cs" id="1_djpbh"]
+[ext_resource type="Script" uid="uid://ypfux3ljeu53" path="res://addons/nested_tooltips/Core/TooltipControl.cs" id="1_djpbh"]
 [ext_resource type="Texture2D" uid="uid://b35dfx5xpeqrn" path="res://demo/sprites/progress_circle.png" id="3_u5ncm"]
 [ext_resource type="Texture2D" uid="uid://x2svt0sd4ad2" path="res://demo/sprites/padlock.png" id="4_gtv7g"]
 

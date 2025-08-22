@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bc57pqk53266d"]
 
-[ext_resource type="Script" uid="uid://ciasnxuenkdkx" path="res://plugin/Core/TooltipService.cs" id="1_g57km"]
+[ext_resource type="Script" uid="uid://ciasnxuenkdkx" path="res://addons/nested_tooltips/Core/TooltipService.cs" id="1_g57km"]
 
 [node name="Tooltip Service" type="Node" node_paths=PackedStringArray("_tooltipsParent")]
 script = ExtResource("1_g57km")
