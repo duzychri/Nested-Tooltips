@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bjjlowca4mukg"]
 
-[ext_resource type="Script" uid="uid://ckc33ou8pjrwf" path="res://demo/DemoSlider.cs" id="1_xp0yp"]
+[ext_resource type="Script" uid="uid://ckc33ou8pjrwf" path="res://demo/utilities/DemoSlider.cs" id="1_xp0yp"]
 
 [node name="DemoSlider" type="HBoxContainer" node_paths=PackedStringArray("_labelName", "_labelAmount", "_slider")]
 theme_override_constants/separation = 10

@@ -1,28 +1,28 @@
 [gd_scene load_steps=15 format=3 uid="uid://cfm54tyfi5lqc"]
 
 [ext_resource type="Script" uid="uid://bj0eaiwpe6i0l" path="res://demo/DemoSceneManager.cs" id="1_bglyn"]
-[ext_resource type="Script" uid="uid://c10aa4tfovehk" path="res://demo/LanguageMapping.cs" id="2_apviv"]
-[ext_resource type="Script" uid="uid://dmudg2jv5v2ar" path="res://demo/RichTextLabelTooltipHandler.cs" id="2_we61h"]
-[ext_resource type="PackedScene" uid="uid://cwoc7i6s06l2" path="res://demo/Numbered_Slider.tscn" id="5_t18ui"]
-[ext_resource type="Script" uid="uid://yx08en6x2itg" path="res://demo/scripts/SmallTooltip.cs" id="6_c1e8w"]
-[ext_resource type="Script" uid="uid://dq0hqp410ufvo" path="res://demo/DemoTooltipSource.cs" id="6_h36fx"]
-[ext_resource type="Script" uid="uid://bsbu0iwgj8wf4" path="res://demo/scripts/LargeTooltip.cs" id="7_tplxe"]
-[ext_resource type="Script" uid="uid://dnir4mjmk1sue" path="res://demo/scripts/NestedTooltip.cs" id="8_f5saa"]
-[ext_resource type="Script" uid="uid://cmi6bb7ub8r8h" path="res://demo/scripts/WonkyTooltip.cs" id="9_dbc7n"]
-[ext_resource type="Script" uid="uid://caypx5fiwstjx" path="res://demo/scripts/CloseOnButton.cs" id="10_f5saa"]
-[ext_resource type="Script" uid="uid://nbtkoocxtew2" path="res://demo/scripts/MultipleTooltip.cs" id="11_1hpw1"]
-[ext_resource type="Script" uid="uid://b6dm1t52nqs7y" path="res://demo/scripts/Clamped.cs" id="11_tplxe"]
+[ext_resource type="Script" uid="uid://c10aa4tfovehk" path="res://demo/utilities/LanguageMapping.cs" id="2_f5saa"]
+[ext_resource type="Script" uid="uid://dmudg2jv5v2ar" path="res://demo/utilities/RichTextLabelTooltipHandler.cs" id="3_dbc7n"]
+[ext_resource type="Script" uid="uid://dq0hqp410ufvo" path="res://demo/utilities/DemoTooltipSource.cs" id="4_nrlhs"]
+[ext_resource type="PackedScene" uid="uid://cwoc7i6s06l2" path="res://demo/prefabs/Numbered_Slider.tscn" id="5_1hpw1"]
+[ext_resource type="Script" uid="uid://yx08en6x2itg" path="res://demo/test_buttons/SmallTooltip.cs" id="6_c1e8w"]
+[ext_resource type="Script" uid="uid://bsbu0iwgj8wf4" path="res://demo/test_buttons/LargeTooltip.cs" id="7_tplxe"]
+[ext_resource type="Script" uid="uid://dnir4mjmk1sue" path="res://demo/test_buttons/NestedTooltip.cs" id="8_f5saa"]
+[ext_resource type="Script" uid="uid://cmi6bb7ub8r8h" path="res://demo/test_buttons/WonkyTooltip.cs" id="9_dbc7n"]
+[ext_resource type="Script" uid="uid://caypx5fiwstjx" path="res://demo/test_buttons/CloseOnButton.cs" id="10_f5saa"]
+[ext_resource type="Script" uid="uid://nbtkoocxtew2" path="res://demo/test_buttons/MultipleTooltip.cs" id="11_1hpw1"]
+[ext_resource type="Script" uid="uid://b6dm1t52nqs7y" path="res://demo/test_buttons/Clamped.cs" id="11_tplxe"]
 
 [sub_resource type="Resource" id="Resource_t18ui"]
-script = ExtResource("2_apviv")
+script = ExtResource("2_f5saa")
 LanguageCode = "en"
-FilePath = "res://demo/tooltip_demo_en.json"
+FilePath = "res://demo/tooltip datas/tooltip_demo_en.json"
 metadata/_custom_type_script = "uid://c10aa4tfovehk"
 
 [sub_resource type="Resource" id="Resource_h36fx"]
-script = ExtResource("2_apviv")
+script = ExtResource("2_f5saa")
 LanguageCode = "de"
-FilePath = "res://demo/tooltip_demo_de.json"
+FilePath = "res://demo/tooltip datas/tooltip_demo_de.json"
 metadata/_custom_type_script = "uid://c10aa4tfovehk"
 
 [node name="Demo Scene" type="Node" node_paths=PackedStringArray("_lockTypeSelector", "_showDelaySlider", "_lockDelaySlider", "_unlockDelaySlider", "_languageSelector")]
@@ -62,7 +62,7 @@ layout_mode = 2
 bbcode_enabled = true
 text = "Hover over the [url=highlighted_text_explanation]highlighted[/url] text to open a [url=tooltip_explanation]tooltip[/url]."
 horizontal_alignment = 1
-script = ExtResource("2_we61h")
+script = ExtResource("3_dbc7n")
 
 [node name="Header Language Settings2" type="Label" parent="Control/VBoxContainer"]
 custom_minimum_size = Vector2(400, 0)
@@ -72,7 +72,7 @@ mouse_filter = 1
 text = "Language Settings"
 vertical_alignment = 1
 uppercase = true
-script = ExtResource("6_h36fx")
+script = ExtResource("4_nrlhs")
 
 [node name="Language" type="HBoxContainer" parent="Control/VBoxContainer"]
 layout_mode = 2
@@ -85,7 +85,7 @@ layout_mode = 2
 mouse_filter = 1
 text = "Language"
 vertical_alignment = 1
-script = ExtResource("6_h36fx")
+script = ExtResource("4_nrlhs")
 _tooltipText = "The amount of time that needs to pass until a tooltip is opened.
 
 
@@ -105,7 +105,7 @@ mouse_filter = 1
 text = "Tooltip Settings"
 vertical_alignment = 1
 uppercase = true
-script = ExtResource("6_h36fx")
+script = ExtResource("4_nrlhs")
 _tooltipText = "The settings that determine how tooltips are displayed and pinned."
 
 [node name="Lock Mode" type="HBoxContainer" parent="Control/VBoxContainer"]
@@ -119,7 +119,7 @@ layout_mode = 2
 mouse_filter = 1
 text = "Lock Mode"
 vertical_alignment = 1
-script = ExtResource("6_h36fx")
+script = ExtResource("4_nrlhs")
 _tooltipText = "The amount of time that needs to pass until a tooltip is opened."
 
 [node name="OptionButton" type="OptionButton" parent="Control/VBoxContainer/Lock Mode"]
@@ -137,10 +137,10 @@ layout_mode = 2
 mouse_filter = 1
 text = "Show Delay"
 vertical_alignment = 1
-script = ExtResource("6_h36fx")
+script = ExtResource("4_nrlhs")
 _tooltipText = "The amount of time that needs to pass until a tooltip is opened."
 
-[node name="Slider" parent="Control/VBoxContainer/Show Delay" instance=ExtResource("5_t18ui")]
+[node name="Slider" parent="Control/VBoxContainer/Show Delay" instance=ExtResource("5_1hpw1")]
 layout_mode = 2
 _maxValue = 20.0
 _step = 0.05
@@ -156,10 +156,10 @@ layout_mode = 2
 mouse_filter = 1
 text = "Lock Delay"
 vertical_alignment = 1
-script = ExtResource("6_h36fx")
+script = ExtResource("4_nrlhs")
 _tooltipText = "The amount of time that needs to pass until a tooltip is opened."
 
-[node name="Slider" parent="Control/VBoxContainer/Lock Delay" instance=ExtResource("5_t18ui")]
+[node name="Slider" parent="Control/VBoxContainer/Lock Delay" instance=ExtResource("5_1hpw1")]
 layout_mode = 2
 _minValue = 0.05
 _maxValue = 20.0
@@ -176,10 +176,10 @@ layout_mode = 2
 mouse_filter = 1
 text = "Unlock Delay"
 vertical_alignment = 1
-script = ExtResource("6_h36fx")
+script = ExtResource("4_nrlhs")
 _tooltipText = "The amount of time that needs to pass until a tooltip is opened."
 
-[node name="Slider" parent="Control/VBoxContainer/Unlock Delay" instance=ExtResource("5_t18ui")]
+[node name="Slider" parent="Control/VBoxContainer/Unlock Delay" instance=ExtResource("5_1hpw1")]
 layout_mode = 2
 _minValue = 0.05
 _maxValue = 20.0

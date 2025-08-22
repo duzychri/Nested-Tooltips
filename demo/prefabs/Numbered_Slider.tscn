@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cwoc7i6s06l2"]
 
-[ext_resource type="Script" uid="uid://8rx62ck084ux" path="res://demo/NumberedSlider.cs" id="1_4pakw"]
+[ext_resource type="Script" uid="uid://8rx62ck084ux" path="res://demo/utilities/NumberedSlider.cs" id="1_4pakw"]
 
 [node name="Numbered Slider" type="HBoxContainer" node_paths=PackedStringArray("_slider", "_labelAmount")]
 offset_right = 290.0
