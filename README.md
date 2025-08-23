@@ -1,6 +1,6 @@
 ![screenshot_1.png](screenshots/screenshot_1.png)
 
-## Introduction
+## 🌟 Introduction
 
 Provides a simple to use and customizable tooltip system for Godot 4.4 with support for nested tooltips using C#.
 
@@ -8,24 +8,24 @@ Nested tooltips are a feature that enables tooltips to open additional child too
 
 This project was created as part of the 'Einführung in die Spieleprogrammierung' lecture at the University of Augsburg.
 
-## Project Installation
+## 📥 Project Installation
 
 If you want to use this plugin in your own Godot project, you can follow the steps below to install it. Either clone the repository and extract the contents of the `addons/nested_tooltips` folder into your own project or get the project from the [Godot Asset Library](https://godotengine.org/asset-library/asset).
 
-## Project Setup
+## 🛠️ Project Setup
 
 These are the steps you need to follow to set up the project on your local machine. The project was created using Windows and no guarantee is made that it will work on other platforms. It is likely that it will work on Linux and MacOS. Because it is written in C# won't currently work for the web export of Godot.
 
-### Downloading the project
+### 📂 Downloading the project
 
 1. Clone the repository from git (https://git.rz.uni-augsburg.de/kuhnerma/esp-25-tool-tip-plugin)
 
-### Installing prerequisites
+### ⚙️ Installing prerequisites
 
 1. You will need a C# Editor. I used Visual Studio 2022 to create this project. You can download it from the [Visual Studio download page](https://visualstudio.microsoft.com/downloads/).
 2. You will need .NET 8.0 SDK installed on your system. You can download it from the [.NET download page](https://dotnet.microsoft.com/en-us/download/dotnet/8.0) or install it via the _Visual Studio Installer_ when installing Visual Studio.
 
-### Installing Godot & Opening the project
+### 🖥️ Installing Godot & Opening the project
 
 1. Download [Godot 4.4 (stable)](https://godotengine.org/download/archive/4.4-stable/) for **Windows .NET** ([direct download link](https://github.com/godotengine/godot-builds/releases/download/4.4-stable/Godot_v4.4-stable_mono_win64.zip))
 2. Extract the downloaded zip file to a folder of your choice
@@ -34,7 +34,7 @@ These are the steps you need to follow to set up the project on your local machi
 5. Navigate to the folder where you cloned the repository and select the `project.godot` file
 6. Click `Open` to import the project and either use the `☑ Edit now` toggle or open the project from the list
 
-### Enabling the plugin
+### 🔌 Enabling the plugin
 
 To use the demo scene you will need to enable the plugin in the project settings. To do so:
 
@@ -44,16 +44,16 @@ To use the demo scene you will need to enable the plugin in the project settings
 
 This registers an autoload script that will enable the tooltip system functionality.
 
-### Running the project
+### ▶️ Running the project
 
 1. Navigate in the FileSystem (bottom left) to `res://Demo/Demo_Scene.tscn` and double-click it to open the demo scene
 2. Click the `▶` button (in the top right corner) or press `F5` to play the demo scene (Note: `F5` will play the main scene set in the project settings, which is the demo scene in this case. `F6` will play the currently open scene which should now also be the demo scene)
 
-## Usage
+## 📚 Usage
 
 The primary way to interact with the tooltip system is through the `TooltipService` class and its methods and properties, as well as the returned `ITooltip` instances.
 
-### Creating a tooltip
+### ✏️ Creating a tooltip
 
 To create a simple tooltip you can use the `ShowTooltip` method in the `TooltipService` class; Use the `text` parameter to set a bbcode marked up text for the created tooltip and use the `position` and `pivot` parameter to set the location that the tooltip should be placed at. If the optional `width` parameter is set then the tooltip will be that width and switch to allow automatic word wrap so it can dynamically adjust its height based on the text content. If the `width` parameter is not set then the tooltip's width will be determined by the text content.
 
@@ -74,7 +74,7 @@ As an example: If you use `TooltipPivot.BottomLeft` then the bottom left corner 
 
 The other alternative to creating a tooltip is to use the `ShowTooltipById` method. This method works the same way as `ShowTooltip`, but instead of a `text` parameter it takes a `tooltipId` parameter. This id is used to load the text of the tooltip from the `ITooltipDataProvider` that you can supply by setting the `TooltipService.TooltipDataProvider` property. For more information about the `ITooltipDataProvider` interface  see the [Configuration] section below.
 
-### Destroying a tooltip
+### ❌ Destroying a tooltip
 
 If you want a tooltip to close again there are multiple options:
 
@@ -91,7 +91,7 @@ If you want a tooltip to close again there are multiple options:
     }
 ```
 
-### Pinning & Nesting
+### 📌 Pinning & Nesting
 
 Tooltips can be *pinned*; doing so stops the tooltip from disappearing when the `ReleaseTooltip` method is called. The primary use if this is to enable nesting behaviours. If the `TimerLock` lock mode is set, then the pin will happen after the specified `LockDelay` in the settings. If the `ActionLock` lock mode is set, then a mouse click on the link inside a tooltip will pin the child tooltip opened from hovering over the link. If you have opened the tooltip yourself (e.g. by using the `ShowTooltip` method) then you have to supply the information that the tooltip should be pinned. Do so by using the `ActionLockTooltip` method in the `TooltipService`.
 
@@ -99,7 +99,7 @@ Tooltips can be *pinned*; doing so stops the tooltip from disappearing when the 
     TooltipService.ActionLockTooltip(tooltip);
 ```
 
-### Links & Nested Tooltips
+### 🔗 Links & Nested Tooltips
 
 To create a link inside a tooltip that opens a nested tooltip when clicked, you can use the you can wrap the text that you want to be a link in the `[url=tooltip_id]text[/url]` bbcode tag. The text inside the tag will be shown to the user and the `tooltip_id` will be used to look up the tooltip text of the nested tooltip. Dependend on the settings the tooltip will then be displayed when the user hovers over the link text.
 
@@ -109,11 +109,11 @@ To see some examples of bbcode markup with the url tags set check out the `demo/
 A [i]nested[/i] [url=tooltip_explanation]tooltip[/url] is one that has been opened from within another [url=tooltip_explanation]tooltip[/url]. The nested [url=tooltip_explanation]tooltip[/url] is then the child of the source or parent [url=tooltip_explanation]tooltip[/url].
 ```
 
-## Configuration
+## ⚙️ Configuration
 
 The tooltip system can be configured in different ways. You can change the behaviour of how the user can interact with the tooltips using the `Settings` property in the `TooltipService` and you can adjust the style or visuals of the tooltip by creating you own 'prefab' and providing the service a path to it using the `TooltipPrefabPath` property. The `TooltipDataProvider` property can be set to an implementation of the `ITooltipDataProvider` interface to provide the tooltip system with data for tooltips that are created using the `ShowTooltipById` method.
 
-### Settings
+### ⚙️ Settings
 
 The `Settings` property can be used to configure the behaviour of the created tooltips.
 
@@ -145,7 +145,7 @@ TooltipService.Settings = TooltipService.Settings with { ShowDelay = (float)valu
 
 ```
 
-### Data provider
+### 📂 Data provider
 
 The `TooltipDataProvider` property can be set with a class that implements the `ITooltipDataProvider` interface. The providers `GetTooltipData(id)` method is called with the id (for example using the `ShowTooltipById` method) of a tooltip to get that tooltips information.
 
@@ -165,11 +165,11 @@ TooltipService.TooltipDataProvider = new(
 
 ```
 
-### Tooltip prefab
+### 🖼️ Tooltip prefab
 
 The `TooltipPrefabPath` property determines the path of the 'prefab' scene used to create the control that is shown inside Godot when a tooltip is created. By default a simple tooltip prefab is used but you can supply your own control scene if the root node of it implements `ITooltipControl`. To see an example of how to implement such a control check the `BasicTooltipControl` class.
 
-## Credits
+## 🙌 Credits
 
 This plugin was created for the 'Einführung in die Spieleprogrammierung' lecture by [Christoph Duzy](https://duzychri.github.io/) and [Marcin Kuhnert](https://github.com/RoyaLxPole).
 
