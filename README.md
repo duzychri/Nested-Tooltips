@@ -58,14 +58,12 @@ The primary way to interact with the tooltip system is through the `TooltipServi
 To create a simple tooltip you can use the `ShowTooltip` method in the `TooltipService` class; Use the `text` parameter to set a bbcode marked up text for the created tooltip and use the `position` and `pivot` parameter to set the location that the tooltip should be placed at. If the optional `width` parameter is set then the tooltip will be that width and switch to allow automatic word wrap so it can dynamically adjust its height based on the text content. If the `width` parameter is not set then the tooltip's width will be determined by the text content.
 
 ``` C#
-
 ITooltip tooltip = TooltipService.ShowTooltip(
     tooltipPosition, 
     TooltipPivot.BottomLeft, 
     tooltipText,
     width
 );
-
 ```
 
 The **pivot** is used to determine in what direction the tooltip should be 'drawn' in relation to the position supplied by the user. The pivot is a point in the tooltip in the range of 0.0 to 1.0 in both x and y direction, where (0,0) is the top left corner and (1,1) is the bottom right corner of the tooltip. 
@@ -120,7 +118,6 @@ The `Settings` property can be used to configure the behaviour of the created to
 You can set it like this:
 
 ``` C#
-
 TooltipService.Settings = new()
 {
 	ShowDelay = 0.25f,
@@ -129,7 +126,6 @@ TooltipService.Settings = new()
 	UnlockDelay = 0.5f,
 	LockMode = TooltipLockMode.TimerLock,
 };
-
 ```
 
 - `LockMode` sets the behaviour that locks the tooltip. `TimerLock` locks the tooltip if it stays open for a certain amount of time, `ActionLock` locks the tooltip if the `ActionLockTooltip` is called or (for nested tooltips) if the source text of a tooltip is clicked by the cursor.
@@ -140,9 +136,7 @@ TooltipService.Settings = new()
 Hint: As the `TooltipSettings` is a record type, you can use the `with` expression to easily change the settings.
 
 ```C#
-
 TooltipService.Settings = TooltipService.Settings with { ShowDelay = (float)value };
-
 ```
 
 ### 📂 Data provider
@@ -158,11 +152,9 @@ The tooltip data itself has three properties:
 You can implement your own data provider or use the provided `BasicTooltipDataProvider` data provider that loads files from a json file.
 
 ``` C#
-
 TooltipService.TooltipDataProvider = new(
     jsonFilePath
 );
-
 ```
 
 ### 🖼️ Tooltip prefab
