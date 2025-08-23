@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://x2svt0sd4ad2"
-path="res://.godot/imported/padlock.png-c91a4356815bfa4115c76500fd1fa83c.ctex"
+uid="uid://b35dfx5xpeqrn"
+path="res://.godot/imported/progress_circle.png-5c8c286a2b1f43427fad0c6887e0d967.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://demo/sprites/padlock.png"
-dest_files=["res://.godot/imported/padlock.png-c91a4356815bfa4115c76500fd1fa83c.ctex"]
+source_file="res://addons/nested_tooltips/Sprites/progress_circle.png"
+dest_files=["res://.godot/imported/progress_circle.png-5c8c286a2b1f43427fad0c6887e0d967.ctex"]
 
 [params]
 
