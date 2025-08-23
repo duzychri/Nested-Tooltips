@@ -6,6 +6,8 @@
 		<RootNamespace>NestedTooltips</RootNamespace>
 	</PropertyGroup>
 	<ItemGroup>
+		<Content Include="screenshots\screenshot_1.png" />
+		<Content Include="screenshots\screenshot_2.png" />
 		<Content Include="demo\tooltip_datas\tooltip_demo_de.json" />
 		<Content Include="demo\tooltip_datas\tooltip_demo_en.json" />
 		<Content Include="documentation\concept\path_of_exile_2_2024.png" />

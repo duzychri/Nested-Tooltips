@@ -1,8 +1,12 @@
+![screenshot_1.png](screenshots/screenshot_1.png)
+
 ## Introduction
 
-This project is a plugin for Godot 4.4.1 that provides a customizable tooltip system written in C#. It allows developers to create, display, and manage tooltips with advanced features such as dynamic positioning, styling, and interaction handling. The system is designed to be flexible and extendable, making it suitable for a wide range of applications, from simple UI hints to complex nested tooltip structures.
+Provides a simple to use and customizable tooltip system for Godot 4.4 with support for nested tooltips using C#.
 
-Nested tooltips are a feature that enables tooltips to open additional child tooltips when interacting with specific elements, such as links or buttons, within the parent tooltip. This behavior allows for hierarchical or contextual information to be displayed seamlessly, enhancing the user experience.
+Nested tooltips are a feature that enables tooltips to open additional child tooltips from within a tooltips text content itself.
+
+This project was created as part of the 'Einführung in die Spieleprogrammierung' lecture at the University of Augsburg.
 
 ## Project Installation
 
