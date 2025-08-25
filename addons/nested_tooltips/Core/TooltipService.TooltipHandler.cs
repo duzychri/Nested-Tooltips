@@ -1,4 +1,4 @@
-// Created by: Christoph Duzy (implemented) & Marcin Kuhnert (bugfixes)
+// Created by: Christoph Duzy (implemented everything) & Marcin Kuhnert (bugfixes)
 
 using Godot;
 using System;

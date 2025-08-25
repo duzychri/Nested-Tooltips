@@ -1,3 +1,6 @@
+// Created by: Christoph Duzy
+// Please note that the library part can't use the global usings because we can't be sure the developer installing the plugin has the same global usings.
+
 global using Godot;
 
 global using System;

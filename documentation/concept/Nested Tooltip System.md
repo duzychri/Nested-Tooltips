@@ -1,3 +1,5 @@
+// Created by: Christoph Duzy
+
 ## Introduction
 
 A trend in games has been to display more information to the user. In large portion this is due to a desire to impart more, formerly often hidden, information to the user. Take the comparison of Dota vs Dota 2 as an example. Part of it might also be an increased complexity in popular modern games compared to the past.

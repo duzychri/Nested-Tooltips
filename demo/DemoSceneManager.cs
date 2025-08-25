@@ -1,4 +1,4 @@
-// Created by: Christoph Duzy & Marcin Kuhnert
+// Created by: Christoph Duzy (implemented settings logic) & Marcin Kuhnert (implemented language logic)
 
 namespace NestedTooltips.DemoScene;
 

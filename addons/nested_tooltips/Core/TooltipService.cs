@@ -1,4 +1,4 @@
-// Created by: Marcin Kuhnert (CalculatePositionFromPivot, CalculateNewTooltipLocation, CalculateNestedTooltipLocation) & Christoph Duzy (everything else)
+// Created by: Marcin Kuhnert (CalculatePositionFromPivot, CalculateNewTooltipLocation, CalculateNestedTooltipLocation) & Christoph Duzy (implemented everything else)
 
 using Godot;
 using System;
