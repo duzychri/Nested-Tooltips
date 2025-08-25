@@ -11,9 +11,12 @@ config_version=5
 [application]
 
 config/name="esp-25-tooltip-plugin"
+config/description="A Godot plugin that allows for convenient tooltips that allow for nesting. "
+config/version="1.0.0"
+run/main_scene="uid://cfm54tyfi5lqc"
 config/features=PackedStringArray("4.4", "C#", "Forward Plus")
 boot_splash/show_image=false
-config/icon="res://icon.svg"
+config/icon="uid://mholr5iov5p5"
 
 [display]
 
