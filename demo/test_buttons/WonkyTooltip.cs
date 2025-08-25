@@ -11,6 +11,13 @@ public partial class WonkyTooltip : Button
     {
         MouseEntered += OnMouseEntered;
         MouseExited += OnMouseExited;
+        Pressed += OnPressed;
+    }
+
+    private void OnPressed()
+    {
+        if (_activeTooltip != null)
+        { TooltipService.ActionLockTooltip(_activeTooltip); }
     }
 
     private void OnMouseExited()

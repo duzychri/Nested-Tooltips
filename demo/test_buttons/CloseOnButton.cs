@@ -25,6 +25,8 @@ public partial class CloseOnButton : Button
         {
             Vector2 position = GetViewport().GetVisibleRect().Size / 2;
             _activeTooltip = TooltipService.ShowTooltipById(position, TooltipPivot.BottomLeft, tooltipId);
+            if (TooltipService.Settings.LockMode == TooltipLockMode.ActionLock)
+            { TooltipService.ActionLockTooltip(_activeTooltip); }
         }
     }
 }

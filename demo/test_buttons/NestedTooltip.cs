@@ -11,6 +11,7 @@ public partial class NestedTooltip : Button
     {
         MouseEntered += OnMouseEntered;
         MouseExited += OnMouseExited;
+        Pressed += OnPressed;
     }
 
     private void OnMouseExited()
@@ -26,5 +27,13 @@ public partial class NestedTooltip : Button
     {
         Vector2 position = GetScreenPosition();
         _activeTooltip = TooltipService.ShowTooltipById(position, TooltipPivot.BottomLeft, tooltipId);
+    }
+
+    private void OnPressed()
+    {
+        if (_activeTooltip != null)
+        {
+            TooltipService.ActionLockTooltip(_activeTooltip);
+        }
     }
 }

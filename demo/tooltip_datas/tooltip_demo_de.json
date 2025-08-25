@@ -2,7 +2,17 @@
   "pinning_explanation": {
     "id": "pinning_explanation",
     "desiredWidth": 300,
-    "text": "Offene [url=tooltip_explanation]Tooltips[/url] können [b]angeheftet[/b] werden. Dadurch bleibt der [url=tooltip_explanation]Tooltip[/url] geöffnet, auch wenn die Bedingung, ihn zu öffnen, nicht mehr erfüllt ist, z. B. wenn der Benutzer aufhört, über das UI-Element zu fahren, das den [url=tooltip_explanation]Tooltip[/url] geöffnet hat. Dies ermöglicht es dem Benutzer, weitere Tooltips zu öffnen, was zu einer Verschachtelung führt. Die genaue Methode zum Anheften eines [url=tooltip_explanation]Tooltips[/url] kann in den [url=tooltip_settings]Einstellungen[/url] konfiguriert werden."
+    "text": "[p]Offene [url=tooltip_explanation]Tooltips[/url] können [b]angeheftet[/b] werden. Dadurch bleibt der [url=tooltip_explanation]Tooltip[/url] geöffnet, auch wenn die Bedingung, ihn zu öffnen, nicht mehr erfüllt ist, z. B. wenn der Benutzer aufhört, über das UI-Element zu fahren, das den [url=tooltip_explanation]Tooltip[/url] geöffnet hat. Dies ermöglicht es dem Benutzer, weitere Tooltips zu öffnen, was zu einer Verschachtelung führt.[/p][br][p]Die genaue Methode zum Anheften eines [url=tooltip_explanation]Tooltips[/url] kann in den [url=tooltip_settings]Einstellungen[/url] konfiguriert werden.[/p][p]Es gibt zwei Anheftungsmodi:[/p][ul][url=timer_lock_explanation]Zeitsperre[/url]\n[url=action_lock_explanation]Aktionssperre[/url][/ul]"
+  },
+  "timer_lock_explanation": {
+    "id": "timer_lock_explanation",
+    "desiredWidth": 300,
+    "text": "Die [i]Zeitsperre[/i] fixiert einen [url=tooltip_explanation]Tooltip[/url], wenn er für eine bestimmte Zeit geöffnet bleibt. Sobald die festgelegte Zeit abgelaufen ist, bleibt der Tooltip geöffnet, auch wenn die ursprüngliche Bedingung, ihn anzuzeigen, nicht mehr erfüllt ist."
+  },
+  "action_lock_explanation": {
+    "id": "action_lock_explanation",
+    "desiredWidth": 300,
+    "text": "Die [i]Aktionssperre[/i] fixiert einen [url=tooltip_explanation]Tooltip[/url], wenn der Benutzer eine bestimmte Aktion ausführt, wie z. B. das Klicken auf einen Link im Tooltip."
   },
   "nesting_explanation": {
     "id": "nesting_explanation",

@@ -16,6 +16,7 @@ public partial class MultipleTooltip : Button
     {
         MouseEntered += OnMouseEntered;
         MouseExited += OnMouseExited;
+        Pressed += OnPressed;
     }
 
     private void OnMouseExited()
@@ -44,5 +45,13 @@ public partial class MultipleTooltip : Button
         _activeTooltips.Add(TooltipService.ShowTooltipById(positionBottomRight, TooltipPivot.BottomRight, TooltipIdBottomRight));
         _activeTooltips.Add(TooltipService.ShowTooltipById(positionTopLeft, TooltipPivot.TopLeft, TooltipIdTopLeft));
         _activeTooltips.Add(TooltipService.ShowTooltipById(positionBottomLeft, TooltipPivot.BottomLeft, TooltipIdBottomLeft));
+    }
+
+    private void OnPressed()
+    {
+        foreach (ITooltip activeTooltip in _activeTooltips)
+        {
+            TooltipService.ActionLockTooltip(activeTooltip);
+        }
     }
 }

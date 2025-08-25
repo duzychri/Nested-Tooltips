@@ -2,7 +2,17 @@
   "pinning_explanation": {
     "id": "pinning_explanation",
     "desiredWidth": 300,
-    "text": "Open [url=tooltip_explanation]tooltips[/url] can be [b]pinned[/b]. This keeps the [url=tooltip_explanation]tooltip[/url] open even if the condition to open it is no longer true, for example, if the user stops hovering over the UI element that opened a [url=tooltip_explanation]tooltip[/url]. This enables the user to open more tooltips, leading to nesting. The exact method to pin a [url=tooltip_explanation]tooltip[/url] can be configured using the [url=tooltip_settings]settings[/url]."
+    "text": "[p]Open [url=tooltip_explanation]tooltips[/url] can be [b]pinned[/b]. This keeps the [url=tooltip_explanation]tooltip[/url] open even if the condition to open it is no longer true, for example, if the user stops hovering over the UI element that opened a [url=tooltip_explanation]tooltip[/url]. This enables the user to open more tooltips, leading to nesting.[/p][br][p]The exact method to pin a [url=tooltip_explanation]tooltip[/url] can be configured using the [url=tooltip_settings]settings[/url].[/p][p]There are two pinning modes:[/p][ul][url=timer_lock_explanation]TimerLock[/url]\n[url=action_lock_explanation]ActionLock[/url][/ul]"
+  },
+  "timer_lock_explanation": {
+    "id": "timer_lock_explanation",
+    "desiredWidth": 300,
+    "text": "The [i]Timer Lock[/i] fixes a [url=tooltip_explanation]tooltip[/url] if it remains open for a certain amount of time. Once the specified time has elapsed, the tooltip stays open even if the original condition to display it is no longer met."
+  },
+  "action_lock_explanation": {
+    "id": "action_lock_explanation",
+    "desiredWidth": 300,
+    "text": "The [i]Action Lock[/i] fixes a [url=tooltip_explanation]tooltip[/url] when the user performs a specific action, such as clicking on a link inside the tooltip."
   },
   "nesting_explanation": {
     "id": "nesting_explanation",
@@ -17,7 +27,7 @@
   "tooltip_explanation": {
     "id": "tooltip_explanation",
     "desiredWidth": 300,
-    "text": "[p]A [i]tooltip[/i] is a small popup that appears when you hover over a UI element.[/p][p]Tooltips can be [url=nesting_explanation]nested[/url] and have various [url=tooltip_settings]settings[/url] for [url=pinning_explanation]pinning[/url].[/p]"
+    "text": "[p]A [i]tooltip[/i] is a small popup that appears when you hover over a UI element.[/p][p]Tooltips can be [url=nesting_explanation]nested[/url] and have various [url=tooltip_settings]settings[/url] for [url=pinning_explanation]pinning[/url].[/p][p]There are two pinning modes:[/p][ul][url=timer_lock_explanation]TimerLock[/url]\n[url=action_lock_explanation]ActionLock[/url][/ul]"
   },
   "tooltip_settings": {
     "id": "tooltip_settings",

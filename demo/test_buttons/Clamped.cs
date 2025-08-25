@@ -11,6 +11,7 @@ public partial class Clamped : Button
     {
         MouseEntered += OnMouseEntered;
         MouseExited += OnMouseExited;
+        Pressed += OnPressed;
     }
 
     private void OnMouseExited()
@@ -26,5 +27,13 @@ public partial class Clamped : Button
     {
         Vector2 position = new Vector2(-1000, -1000); // Place tooltip outside the screen bounds
         _activeTooltip = TooltipService.ShowTooltipById(position, TooltipPivot.BottomLeft, tooltipId);
+    }
+
+    private void OnPressed()
+    {
+        if (_activeTooltip != null)
+        {
+            TooltipService.ActionLockTooltip(_activeTooltip);
+        }
     }
 }
