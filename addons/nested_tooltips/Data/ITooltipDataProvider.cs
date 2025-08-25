@@ -1,3 +1,5 @@
+// Created by: Christoph Duzy
+
 namespace NestedTooltips;
 
 /// <summary>

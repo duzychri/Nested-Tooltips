@@ -1,3 +1,5 @@
+// Created by: Marcin Kuhnert (CalculatePositionFromPivot, CalculateNewTooltipLocation, CalculateNestedTooltipLocation) & Christoph Duzy (everything else)
+
 using Godot;
 using System;
 using System.Linq;

@@ -1,3 +1,5 @@
+// Created by: Marcin Kuhnert
+
 namespace NestedTooltips.DemoScene;
 
 [GlobalClass]

@@ -1,3 +1,5 @@
+// Created by: Marcin Kuhnert (created) & Christoph Duzy (refactor/bugfixes)
+
 namespace NestedTooltips.DemoScene;
 
 public partial class LargeTooltip : Button

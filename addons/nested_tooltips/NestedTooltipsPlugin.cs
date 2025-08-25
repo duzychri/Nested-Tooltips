@@ -1,3 +1,5 @@
+// Created by: Christoph Duzy
+
 #if TOOLS
 using Godot;
 using System;

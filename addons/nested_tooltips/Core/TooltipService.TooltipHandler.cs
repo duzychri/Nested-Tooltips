@@ -1,3 +1,5 @@
+// Created by: Christoph Duzy (implemented) & Marcin Kuhnert (bugfixes)
+
 using Godot;
 using System;
 

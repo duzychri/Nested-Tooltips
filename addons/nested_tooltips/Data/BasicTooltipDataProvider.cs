@@ -1,3 +1,5 @@
+// Created by: Marcin Kuhnert
+
 using Godot;
 using System;
 using System.Text.Json;

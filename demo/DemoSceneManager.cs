@@ -1,3 +1,5 @@
+// Created by: Christoph Duzy & Marcin Kuhnert
+
 namespace NestedTooltips.DemoScene;
 
 public partial class DemoSceneManager : Node

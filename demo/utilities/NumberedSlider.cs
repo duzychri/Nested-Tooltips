@@ -1,3 +1,5 @@
+// Created by: Christoph Duzy
+
 using static Godot.Range;
 
 namespace NestedTooltips.DemoScene;

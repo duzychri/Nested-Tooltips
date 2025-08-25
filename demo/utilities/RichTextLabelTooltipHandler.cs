@@ -1,3 +1,5 @@
+// Created by: Marcin Kuhnert
+
 namespace NestedTooltips.DemoScene;
 
 public partial class RichTextLabelTooltipHandler : RichTextLabel

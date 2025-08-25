@@ -1,3 +1,5 @@
+// Created by: Christoph Duzy
+
 namespace NestedTooltips.DemoScene;
 
 public partial class DemoTooltipSource : Control
