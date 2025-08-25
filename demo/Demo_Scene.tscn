@@ -183,7 +183,7 @@ mouse_filter = 1
 text = "Pin Delay"
 vertical_alignment = 1
 script = ExtResource("4_nrlhs")
-_tooltipText = "The amount of time that needs to pass until a [url=tooltip_explanation]tooltip[/url] is [url=pinning_explanation]pinned[/url].. Assuming the Pin Mode is set to [i]TimerLock[/i]."
+_tooltipText = "The amount of time that needs to pass until a [url=tooltip_explanation]tooltip[/url] is [url=pinning_explanation]pinned[/url]. Assuming the Pin Mode is set to [i]TimerLock[/i]."
 
 [node name="Slider" parent="Control/VBoxContainer/Lock Delay" instance=ExtResource("5_1hpw1")]
 layout_mode = 2

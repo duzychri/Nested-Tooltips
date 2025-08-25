@@ -16,7 +16,6 @@
 	</ItemGroup>
 	<ItemGroup>
 		<None Include="documentation\concept\Nested Tooltip System.md" />
-		<None Include="documentation\demo_tooltips.md" />
 		<None Include="README.md" />
 	</ItemGroup>
 </Project>

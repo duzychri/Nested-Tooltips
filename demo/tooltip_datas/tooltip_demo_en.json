@@ -2,7 +2,7 @@
   "pinning_explanation": {
     "id": "pinning_explanation",
     "desiredWidth": 300,
-    "text": "Open [url=tooltip_explanation]tooltips[/url] can be [b]pinned[/b]. This keeps the [url=tooltip_explanation]tooltip[/url] open even if the condition to open it is no longer true, for example if the user stops hovering over the UI element that opened a [url=tooltip_explanation]tooltip[/url]. This enables the user to open more tooltips, leading to nesting. The exact method to pin a [url=tooltip_explanation]tooltip[/url] can be configured using the [url=tooltip_settings]settings[/url]."
+    "text": "Open [url=tooltip_explanation]tooltips[/url] can be [b]pinned[/b]. This keeps the [url=tooltip_explanation]tooltip[/url] open even if the condition to open it is no longer true, for example, if the user stops hovering over the UI element that opened a [url=tooltip_explanation]tooltip[/url]. This enables the user to open more tooltips, leading to nesting. The exact method to pin a [url=tooltip_explanation]tooltip[/url] can be configured using the [url=tooltip_settings]settings[/url]."
   },
   "nesting_explanation": {
     "id": "nesting_explanation",
@@ -30,20 +30,20 @@
   },
   "bbcode": {
     "id": "bbcode",
-    "text": "BBcode is a type of markup that can be used in Godot [i]RichTextLabels[/i] to style the text."
+    "text": "BBCode is a type of markup that can be used in Godot [i]RichTextLabels[/i] to style the text."
   },
   "tooltip_large": {
     "id": "tooltip_large",
-    "text": "This is a large tooltip that gets a width provided when it is created leading to it line breaking to fit the specified width. This is unlike the small tooltip that only matches the length of the string but will not line-break unless those are manually added to the [url=bbcode]bbcode[/url] text as markup."
+    "text": "This is a large tooltip that gets a width provided when it is created, leading to it line-breaking to fit the specified width. This is unlike the small tooltip that only matches the length of the string but will not line-break unless those are manually added to the [url=bbcode]BBCode[/url] text as markup."
   },
   "tooltip_disabled_nesting": {
     "id": "tooltip_disabled_nesting",
     "desiredWidth": 300,
-    "text": "This is a tooltip with disabled (or rather not enabled nesting). The tooltip component is provided with this information and then determines itself how it should display links to other tooltips. It is also not interactable; mouse movement and events that hit this tooltip are ignored/passed through."
+    "text": "This is a tooltip with disabled (or rather not enabled) nesting. The tooltip component is provided with this information and then determines itself how it should display links to other tooltips. It is also not interactable; mouse movement and events that hit this tooltip are ignored/passed through."
   },
   "tooltip_normal_nesting": {
     "id": "tooltip_normal_nesting",
-    "text": "This is a normal nesting tooltip. Depending on what settings you have chosen this tooltip can be pinned.\nCurrently you have the time lock setting enabled,\n which means that this tooltip will be pinned after [b]LockTime[/b] seconds of being open.\nAfter that has happened you can move your mouse into this tooltip to hover over links.\n Like [url=tooltip_nested_example]this one[/url]!"
+    "text": "This is a normal nesting tooltip. Depending on what settings you have chosen, this tooltip can be pinned.\nCurrently, you have the time lock setting enabled,\n which means that this tooltip will be pinned after [b]LockTime[/b] seconds of being open.\nAfter that has happened, you can move your mouse into this tooltip to hover over links.\n Like [url=tooltip_nested_example]this one[/url]!"
   },
   "tooltip_nested_example": {
     "id": "tooltip_nested_example",
@@ -51,11 +51,11 @@
   },
   "test_button_far_away": {
     "id": "test_button_far_away",
-    "text": "This UI element spawns a tooltip in a far away location. Can you even reach this before the lock runs out and the tooltip disappears again?"
+    "text": "This UI element spawns a tooltip in a faraway location. Can you even reach this before the lock runs out and the tooltip disappears again?"
   },
   "tooltip_persistent": {
     "id": "tooltip_persistent",
-    "text": "This UI element spawns a tooltip and then just lets it sit there and never cleans it up. But you can press the button next to this to clear all tooltips that are currently open. Alternatively changing any setting will also close all currently open tooltips."
+    "text": "This UI element spawns a tooltip and then just lets it sit there and never cleans it up. But you can press the button next to this to clear all tooltips that are currently open. Alternatively, changing any setting will also close all currently open tooltips."
   },
   "tooltip_multiple": {
     "id": "tooltip_multiple",
@@ -63,27 +63,27 @@
   },
   "tooltip_multiple_top_right": {
     "id": "tooltip_multiple_top_right",
-    "text": "tooltip_multiple_top_right"
+    "text": "This appears on the top right."
   },
   "tooltip_multiple_bottom_right": {
     "id": "tooltip_multiple_bottom_right",
-    "text": "tooltip_multiple_bottom_right"
+    "text": "This appears on the bottom right."
   },
   "tooltip_multiple_top_left": {
     "id": "tooltip_multiple_top_left",
-    "text": "tooltip_multiple_top_left"
+    "text": "This appears on the top left."
   },
   "tooltip_multiple_bottom_left": {
     "id": "tooltip_multiple_bottom_left",
-    "text": "tooltip_multiple_bottom_left"
+    "text": "This appears on the bottom left."
   },
   "tooltip_clamped": {
     "id": "tooltip_clamped",
     "desiredWidth": 300,
-    "text": "This tooltip will be placed outside the bounds of the screen, but should be moved back to be visible to you."
+    "text": "This [url=tooltip_explanation]tooltip[/url] will be placed outside the bounds of the screen, but should be moved back to be visible to you."
   },
   "tooltip_close_tooltip": {
     "id": "tooltip_close_tooltip",
-    "text": "This tooltip only closes if you click the button"
+    "text": "This [url=tooltip_explanation]tooltip[/url] only closes if you click the button that opened it."
   }
 }
