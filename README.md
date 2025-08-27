@@ -18,7 +18,7 @@ These are the steps you need to follow to set up the project on your local machi
 
 ### 📂 Downloading the project
 
-1. Clone the repository from git (https://git.rz.uni-augsburg.de/kuhnerma/esp-25-tool-tip-plugin)
+1. Clone the repository from git (https://github.com/duzychri/Nested-Tooltips)
 
 ### ⚙️ Installing prerequisites
 
