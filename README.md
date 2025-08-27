@@ -10,7 +10,7 @@ This project was created as part of the 'Einführung in die Spieleprogrammierung
 
 ## 📥 Project Installation
 
-If you want to use this plugin in your own Godot project, you can follow the steps below to install it. Either clone the repository and extract the contents of the `addons/nested_tooltips` folder into your own project or get the project from the [Godot Asset Library](https://godotengine.org/asset-library/asset).
+If you want to use this plugin in your own Godot project, you can follow the steps below to install it. Either clone the repository and extract the contents of the `addons/nested_tooltips` folder into your own project or get the project from the [Godot Asset Library](https://godotengine.org/asset-library/asset/4260).
 
 ## 🛠️ Project Setup
 
