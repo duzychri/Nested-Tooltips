@@ -155,6 +155,10 @@ public partial class TooltipService : GodotSingelton<TooltipService>
         // Create the tooltip and set its text.
         (TooltipHandler handler, ITooltip tooltip) = CreateTooltip(position, pivot, width);
         handler.Text = text;
+        if (Settings.DisablePinningWithoutLinks)
+        {
+            handler.EnablePinning = HasUrlTag(text);
+        }
 
         return tooltip;
     }
@@ -178,6 +182,10 @@ public partial class TooltipService : GodotSingelton<TooltipService>
         // Create the tooltip and set its text.
         (TooltipHandler handler, ITooltip tooltip) = CreateTooltip(position, pivot, width ?? tooltipData.DesiredWidth);
         handler.Text = tooltipData.Text;
+        if (Settings.DisablePinningWithoutLinks)
+        {
+            handler.EnablePinning = HasUrlTag(tooltipData.Text);
+        }
 
         return tooltip;
     }
@@ -346,6 +354,14 @@ public partial class TooltipService : GodotSingelton<TooltipService>
         _activeTooltips.Add(tooltip, tooltipHandler);
 
         return (tooltipHandler, tooltip);
+    }
+
+    private static bool HasUrlTag(string text)
+    {
+        // A regex that matches [url=...]...[/url] or [url]...[/url] tags.
+        const string pattern = @"\[url(=.*?)?\].*?\[\/url\]";
+        bool hasMatch = System.Text.RegularExpressions.Regex.IsMatch(text, pattern);
+        return hasMatch;
     }
 
     private static void ClearAllTooltips()

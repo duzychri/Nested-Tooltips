@@ -24,6 +24,10 @@ public record class TooltipSettings
     /// The mode in which the tooltip can be locked.
     /// </summary>
     public TooltipLockMode LockMode { get; init; }
+    /// <summary>
+    /// If <see langword="true"/>, automatically disables the ability to pin tooltips that do not have any links in them.
+    /// </summary>
+    public bool DisablePinningWithoutLinks { get; init; } = true;
 
     public static TooltipSettings Default => new()
     {

@@ -29,6 +29,7 @@ public partial class TooltipService
         public TooltipHandler? Parent { get; }
         public TooltipHandler? Child { get; private set; }
 
+        public bool EnablePinning { get; set; }
         public ITooltip Tooltip { get; private set; }
         public string Text { get => _control.Text; set => _control.Text = value; }
         public Vector2 Size { get => _control.Size; set => _control.Size = value; }
@@ -127,25 +128,28 @@ public partial class TooltipService
                 _control.UnlockProgress = GetUnlockProgress();
             }
 
-            // Check if we are locked.
-            switch (Settings.LockMode)
+            // Check if we are locked, but only if pinning is enabled.
+            if (EnablePinning)
             {
-                case TooltipLockMode.TimerLock:
-                    {
-                        (bool isLocked, double progress) = IsLockedByTimerLock();
-                        _control.LockProgress = progress;
-                        WasLocked = WasLocked || isLocked;
-                    }
-                    break;
-                case TooltipLockMode.ActionLock:
-                    {
-                        bool isLocked = IsLockedByActionLock();
-                        WasLocked = WasLocked || isLocked;
-                        _control.LockProgress = isLocked ? 1.0 : 0.0;
-                    }
-                    break;
-                default:
-                    throw new InvalidOperationException($"Unknown lock mode: {Settings.LockMode}");
+                switch (Settings.LockMode)
+                {
+                    case TooltipLockMode.TimerLock:
+                        {
+                            (bool isLocked, double progress) = IsLockedByTimerLock();
+                            _control.LockProgress = progress;
+                            WasLocked = WasLocked || isLocked;
+                        }
+                        break;
+                    case TooltipLockMode.ActionLock:
+                        {
+                            bool isLocked = IsLockedByActionLock();
+                            WasLocked = WasLocked || isLocked;
+                            _control.LockProgress = isLocked ? 1.0 : 0.0;
+                        }
+                        break;
+                    default:
+                        throw new InvalidOperationException($"Unknown lock mode: {Settings.LockMode}");
+                }
             }
 
             // Handle the release logic.
@@ -180,7 +184,7 @@ public partial class TooltipService
 
         #endregion Lifecycle Methods
 
-        #region Locking Logic
+        #region Pinning Logic
 
         private double GetUnlockProgress()
         {
@@ -200,7 +204,7 @@ public partial class TooltipService
             return _isActionLocked;
         }
 
-        #endregion Locking Logic
+        #endregion Pinning Logic
 
         #region Nesting Logic
 
@@ -227,6 +231,10 @@ public partial class TooltipService
             (Vector2 nestedPosition, TooltipPivot nestedPivot) = CalculateNestedTooltipLocation(cursorPosition);
             (TooltipHandler childHandler, ITooltip _) = CreateTooltip(nestedPosition, nestedPivot, tooltipData.DesiredWidth, this);
             childHandler.Text = tooltipData.Text;
+            if (Settings.DisablePinningWithoutLinks)
+            {
+                childHandler.EnablePinning = HasUrlTag(tooltipData.Text);
+            }
             Child = childHandler;
         }
 
