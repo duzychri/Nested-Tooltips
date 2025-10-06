@@ -1,5 +1,3 @@
-// Created by: Marcin Kuhnert (CalculatePositionFromPivot, CalculateNewTooltipLocation, CalculateNestedTooltipLocation) & Christoph Duzy (implemented everything else)
-
 using Godot;
 using System;
 using System.Linq;
@@ -12,7 +10,7 @@ namespace NestedTooltips;
 /// <summary>
 /// Service for managing tooltips in the application.
 /// </summary>
-public partial class TooltipService : GodotSingelton<TooltipService>
+public partial class TooltipService : Internals.GodotSingelton<TooltipService>
 {
     [Export] private Control _tooltipsParent = null!;
 
@@ -155,10 +153,7 @@ public partial class TooltipService : GodotSingelton<TooltipService>
         // Create the tooltip and set its text.
         (TooltipHandler handler, ITooltip tooltip) = CreateTooltip(position, pivot, width);
         handler.Text = text;
-        if (Settings.DisablePinningWithoutLinks)
-        {
-            handler.EnablePinning = HasUrlTag(text);
-        }
+        handler.EnablePinning = Settings.DisablePinningWithoutLinks ? HasUrlTag(text) : true;
 
         return tooltip;
     }
@@ -182,10 +177,7 @@ public partial class TooltipService : GodotSingelton<TooltipService>
         // Create the tooltip and set its text.
         (TooltipHandler handler, ITooltip tooltip) = CreateTooltip(position, pivot, width ?? tooltipData.DesiredWidth);
         handler.Text = tooltipData.Text;
-        if (Settings.DisablePinningWithoutLinks)
-        {
-            handler.EnablePinning = HasUrlTag(tooltipData.Text);
-        }
+        handler.EnablePinning = Settings.DisablePinningWithoutLinks ? HasUrlTag(tooltipData.Text) : true;
 
         return tooltip;
     }

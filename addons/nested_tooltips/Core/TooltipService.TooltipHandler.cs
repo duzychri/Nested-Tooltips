@@ -1,5 +1,3 @@
-// Created by: Christoph Duzy (implemented everything) & Marcin Kuhnert (bugfixes)
-
 using Godot;
 using System;
 
@@ -231,10 +229,8 @@ public partial class TooltipService
             (Vector2 nestedPosition, TooltipPivot nestedPivot) = CalculateNestedTooltipLocation(cursorPosition);
             (TooltipHandler childHandler, ITooltip _) = CreateTooltip(nestedPosition, nestedPivot, tooltipData.DesiredWidth, this);
             childHandler.Text = tooltipData.Text;
-            if (Settings.DisablePinningWithoutLinks)
-            {
-                childHandler.EnablePinning = HasUrlTag(tooltipData.Text);
-            }
+            childHandler.EnablePinning = Settings.DisablePinningWithoutLinks ? HasUrlTag(tooltipData.Text) : true;
+
             Child = childHandler;
         }
 
